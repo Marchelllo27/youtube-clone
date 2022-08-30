@@ -11,10 +11,11 @@ import NotFoundPage from "./pages/NotFoundPage";
 import Header from "./components/Header/Header";
 import LittleMenu from "./components/Menu/LittleMenu";
 import MainMenu from "./components/Menu/MainMenu";
+import Demonstrate from "./pages/Demonstrate";
 import { darkTheme, lightTheme } from "./utils/theme";
 
 const Main = styled.main`
-  min-height: calc(100vh - var(--header-hight));
+  min-height: calc(100vh - var(--header-height));
   display: flex;
   background-color: ${({ theme }) => theme.bg};
   color: ${({ theme }) => theme.text};
@@ -41,7 +42,16 @@ const App = () => {
             <Route path="/" element={<Home type="random" />} />
             <Route path="/trend" element={<Trend type="trend" />} />
             <Route path="/sub" element={<Sub type="sub" />} />
+            <Route path="/originals" element={<Demonstrate />} />
+            <Route path="/music" element={<Demonstrate />} />
+            <Route path="/library" element={<Demonstrate />} />
+            <Route path="/history" element={<Demonstrate />} />
+            <Route path="/yours" element={<Demonstrate />} />
+            <Route path="/downloads" element={<Demonstrate />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/settings" element={<Demonstrate />} />
+            <Route path="/help" element={<Demonstrate />} />
+            <Route path="/feedback" element={<Demonstrate />} />
 
             {/* If Any path matches */}
             <Route path="*" element={<NotFoundPage />} />

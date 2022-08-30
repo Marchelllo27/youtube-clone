@@ -28,9 +28,9 @@ const Container = styled.aside`
   top: var(--header-height);
   left: 0;
   width: var(--main-menu-width);
-  height: 100vh;
+  height: calc(100vh - var(--header-height));
   padding: 0.6rem 0;
-  overflow-y: auto;
+  overflow-y: scroll;
   background-color: ${({ theme }) => theme.bgLighter};
 
   /* SCROLL BAR */
@@ -42,24 +42,31 @@ const Container = styled.aside`
 
   /* Track */
   &::-webkit-scrollbar-track {
-    background-color: #202020;
+    background-color: ${props => (props.darkMode ? "#202020" : ({ theme }) => theme.bgLighter)};
   }
 
   /* Handle */
   &::-webkit-scrollbar-thumb {
-    background-color: #202020;
+    background-color: ${props => (props.darkMode ? "#202020" : ({ theme }) => theme.bgLighter)};
     border-radius: 5px;
   }
 
   &:hover::-webkit-scrollbar-thumb {
-    background: #555555;
+    background-color: ${props => (props.darkMode ? "#555555" : "#969696")};
+  }
+
+  /* FOR FIREFOX */
+  @supports (scrollbar-color: red blue) {
+    * {
+      scrollbar-color: #555555 #202020;
+    }
   }
 `;
 
 const MenuLinks = styled.ul`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
 `;
 
 const Hr = styled.hr`
@@ -68,6 +75,18 @@ const Hr = styled.hr`
   background-color: ${({ theme }) => theme.soft};
   margin: 1rem 0;
   border: none;
+`;
+
+const MenuFooter = styled.footer`
+  margin-left: var(--menu-item-paddingLeft);
+  font-size: 0.8rem;
+`;
+const FooterText = styled.p`
+  color: #b5b5b5;
+  margin-bottom: 0.5rem;
+`;
+const Copyright = styled.small`
+  color: grey;
 `;
 
 const MainMenu = () => {
@@ -92,7 +111,7 @@ const MainMenu = () => {
 
   if (mainMenuIsOpen) {
     return (
-      <Container>
+      <Container darkMode={isDarkTheme}>
         <MenuLinks>
           <MenuItem text="Home" icon={<HomeIcon />} to="/" tooltipTitle="Home" forMainMenu />
           <MenuItem text="Explore" icon={<ExploreOutlinedIcon />} to="/trend" tooltipTitle="Explore" forMainMenu />
@@ -103,12 +122,18 @@ const MainMenu = () => {
             tooltipTitle="Subscriptions"
             forMainMenu
           />
-          <MenuItem text="Originals" icon={<YouTubeIcon />} to="/" tooltipTitle="Originals" forMainMenu />
-          <MenuItem text="MarkTube Music" icon={<QueueMusicIcon />} to="/" tooltipTitle="MarkTube Music" forMainMenu />
+          <MenuItem text="Originals" icon={<YouTubeIcon />} to="/originals" tooltipTitle="Originals" forMainMenu />
+          <MenuItem
+            text="MarkTube Music"
+            icon={<QueueMusicIcon />}
+            to="/music"
+            tooltipTitle="MarkTube Music"
+            forMainMenu
+          />
 
           <Hr />
 
-          <MenuItem text="Library" icon={<LibraryBooksIcon />} to="/" tooltipTitle="Library" forMainMenu />
+          <MenuItem text="Library" icon={<LibraryBooksIcon />} to="/library" tooltipTitle="Library" forMainMenu />
           <MenuItem text="History" icon={<HistoryOutlinedIcon />} to="/history" tooltipTitle="History" forMainMenu />
           <MenuItem
             text="Your videos"
@@ -117,7 +142,7 @@ const MainMenu = () => {
             tooltipTitle="Your videos"
             forMainMenu
           />
-          <MenuItem text="Downloads" icon={<DownloadIcon />} to="/" tooltipTitle="Downloads" forMainMenu />
+          <MenuItem text="Downloads" icon={<DownloadIcon />} to="/downloads" tooltipTitle="Downloads" forMainMenu />
 
           <Hr />
 
@@ -147,6 +172,16 @@ const MainMenu = () => {
             forMainMenu
           />
         </MenuLinks>
+
+        <Hr />
+
+        <MenuFooter>
+          <FooterText>
+            About Press Copyright <br /> Contact us Creators <br /> Advertise Developers <br /> Report hateful content
+            under LCEN
+          </FooterText>
+          <Copyright>&copy; 2022 Marchello.</Copyright>
+        </MenuFooter>
       </Container>
     );
   }

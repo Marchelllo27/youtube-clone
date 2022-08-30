@@ -57,10 +57,10 @@ const LittleMenu = () => {
           <MenuItem text="Home" icon={<HomeIcon />} to="/" tooltipTitle="Home" />
           <MenuItem text="Explore" icon={<ExploreOutlinedIcon />} to="/trend" tooltipTitle="Explore" />
           <MenuItem text="Subscriptions" icon={<SubscriptionsOutlinedIcon />} to="/sub" tooltipTitle="Subscriptions" />
-          <MenuItem text="Originals" icon={<YouTubeIcon />} to="/" tooltipTitle="Originals" />
-          <MenuItem text="MarkTube Music" icon={<QueueMusicIcon />} to="/" tooltipTitle="MarkTube Music" />
-          <MenuItem text="Library" icon={<LibraryBooksIcon />} to="/" tooltipTitle="Library" />
-          <MenuItem text="Downloads" icon={<DownloadIcon />} to="/" tooltipTitle="Downloads" />
+          <MenuItem text="Originals" icon={<YouTubeIcon />} to="/originals" tooltipTitle="Originals" />
+          <MenuItem text="MarkTube Music" icon={<QueueMusicIcon />} to="/music" tooltipTitle="MarkTube Music" />
+          <MenuItem text="Library" icon={<LibraryBooksIcon />} to="/library" tooltipTitle="Library" />
+          <MenuItem text="Downloads" icon={<DownloadIcon />} to="/downloads" tooltipTitle="Downloads" />
           <MenuItem
             text={isDarkTheme ? "Light Mode" : "Dark Mode"}
             icon={isDarkTheme ? <WbSunnyIcon /> : <NightlightRoundIcon />}

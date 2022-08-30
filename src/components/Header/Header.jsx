@@ -12,7 +12,7 @@ const Container = styled.header`
   top: 0;
   left: 0;
   width: 100%;
-  height: var(--header-hight);
+  height: var(--header-height);
   background-color: ${({ theme }) => theme.bgLighter};
   color: ${({ theme }) => theme.text};
   display: flex;

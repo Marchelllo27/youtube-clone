@@ -1,8 +1,5 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-
-// MUI
-// import Tooltip from "@mui/material/Tooltip";
 // EXTRA
 import Tooltip from "../Shared/Tooltip.jsx";
 
