@@ -13,6 +13,7 @@ import LittleMenu from "./components/Menu/LittleMenu";
 import MainMenu from "./components/Menu/MainMenu";
 import Demonstrate from "./pages/Demonstrate";
 import { darkTheme, lightTheme } from "./utils/theme";
+import Soon from "./pages/Soon";
 
 const Main = styled.main`
   min-height: calc(100vh - var(--header-height));
@@ -33,6 +34,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+      <Soon />
       <Header />
       <Main>
         <LittleMenu />
