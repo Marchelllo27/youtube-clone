@@ -4,23 +4,21 @@ const initialState = {
   smallMenuIsOpen: false,
   mainMenuIsOpen: false,
   isDarkTheme: true,
+  showMobileMenu: false,
 };
 
 const UISlice = createSlice({
   name: "ui",
   initialState: initialState,
   reducers: {
-    openSmallMenu: state => {
-      state.smallMenuIsOpen = true;
+    toggleSmallMenu: state => {
+      state.smallMenuIsOpen = !state.smallMenuIsOpen;
     },
-    closeSmallMenu: state => {
-      state.smallMenuIsOpen = false;
+    toggleMainMenu: state => {
+      state.mainMenuIsOpen = !state.mainMenuIsOpen;
     },
-    openMainMenu: state => {
-      state.mainMenuIsOpen = true;
-    },
-    closeMainMenu: state => {
-      state.mainMenuIsOpen = false;
+    toggleMobileMenu: state => {
+      state.showMobileMenu = !state.showMobileMenu;
     },
     toggleTheme: state => {
       state.isDarkTheme = !state.isDarkTheme;
@@ -28,6 +26,11 @@ const UISlice = createSlice({
   },
 });
 
-export const { openSmallMenu, closeSmallMenu, openMainMenu, closeMainMenu, toggleTheme } = UISlice.actions;
+export const {
+  toggleTheme,
+  toggleMainMenu,
+  toggleMobileMenu,
+  toggleSmallMenu,
+} = UISlice.actions;
 
 export default UISlice.reducer;

@@ -14,7 +14,7 @@ import NightlightRoundIcon from "@mui/icons-material/NightlightRound";
 import QueueMusicIcon from "@mui/icons-material/QueueMusic";
 // EXTRA
 import MenuItem from "./MenuItem";
-import { toggleTheme, openSmallMenu, closeSmallMenu } from "../../store/ui-slice";
+import { toggleTheme, toggleSmallMenu } from "../../store/ui-slice";
 
 const Container = styled.aside`
   position: fixed;
@@ -43,10 +43,10 @@ const LittleMenu = () => {
 
   useEffect(() => {
     if (mediumScreens) {
-      dispatch(openSmallMenu());
+      dispatch(toggleSmallMenu());
     }
-    if (!mediumScreens) {
-      dispatch(closeSmallMenu());
+    if (!mediumScreens && smallMenuIsOpen) {
+      dispatch(toggleSmallMenu());
     }
   }, [mediumScreens]);
 

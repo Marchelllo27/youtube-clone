@@ -21,7 +21,7 @@ const Container = styled.header`
   padding: 0 1rem;
 `;
 
-const Box = styled.div`
+export const Box = styled.div`
   display: flex;
   align-items: center;
   gap: 1.7rem;

@@ -20,7 +20,7 @@ import FeedbackIcon from "@mui/icons-material/Feedback";
 // EXTRA
 import MenuItem from "./MenuItem";
 import Subscriptions from "./Subscriptions";
-import { openMainMenu, closeMainMenu, toggleTheme } from "../../store/ui-slice";
+import { toggleTheme, toggleMainMenu } from "../../store/ui-slice";
 import Login from "./Login";
 
 const Container = styled.aside`
@@ -32,6 +32,7 @@ const Container = styled.aside`
   padding: 0.6rem 0;
   overflow-y: scroll;
   background-color: ${({ theme }) => theme.bgLighter};
+  z-index: 1500;
 
   /* SCROLL BAR */
 
@@ -90,18 +91,18 @@ const Copyright = styled.small`
 `;
 
 const MainMenu = () => {
-  const { mainMenuIsOpen, isDarkTheme } = useSelector(state => state.ui);
+  const { mainMenuIsOpen, isDarkTheme, showMobileMenu } = useSelector(state => state.ui);
   const dispatch = useDispatch();
 
   const bigScreens = useMediaQuery("(min-width:80rem)", { noSsr: true });
 
   useEffect(() => {
     if (bigScreens) {
-      dispatch(openMainMenu());
+      dispatch(toggleMainMenu());
     }
 
-    if (!bigScreens) {
-      dispatch(closeMainMenu());
+    if (!bigScreens && mainMenuIsOpen && !showMobileMenu) {
+      dispatch(toggleMainMenu());
     }
   }, [bigScreens]);
 
@@ -109,7 +110,7 @@ const MainMenu = () => {
     dispatch(toggleTheme());
   };
 
-  if (mainMenuIsOpen) {
+  if (mainMenuIsOpen || showMobileMenu) {
     return (
       <Container darkMode={isDarkTheme}>
         <MenuLinks>

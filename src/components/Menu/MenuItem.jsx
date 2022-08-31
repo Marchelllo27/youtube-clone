@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
 // EXTRA
 import Tooltip from "../Shared/Tooltip.jsx";
+import { toggleMobileMenu, toggleMainMenu } from "../../store/ui-slice";
 
 const Container = styled.li`
   display: flex;
@@ -24,10 +26,20 @@ const Text = styled.span`
 `;
 
 const MenuItem = ({ text, icon, to, tooltipTitle, forMainMenu, onClick }) => {
+  const { showMobileMenu, mainMenuIsOpen } = useSelector(state => state.ui);
+  const dispatch = useDispatch();
+
+  const onClickHandler = e => {
+    e.stopPropagation();
+    if (showMobileMenu) {
+      dispatch(toggleMobileMenu());
+    }
+  };
+
   if (to) {
     return (
       <Tooltip title={tooltipTitle}>
-        <Link to={to} style={{ width: "100%" }}>
+        <Link to={to} style={{ width: "100%" }} onClick={onClickHandler}>
           <Container forMainMenu={forMainMenu}>
             {icon}
             <Text forMainMenu={forMainMenu}>{text}</Text>
