@@ -52,3 +52,28 @@ body::-webkit-scrollbar-thumb {
 body::-webkit-scrollbar-thumb:hover {
   background: #555555;
 }
+
+.open {
+  animation: openMenu 0.15s ease-in forwards;
+}
+
+.close {
+  animation: closeMenu 0.15s ease-in forwards;
+}
+
+@keyframes openMenu {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes closeMenu {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

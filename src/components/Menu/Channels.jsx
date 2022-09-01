@@ -26,39 +26,45 @@ const Name = styled.p`
   font-weight: 400;
 `;
 
+const Avatar2 = styled.img`
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+`;
+
 const Channels = () => {
   return (
     <Container>
       <Channel>
-        <Avatar src={user} sx={{ width: 24, height: 24 }} />
+        <Avatar2 src={user} sx={{ width: 24, height: 24 }} alt="Channel logo" />
         <Name>Tofan Marc</Name>
       </Channel>
       <Channel>
-        <Avatar src={user} sx={{ width: 24, height: 24 }} />
+        <Avatar2 src={user} sx={{ width: 24, height: 24 }} alt="Channel logo" />
         <Name>Tofan Nadia</Name>
       </Channel>
       <Channel>
-        <Avatar src={user} sx={{ width: 24, height: 24 }} />
+        <Avatar2 src={user} sx={{ width: 24, height: 24 }} alt="Channel logo" />
         <Name>Zelenskiy</Name>
       </Channel>
       <Channel>
-        <Avatar src={user} sx={{ width: 24, height: 24 }} />
+        <Avatar2 src={user} sx={{ width: 24, height: 24 }} alt="Channel logo" />
         <Name>Zelenskiy</Name>
       </Channel>
       <Channel>
-        <Avatar src={user} sx={{ width: 24, height: 24 }} />
+        <Avatar2 src={user} sx={{ width: 24, height: 24 }} alt="Channel logo" />
         <Name>Zelenskiy</Name>
       </Channel>
       <Channel>
-        <Avatar src={user} sx={{ width: 24, height: 24 }} />
+        <Avatar2 src={user} sx={{ width: 24, height: 24 }} alt="Channel logo" />
         <Name>Zelenskiy</Name>
       </Channel>
       <Channel>
-        <Avatar src={user} sx={{ width: 24, height: 24 }} />
+        <Avatar2 src={user} sx={{ width: 24, height: 24 }} alt="Channel logo" />
         <Name>Zelenskiy</Name>
       </Channel>
       <Channel>
-        <Avatar src={user} sx={{ width: 24, height: 24 }} />
+        <Avatar2 src={user} sx={{ width: 24, height: 24 }} alt="Channel logo" />
         <Name>Zelenskiy</Name>
       </Channel>
     </Container>

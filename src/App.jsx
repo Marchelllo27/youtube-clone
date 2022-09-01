@@ -35,6 +35,7 @@ const App = () => {
   return (
     <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
       <Header />
+
       <Main>
         <Menu />
         <Content />
