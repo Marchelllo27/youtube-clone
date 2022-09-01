@@ -15,15 +15,12 @@ const Container = styled.div`
   z-index: 1000;
 `;
 
-const Backdrop = ({ children }) => {
+const Backdrop = () => {
   const dispatch = useDispatch();
   const clickBackdropHandler = () => {
     dispatch(toggleMobileMenu());
   };
 
-  return ReactDOM.createPortal(
-    <Container onClick={clickBackdropHandler}>{children}</Container>,
-    document.getElementById("overlay-root")
-  );
+  return ReactDOM.createPortal(<Container onClick={clickBackdropHandler} />, document.getElementById("overlay-root"));
 };
 export default Backdrop;

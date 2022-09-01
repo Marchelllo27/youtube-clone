@@ -25,12 +25,11 @@ const Text = styled.span`
   font-weight: ${props => (props.forMainMenu ? "400" : "300")};
 `;
 
-const MenuItem = ({ text, icon, to, tooltipTitle, forMainMenu, onClick }) => {
-  const { showMobileMenu, mainMenuIsOpen } = useSelector(state => state.ui);
+const MenuItem = ({ text, icon, to, forMainMenu, onClick }) => {
+  const { showMobileMenu } = useSelector(state => state.ui);
   const dispatch = useDispatch();
 
   const onClickHandler = e => {
-    e.stopPropagation();
     if (showMobileMenu) {
       dispatch(toggleMobileMenu());
     }
@@ -38,7 +37,7 @@ const MenuItem = ({ text, icon, to, tooltipTitle, forMainMenu, onClick }) => {
 
   if (to) {
     return (
-      <Tooltip title={tooltipTitle}>
+      <Tooltip title={text}>
         <Link to={to} style={{ width: "100%" }} onClick={onClickHandler}>
           <Container forMainMenu={forMainMenu}>
             {icon}
@@ -50,7 +49,7 @@ const MenuItem = ({ text, icon, to, tooltipTitle, forMainMenu, onClick }) => {
   }
 
   return (
-    <Tooltip title={tooltipTitle}>
+    <Tooltip title={text}>
       <Container forMainMenu={forMainMenu} onClick={onClick}>
         {icon}
         <Text forMainMenu={forMainMenu}>{text}</Text>

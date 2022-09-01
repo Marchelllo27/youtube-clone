@@ -1,8 +1,6 @@
-import { useEffect } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 // MUI
-import useMediaQuery from "@mui/material/useMediaQuery";
 import HomeIcon from "@mui/icons-material/Home";
 import ExploreOutlinedIcon from "@mui/icons-material/ExploreOutlined";
 import SubscriptionsOutlinedIcon from "@mui/icons-material/SubscriptionsOutlined";
@@ -20,11 +18,11 @@ import FeedbackIcon from "@mui/icons-material/Feedback";
 // EXTRA
 import MenuItem from "./MenuItem";
 import Subscriptions from "./Subscriptions";
-import { toggleTheme, toggleMainMenu } from "../../store/ui-slice";
+import { toggleTheme } from "../../store/ui-slice";
 import Login from "./Login";
 
 const Container = styled.aside`
-  position: fixed;
+  position: ${props => (props.mobileVersion ? "static" : "fixed")};
   top: var(--header-height);
   left: 0;
   width: var(--main-menu-width);
@@ -32,7 +30,7 @@ const Container = styled.aside`
   padding: 0.6rem 0;
   overflow-y: scroll;
   background-color: ${({ theme }) => theme.bgLighter};
-  z-index: 1500;
+  color: ${({ theme }) => theme.text};
 
   /* SCROLL BAR */
 
@@ -67,7 +65,6 @@ const Container = styled.aside`
 const MenuLinks = styled.ul`
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
 `;
 
 const Hr = styled.hr`
@@ -90,104 +87,57 @@ const Copyright = styled.small`
   color: grey;
 `;
 
-const MainMenu = () => {
-  const { mainMenuIsOpen, isDarkTheme, showMobileMenu } = useSelector(state => state.ui);
+const MainMenu = ({ mobileVersion }) => {
+  const { isDarkTheme } = useSelector(state => state.ui);
   const dispatch = useDispatch();
-
-  const bigScreens = useMediaQuery("(min-width:80rem)", { noSsr: true });
-
-  useEffect(() => {
-    if (bigScreens) {
-      dispatch(toggleMainMenu());
-    }
-
-    if (!bigScreens && mainMenuIsOpen && !showMobileMenu) {
-      dispatch(toggleMainMenu());
-    }
-  }, [bigScreens]);
 
   const themeModeHandler = () => {
     dispatch(toggleTheme());
   };
 
-  if (mainMenuIsOpen || showMobileMenu) {
-    return (
-      <Container darkMode={isDarkTheme}>
-        <MenuLinks>
-          <MenuItem text="Home" icon={<HomeIcon />} to="/" tooltipTitle="Home" forMainMenu />
-          <MenuItem text="Explore" icon={<ExploreOutlinedIcon />} to="/trend" tooltipTitle="Explore" forMainMenu />
-          <MenuItem
-            text="Subscriptions"
-            icon={<SubscriptionsOutlinedIcon />}
-            to="/sub"
-            tooltipTitle="Subscriptions"
-            forMainMenu
-          />
-          <MenuItem text="Originals" icon={<YouTubeIcon />} to="/originals" tooltipTitle="Originals" forMainMenu />
-          <MenuItem
-            text="MarkTube Music"
-            icon={<QueueMusicIcon />}
-            to="/music"
-            tooltipTitle="MarkTube Music"
-            forMainMenu
-          />
-
-          <Hr />
-
-          <MenuItem text="Library" icon={<LibraryBooksIcon />} to="/library" tooltipTitle="Library" forMainMenu />
-          <MenuItem text="History" icon={<HistoryOutlinedIcon />} to="/history" tooltipTitle="History" forMainMenu />
-          <MenuItem
-            text="Your videos"
-            icon={<PlayCircleOutlineIcon />}
-            to="/yours"
-            tooltipTitle="Your videos"
-            forMainMenu
-          />
-          <MenuItem text="Downloads" icon={<DownloadIcon />} to="/downloads" tooltipTitle="Downloads" forMainMenu />
-
-          <Hr />
-
-          <Login />
-        </MenuLinks>
-
+  return (
+    <Container darkMode={isDarkTheme} mobileVersion={mobileVersion}>
+      <MenuLinks>
+        <MenuItem text="Home" icon={<HomeIcon />} to="/" forMainMenu />
+        <MenuItem text="Explore" icon={<ExploreOutlinedIcon />} to="/trend" forMainMenu />
+        <MenuItem text="Subscriptions" icon={<SubscriptionsOutlinedIcon />} to="/sub" forMainMenu />
+        <MenuItem text="Originals" icon={<YouTubeIcon />} to="/originals" tooltipTitle="Originals" forMainMenu />
+        <MenuItem text="MarkTube Music" icon={<QueueMusicIcon />} to="/music" forMainMenu />
         <Hr />
-
-        <Subscriptions />
-
+        <MenuItem text="Library" icon={<LibraryBooksIcon />} to="/library" tooltipTitle="Library" forMainMenu />
+        <MenuItem text="History" icon={<HistoryOutlinedIcon />} to="/history" tooltipTitle="History" forMainMenu />
+        <MenuItem text="Your videos" icon={<PlayCircleOutlineIcon />} to="/yours" forMainMenu />
+        <MenuItem text="Downloads" icon={<DownloadIcon />} to="/downloads" forMainMenu />
         <Hr />
-        <MenuLinks>
-          <MenuItem
-            text={isDarkTheme ? "Light Mode" : "Dark Mode"}
-            icon={isDarkTheme ? <WbSunnyIcon /> : <NightlightRoundIcon />}
-            tooltipTitle={isDarkTheme ? "Light Mode" : "Dark Mode"}
-            onClick={themeModeHandler}
-            forMainMenu
-          />
-          <MenuItem text="Settings" icon={<SettingsIcon />} to="/settings" tooltipTitle="Settings" forMainMenu />
-          <MenuItem text="Help" icon={<HelpIcon />} to="/help" tooltipTitle="Help" forMainMenu />
-          <MenuItem
-            text="Send feedback"
-            icon={<FeedbackIcon />}
-            to="/feedback"
-            tooltipTitle="Send feedback"
-            forMainMenu
-          />
-        </MenuLinks>
+        <Login />
+      </MenuLinks>
+      <Hr />
+      <Subscriptions />
+      <Hr />
+      <MenuLinks>
+        <MenuItem
+          text={isDarkTheme ? "Light Mode" : "Dark Mode"}
+          icon={isDarkTheme ? <WbSunnyIcon /> : <NightlightRoundIcon />}
+          onClick={themeModeHandler}
+          forMainMenu
+        />
+        <MenuItem text="Settings" icon={<SettingsIcon />} to="/settings" forMainMenu />
+        <MenuItem text="Help" icon={<HelpIcon />} to="/help" forMainMenu />
+        <MenuItem text="Send feedback" icon={<FeedbackIcon />} to="/feedback" forMainMenu />
+      </MenuLinks>
 
-        <Hr />
+      <Hr />
 
-        <MenuFooter>
-          <FooterText>
-            About Press Copyright <br /> Contact us Creators <br /> Advertise Developers <br /> Report hateful content
-            under LCEN
-          </FooterText>
-          <Copyright>
-            &copy; <time dateTime="2022">2022</time> Marchello.
-          </Copyright>
-        </MenuFooter>
-      </Container>
-    );
-  }
-  return null;
+      <MenuFooter>
+        <FooterText>
+          About Press Copyright <br /> Contact us Creators <br /> Advertise Developers <br /> Report hateful content
+          under LCEN
+        </FooterText>
+        <Copyright>
+          &copy; <time dateTime="2022">2022</time> Marchello.
+        </Copyright>
+      </MenuFooter>
+    </Container>
+  );
 };
 export default MainMenu;

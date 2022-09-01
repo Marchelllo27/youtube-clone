@@ -18,7 +18,7 @@ const Logo = () => {
   return (
     <CustomTooltip title="MarkTube Home Page">
       <Link to="/" style={{ display: "flex", alignItems: "center" }}>
-        <Img src={logoImg} />
+        <Img src={logoImg} alt="Logo"/>
         <AppName>MarkTube</AppName>
       </Link>
     </CustomTooltip>
