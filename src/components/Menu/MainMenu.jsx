@@ -112,7 +112,7 @@ const MainMenu = ({ mobileVersion }) => {
         <Login />
       </MenuLinks>
       <Hr />
-      <Subscriptions />
+      {/* <Subscriptions /> */}
       <Hr />
       <MenuLinks>
         <MenuItem

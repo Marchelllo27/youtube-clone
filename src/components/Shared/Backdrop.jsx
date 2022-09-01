@@ -1,8 +1,10 @@
 import ReactDOM from "react-dom";
+import { useRef } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // EXTRA
 import { toggleMobileMenu } from "../../store/ui-slice";
+import { CSSTransition } from "react-transition-group";
 
 const Container = styled.div`
   position: fixed;
@@ -17,10 +19,25 @@ const Container = styled.div`
 
 const Backdrop = () => {
   const dispatch = useDispatch();
+  const { showMobileMenu } = useSelector(state => state.ui);
   const clickBackdropHandler = () => {
     dispatch(toggleMobileMenu());
   };
+  const backdropRef = useRef();
 
-  return ReactDOM.createPortal(<Container onClick={clickBackdropHandler} />, document.getElementById("overlay-root"));
+  const element = (
+    <CSSTransition
+      in={showMobileMenu}
+      timeout={2000}
+      classNames={{ enterActive: "open-backdrop", exitActive: "hide-backdrop" }}
+      nodeRef={backdropRef}
+      mountOnEnter
+      unmountOnExit
+    >
+      <Container onClick={clickBackdropHandler} ref={backdropRef} />
+    </CSSTransition>
+  );
+
+  return ReactDOM.createPortal(element, document.getElementById("overlay-root"));
 };
 export default Backdrop;

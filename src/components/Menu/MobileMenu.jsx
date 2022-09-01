@@ -14,7 +14,6 @@ const Container = styled.aside`
   position: fixed;
   top: 0;
   left: 0;
-  /* left: -(var(--main-menu-width)); */
   width: var(--main-menu-width);
   height: 100vh;
   z-index: 1200;
@@ -33,14 +32,7 @@ const MobileMenu = () => {
   const { showMobileMenu } = useSelector(state => state.ui);
   const reference = useRef();
   const MobMenu = (
-    <CSSTransition
-      in={showMobileMenu}
-      timeout={150}
-      classNames={{ enter: "", enterActive: "open", exit: "", exitActive: "close" }}
-      mountOnEnter
-      unmountOnExit
-      nodeRef={reference}
-    >
+    <CSSTransition in={showMobileMenu} timeout={150} classNames="fade" mountOnEnter unmountOnExit nodeRef={reference}>
       <Container ref={reference}>
         <Header>
           <Box>
@@ -54,7 +46,7 @@ const MobileMenu = () => {
   );
   return (
     <>
-      {showMobileMenu && <Backdrop />}
+      <Backdrop />
       {ReactDOM.createPortal(MobMenu, document.getElementById("modal-root"))}
     </>
   );
