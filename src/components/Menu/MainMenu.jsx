@@ -181,7 +181,9 @@ const MainMenu = () => {
             About Press Copyright <br /> Contact us Creators <br /> Advertise Developers <br /> Report hateful content
             under LCEN
           </FooterText>
-          <Copyright>&copy; 2022 Marchello.</Copyright>
+          <Copyright>
+            &copy; <time dateTime="2022">2022</time> Marchello.
+          </Copyright>
         </MenuFooter>
       </Container>
     );
