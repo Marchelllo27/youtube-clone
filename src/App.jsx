@@ -8,6 +8,7 @@ import Menu from "./components/Menu/Menu";
 import Content from "./components/Content/Content";
 import { darkTheme, lightTheme } from "./utils/theme";
 import { toggleMainMenu } from "./store/ui-slice";
+import GlobalCss from "./global.css";
 
 const Main = styled.main`
   min-height: calc(100vh - var(--header-height));
@@ -27,20 +28,23 @@ const App = () => {
       dispatch(toggleMainMenu());
     }
 
-    if (!bigScreens && mainMenuIsOpen && !showMobileMenu) {
+    if (!bigScreens && mainMenuIsOpen) {
       dispatch(toggleMainMenu());
     }
   }, [bigScreens]);
 
   return (
-    <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
-      <Header />
+    <>
+      <GlobalCss hideSCrollbar={showMobileMenu} />
+      <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+        <Header />
 
-      <Main>
-        <Menu />
-        <Content />
-      </Main>
-    </ThemeProvider>
+        <Main>
+          <Menu />
+          <Content />
+        </Main>
+      </ThemeProvider>
+    </>
   );
 };
 

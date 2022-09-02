@@ -1,12 +1,16 @@
-* {
+import { createGlobalStyle } from "styled-components";
+
+export default createGlobalStyle`
+   * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Poppins", sans-serif;
 }
 
 /* CSS VARIABLES */
-html {
+body {
+  font-family: "Poppins", sans-serif;
+
   --header-height: 3.5rem;
   --little-menu-width: 5rem;
   --main-menu-width: 15rem;
@@ -44,6 +48,7 @@ body::-webkit-scrollbar-track {
 
 /* Handle */
 body::-webkit-scrollbar-thumb {
+  display: ${props => (props.hideSCrollbar ? "none" : "block")};
   background: #555555;
   border-radius: 5px;
 }
@@ -51,55 +56,5 @@ body::-webkit-scrollbar-thumb {
 /* Handle on hover */
 body::-webkit-scrollbar-thumb:hover {
   background: #555555;
-}
-
-.fade-enter-active {
-  animation: openMenu 0.15s ease-in forwards;
-}
-
-.fade-exit-active {
-  animation: closeMenu 0.15s ease-in forwards;
-}
-
-@keyframes openMenu {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-@keyframes closeMenu {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
-.open-backdrop {
-  animation: showBackdrop 2s linear forwards;
-}
-.hide-backdrop {
-  animation: hideBackdrop 2s linear forwards;
-}
-
-@keyframes showBackdrop {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes hideBackdrop {
-  0% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
+} 
+`;

@@ -15,6 +15,33 @@ const Container = styled.div`
   background-color: rgba(0, 0, 0, 0.7);
   cursor: pointer;
   z-index: 1000;
+
+  &.fade-backdrop-enter-active {
+    animation: showBackdrop 0.2s ease-out forwards;
+  }
+  &.fade-backdrop-exit-active {
+    animation: hideBackdrop 0.2s ease-out forwards;
+  }
+
+  @keyframes showBackdrop {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes hideBackdrop {
+    0% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
 `;
 
 const Backdrop = () => {
@@ -28,8 +55,8 @@ const Backdrop = () => {
   const element = (
     <CSSTransition
       in={showMobileMenu}
-      timeout={2000}
-      classNames={{ enterActive: "open-backdrop", exitActive: "hide-backdrop" }}
+      timeout={200}
+      classNames="fade-backdrop"
       nodeRef={backdropRef}
       mountOnEnter
       unmountOnExit

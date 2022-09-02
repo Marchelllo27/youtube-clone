@@ -42,7 +42,7 @@ const LittleMenu = () => {
   };
 
   useEffect(() => {
-    if (mediumScreens) {
+    if (mediumScreens && !smallMenuIsOpen) {
       dispatch(toggleSmallMenu());
     }
     if (!mediumScreens && smallMenuIsOpen) {
