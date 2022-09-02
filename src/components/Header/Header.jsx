@@ -13,24 +13,25 @@ const Container = styled.header`
   left: 0;
   width: 100%;
   height: var(--header-height);
-  background-color: ${({ theme }) => theme.bgLighter};
-  color: ${({ theme }) => theme.text};
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: ${({ theme }) => theme.bgLighter};
+  color: ${({ theme }) => theme.text};
   padding: 0 1rem;
 `;
 
 export const Box = styled.div`
   display: flex;
   align-items: center;
+  min-width: fit-content;
   gap: 1.7rem;
   margin-left: 0.7rem;
 `;
 
 const Header = () => {
   const forTabletsAndHigher = useMediaQuery("(min-width:30rem)");
-  const userIsLoggedIn = false;
+  const userIsLoggedIn = true;
 
   return (
     <Container>

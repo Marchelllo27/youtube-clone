@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Avatar } from "@mui/material";
 // EXTRA
-import user from "../../assets/user.jpg";
+
 
 const Container = styled.ul`
   display: flex;
@@ -26,45 +26,39 @@ const Name = styled.p`
   font-weight: 400;
 `;
 
-const Avatar2 = styled.img`
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-`;
-
 const Channels = () => {
   return (
     <Container>
       <Channel>
-        <Avatar2 src={user} sx={{ width: 24, height: 24 }} alt="Channel logo" />
+        <Avatar src="https://mpng.subpng.com/20180329/zue/kisspng-computer-icons-user-profile-person-5abd85306ff7f7.0592226715223698404586.jpg" sx={{ width: 24, height: 24 }} alt="Channel logo" />
         <Name>Tofan Marc</Name>
       </Channel>
       <Channel>
-        <Avatar2 src={user} sx={{ width: 24, height: 24 }} alt="Channel logo" />
+        <Avatar src="https://mpng.subpng.com/20180329/zue/kisspng-computer-icons-user-profile-person-5abd85306ff7f7.0592226715223698404586.jpg" sx={{ width: 24, height: 24 }} alt="Channel logo" />
         <Name>Tofan Nadia</Name>
       </Channel>
       <Channel>
-        <Avatar2 src={user} sx={{ width: 24, height: 24 }} alt="Channel logo" />
+        <Avatar src="https://mpng.subpng.com/20180329/zue/kisspng-computer-icons-user-profile-person-5abd85306ff7f7.0592226715223698404586.jpg" sx={{ width: 24, height: 24 }} alt="Channel logo" />
         <Name>Zelenskiy</Name>
       </Channel>
       <Channel>
-        <Avatar2 src={user} sx={{ width: 24, height: 24 }} alt="Channel logo" />
+        <Avatar src="https://mpng.subpng.com/20180329/zue/kisspng-computer-icons-user-profile-person-5abd85306ff7f7.0592226715223698404586.jpg" sx={{ width: 24, height: 24 }} alt="Channel logo" />
         <Name>Zelenskiy</Name>
       </Channel>
       <Channel>
-        <Avatar2 src={user} sx={{ width: 24, height: 24 }} alt="Channel logo" />
+        <Avatar src="https://mpng.subpng.com/20180329/zue/kisspng-computer-icons-user-profile-person-5abd85306ff7f7.0592226715223698404586.jpg" sx={{ width: 24, height: 24 }} alt="Channel logo" />
         <Name>Zelenskiy</Name>
       </Channel>
       <Channel>
-        <Avatar2 src={user} sx={{ width: 24, height: 24 }} alt="Channel logo" />
+        <Avatar src="https://mpng.subpng.com/20180329/zue/kisspng-computer-icons-user-profile-person-5abd85306ff7f7.0592226715223698404586.jpg" sx={{ width: 24, height: 24 }} alt="Channel logo" />
         <Name>Zelenskiy</Name>
       </Channel>
       <Channel>
-        <Avatar2 src={user} sx={{ width: 24, height: 24 }} alt="Channel logo" />
+        <Avatar src="https://mpng.subpng.com/20180329/zue/kisspng-computer-icons-user-profile-person-5abd85306ff7f7.0592226715223698404586.jpg" sx={{ width: 24, height: 24 }} alt="Channel logo" />
         <Name>Zelenskiy</Name>
       </Channel>
       <Channel>
-        <Avatar2 src={user} sx={{ width: 24, height: 24 }} alt="Channel logo" />
+        <Avatar src="https://mpng.subpng.com/20180329/zue/kisspng-computer-icons-user-profile-person-5abd85306ff7f7.0592226715223698404586.jpg" sx={{ width: 24, height: 24 }} alt="Channel logo" />
         <Name>Zelenskiy</Name>
       </Channel>
     </Container>

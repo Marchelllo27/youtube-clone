@@ -1,23 +1,35 @@
 import styled from "styled-components";
 
-const Container = styled.div``;
+import Card from "../components/Video/Card";
 
-const Test = styled.div`
-  width: 200px;
-  height: 200px;
-  background-color: #706f6f;
-  margin-bottom: 1rem;
+const Container = styled.div`
+  @media (min-width: 32rem) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  @media (min-width: 60rem) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 1.5rem;
+  }
 `;
 
 const Home = ({ type }) => {
   return (
     <Container>
-      <Test />
-      <Test />
-      <Test />
-      <Test />
-      <Test />
-      <Test />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
     </Container>
   );
 };
