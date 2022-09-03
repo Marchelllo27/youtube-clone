@@ -38,7 +38,6 @@ const App = () => {
       <GlobalCss hideSCrollbar={showMobileMenu} />
       <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
         <Header />
-
         <Main>
           <Menu />
           <Content />

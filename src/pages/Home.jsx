@@ -1,8 +1,10 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 
 import Card from "../components/Video/Card";
 
 const Container = styled.div`
+  padding: 2rem;
   @media (min-width: 32rem) {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -16,6 +18,11 @@ const Container = styled.div`
 `;
 
 const Home = ({ type }) => {
+  useEffect(() => {
+    // fetch random videos
+    // fetch(`/videos/${type}`);
+  }, []);
+
   return (
     <Container>
       <Card />

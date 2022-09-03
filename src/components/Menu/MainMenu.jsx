@@ -19,6 +19,7 @@ import FeedbackIcon from "@mui/icons-material/Feedback";
 import MenuItem from "./MenuItem";
 import Subscriptions from "./Subscriptions";
 import { toggleTheme } from "../../store/ui-slice";
+import Hr from "../Shared/Hr";
 import Login from "./Login";
 
 const Container = styled.aside`
@@ -65,14 +66,6 @@ const Container = styled.aside`
 const MenuLinks = styled.ul`
   display: flex;
   flex-direction: column;
-`;
-
-const Hr = styled.hr`
-  width: 100%;
-  height: 1px;
-  background-color: ${({ theme }) => theme.soft};
-  margin: 1rem 0;
-  border: none;
 `;
 
 const MenuFooter = styled.footer`
