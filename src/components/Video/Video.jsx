@@ -1,12 +1,15 @@
 import styled from "styled-components";
 // EXTRA
 import Details from "./Details";
-// import Channel from "./Channel";
-// import Comments from "../Comments/Comments";
+import Channel from "./Channel";
+import Comments from "../Comments/Comments";
+import Recommendation from "./Recommandation";
 import Hr from "../Shared/Hr";
 
 const Container = styled.div`
-  padding: 2rem;
+  @media (min-width: 48rem) {
+    padding: 2rem;
+  }
 `;
 
 const VideoFrame = styled.video`
@@ -21,12 +24,22 @@ const TestVideo = styled.iframe`
   border: none;
 `;
 
+const Layout = styled.section`
+  @media (max-width: 48rem) {
+    padding: 0 1.5rem;
+  }
+`;
+
 const Title = styled.h1`
   font-size: 1.1rem;
   font-weight: 400;
   margin-top: 1.5rem;
   margin-bottom: 0.6rem;
   color: ${({ theme }) => theme.text};
+
+  @media (max-width: 42rem) {
+    text-align: center;
+  }
 `;
 
 const Video = () => {
@@ -40,16 +53,23 @@ const Video = () => {
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
       />
-      <Title>Title</Title>
-      {/* <Details /> */}
 
-      {/* <Hr /> */}
+      <Layout>
+        <Title>Title</Title>
+        <Details />
 
-      {/* <Channel videoOwnerData={videoOwnerUserData} /> */}
+        <Hr />
 
-      {/* <Hr /> */}
+        <Channel />
 
-      {/* <Comments allComments={comments} /> */}
+        <Hr />
+
+        <Recommendation />
+
+        <Hr />
+
+        <Comments />
+      </Layout>
     </Container>
   );
 };

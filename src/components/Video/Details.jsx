@@ -1,6 +1,6 @@
 import styled from "styled-components";
 // import axios from "axios";
-// import { format } from "timeago.js";
+import { format } from "timeago.js";
 import { useDispatch, useSelector } from "react-redux";
 
 // MUI
@@ -20,6 +20,12 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   color: ${({ theme }) => theme.textSoft};
+
+  @media (max-width: 42rem) {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
 `;
 const Info = styled.span``;
 const Buttons = styled.div`
@@ -53,6 +59,7 @@ const Details = () => {
   //   dispatch(dislike(userIsLoggedIn._id));
   // };
 
+  const viewsAmount = 12223;
   // let viewsAmount;
   // if (video?.views < 1000) {
   //   viewsAmount = video?.views;
@@ -65,7 +72,7 @@ const Details = () => {
   return (
     <Container>
       <Info>
-        {viewsAmount} views &#9679; {format(video?.createdAt)}
+        {viewsAmount} views &#9679; {format("2022-08-22T11:25:39.720+00:00")}
       </Info>
       <Buttons>
         <ActionButton

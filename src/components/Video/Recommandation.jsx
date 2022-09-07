@@ -2,7 +2,9 @@ import styled from "styled-components";
 import Card from "./Card";
 
 const Recomendation = styled.div`
-  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 `;
 
 const Recommendation = () => {
