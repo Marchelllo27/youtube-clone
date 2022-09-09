@@ -4,21 +4,20 @@ import styled from "styled-components";
 import Card from "../components/Video/Card";
 
 const Container = styled.div`
-  padding: 1.5rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   align-items: center;
+  justify-content: center;
 
   @media (min-width: 32rem) {
     display: grid;
-    justify-content: center;
-    grid-template-columns: repeat(2, minmax(0, 19rem));
-    place-items: center;
+    grid-template-columns: repeat(2, minmax(14rem, 20rem));
   }
 
-  @media (min-width: 48rem) {
-    grid-template-columns: repeat(auto-fit, 25%);
+  @media (min-width: 55rem) {
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   }
 `;
 

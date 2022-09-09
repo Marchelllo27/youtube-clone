@@ -11,6 +11,7 @@ const Container = styled.article`
   flex-direction: column;
   max-width: 20rem;
   gap: 1rem;
+  overflow: hidden;
 `;
 
 const Image = styled.img`
@@ -41,19 +42,6 @@ const Title = styled.h1`
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-`;
-
-const Span = styled.span`
-  /* width: 100%;
-  line-height: 1.2rem;
-  font-size: 1rem;
-  font-weight: 400;
-  max-height: 4rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: normal;
-  color: ${({ theme }) => theme.text};
-  margin-bottom: 0.5rem; */
 `;
 
 const ChannelName = styled.h2`
