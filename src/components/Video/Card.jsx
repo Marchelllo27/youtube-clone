@@ -8,15 +8,15 @@ import nFormatter from "../../utils/nFormatter";
 
 const Container = styled.article`
   display: flex;
-  flex-direction: column;
-  max-width: 20rem;
-  gap: 1rem;
+  flex-direction: ${({ type }) => (type === "sm" ? "row" : "column")};
+  max-width: ${({ type }) => (type === "sm" ? "auto" : "20rem")};
   overflow: hidden;
+  gap: 1rem;
 `;
 
 const Image = styled.img`
-  max-height: 11.25rem;
-  object-fit: cover;
+  max-width: ${({ type }) => type === "sm" && "10.5rem"};
+  max-height: ${({ type }) => (type === "sm" ? "5.8rem" : "11.25rem")};
 `;
 
 const Details = styled.div`
@@ -28,10 +28,11 @@ const ChannelImg = styled.img`
   height: 2.2rem;
   width: 2.2rem;
   border-radius: 50%;
-  object-fit: cover;
 `;
 
-const Texts = styled.div``;
+const Texts = styled.div`
+  flex: ${({ type }) => type === "sm" && "1"};
+`;
 
 const Title = styled.h1`
   font-size: 0.9rem;

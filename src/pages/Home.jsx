@@ -17,8 +17,16 @@ const Container = styled.div`
   }
 
   @media (min-width: 55rem) {
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
   }
+
+  @media (min-width: 80rem) {
+    grid-template-columns: repeat(auto-fill, 14rem);
+  }
+
+  /* @media (min-width: 100rem) {
+    grid-template-columns: repeat(5, 18rem);
+  } */
 `;
 
 const Home = ({ type }) => {
@@ -29,6 +37,18 @@ const Home = ({ type }) => {
 
   return (
     <Container>
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
       <Card />
       <Card />
       <Card />

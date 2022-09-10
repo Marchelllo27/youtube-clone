@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const Container = styled.button`
+export const Container = styled.button`
   width: fit-content;
   display: flex;
   align-items: center;
@@ -15,6 +15,8 @@ const Container = styled.button`
   font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
+  transition: background-color 0.2s ease;
+
   @media (min-width: 30rem) {
     padding: 0.3rem 1rem;
   }

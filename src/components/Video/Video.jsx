@@ -4,7 +4,7 @@ import Details from "./Details";
 import Channel from "./Channel";
 import Comments from "../Comments/Comments";
 import Recommendation from "./Recommandation";
-import Hr from "../Shared/Hr";
+import HrTemplate from "../Shared/Hr";
 
 const Container = styled.div`
   @media (min-width: 48rem) {
@@ -28,7 +28,17 @@ const Layout = styled.section`
   @media (max-width: 48rem) {
     padding: 0 1.5rem;
   }
+
+  @media (min-width: 70rem) {
+    display: grid;
+    grid-template-columns: 4fr 2fr;
+    grid-template-rows: 2rem;
+    gap: 1rem;
+    padding: 2rem 0;
+  }
 `;
+
+const Hr = styled(HrTemplate)``;
 
 const Title = styled.h1`
   font-size: 1.1rem;
@@ -40,6 +50,11 @@ const Title = styled.h1`
   @media (max-width: 42rem) {
     text-align: center;
   }
+
+  @media (min-width: 70rem) {
+    margin-top: 0;
+    grid-column: 1 / 2;
+  }
 `;
 
 const Video = () => {
@@ -50,12 +65,12 @@ const Video = () => {
         src="https://www.youtube.com/embed/f7LiKMIo20Q"
         title="YouTube video player"
         frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
+        // allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        // allowfullscreen
       />
 
       <Layout>
-        <Title>Title</Title>
+        <Title>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis voluptate earum dolorum a placeat laboriosam?</Title>
         <Details />
 
         <Hr />

@@ -14,6 +14,8 @@ const Auth = React.lazy(() => import("../../pages/Auth"));
 
 const Container = styled.section`
   flex: 1;
+  height: calc(100vh - var(--header-height));
+  margin-top: var(--header-height);
   margin-left: ${props =>
     props.smallMenu ? "var(--little-menu-width)" : props.mainMenu ? "var(--main-menu-width)" : "0"};
 `;

@@ -67,6 +67,7 @@ const MobileMenu = () => {
       dispatch(toggleMobileMenu());
     }
   }, [isBigScreens]);
+
   const MobMenu = (
     <CSSTransition in={showMobileMenu} timeout={150} classNames="fade" mountOnEnter unmountOnExit nodeRef={reference}>
       <Container ref={reference}>

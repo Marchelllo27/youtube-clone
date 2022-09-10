@@ -26,10 +26,16 @@ const Container = styled.div`
     gap: 1rem;
     text-align: center;
   }
+
+  @media (min-width: 70rem) {
+    grid-column: 1 / 2;
+  }
 `;
 const Info = styled.span``;
 const Buttons = styled.div`
   display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
   gap: 1.5rem;
   color: ${({ theme }) => theme.text};
 `;

@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 // MUI
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -6,9 +7,10 @@ import Logo from "./Logo";
 import Actions from "./Actions";
 import SearchBar from "./SearchBar";
 import HamburgerMenu from "./HamburgerMenu";
+import { Calculate } from "@mui/icons-material";
 
 const Container = styled.header`
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -19,6 +21,8 @@ const Container = styled.header`
   background-color: ${({ theme }) => theme.bgLighter};
   color: ${({ theme }) => theme.text};
   padding: 0 1rem;
+  /* don't allow jump header when the scroll is hidden */
+  padding-right: ${({ hideScrollbar }) => hideScrollbar && "calc(1rem + var(--scrollbar-width))"};
 `;
 
 export const Box = styled.div`
@@ -30,11 +34,12 @@ export const Box = styled.div`
 `;
 
 const Header = () => {
+  const { showMobileMenu } = useSelector(state => state.ui);
   const forTabletsAndHigher = useMediaQuery("(min-width:30rem)");
   const userIsLoggedIn = true;
 
   return (
-    <Container>
+    <Container hideScrollbar={showMobileMenu}>
       <Box>
         <HamburgerMenu />
         <Logo />

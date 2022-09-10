@@ -35,7 +35,7 @@ const MenuLinks = styled.ul`
 const LittleMenu = () => {
   const { smallMenuIsOpen, isDarkTheme } = useSelector(state => state.ui);
   const dispatch = useDispatch();
-  const mediumScreens = useMediaQuery("(min-width:48rem) and (max-width:80rem)", { noSsr: true });
+  const mediumScreens = useMediaQuery("(min-width:48rem) and (max-width:79.99rem)", { noSsr: true });
 
   const themeModeHandler = () => {
     dispatch(toggleTheme());

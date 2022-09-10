@@ -10,6 +10,7 @@ export default createGlobalStyle`
 /* CSS VARIABLES */
 body {
   font-family: "Poppins", sans-serif;
+  background-color: #181818;
 
   --header-height: 3.5rem;
   --little-menu-width: 5rem;
@@ -18,6 +19,11 @@ body {
   --menu-item-paddingY: 0.5rem;
   --menu-item-paddingLeft: 1.75rem;
   --menu-item-letter-spacing: 0.5px;
+  --scrollbar-width: 0.5rem;
+
+  /* HIDE SCROLLBAR WHEN MOBILE MENU IS OPENED */
+  overflow: ${({ hideSCrollbar }) => hideSCrollbar && "hidden"};
+  padding-right: ${({ hideSCrollbar }) => hideSCrollbar && "var(--scrollbar-width)"};
 }
 
 a {
@@ -37,13 +43,13 @@ button {
 
 img {
   width: 100%;
-  /* object-fit: cover; */
+  object-fit: cover;
 }
 
 /* SCROLL BAR */
 
 body::-webkit-scrollbar {
-  width: 0.5rem;
+  width: var(--scrollbar-width);
 }
 
 /* Track */

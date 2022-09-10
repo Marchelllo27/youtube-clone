@@ -6,7 +6,17 @@ import nFormatter from "../../utils/nFormatter";
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-between;
+  gap: 1rem;
+  flex-direction: column;
+
+  @media (min-width: 24rem) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  @media (min-width: 70rem) {
+    grid-column: 1 / 2;
+  }
 `;
 
 const ChannelInfo = styled.div`
