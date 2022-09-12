@@ -1,11 +1,11 @@
 import styled from "styled-components";
 // EXTRA
-import Details from "./Details";
-import Channel from "./Channel";
-import Comments from "../Comments/Comments";
-import Recommendation from "./Recommandation";
+import Details from "../components/Video/Details";
+import Channel from "../components/Video/Channel";
+import Comments from "../components/Comments/Comments";
+import Recommendation from "../components/Video/Recommandation";
 // import { ContainerHr } from "../Shared/Hr";
-import Hr from "../Shared/Hr";
+import Hr from "../components/Shared/Hr";
 
 const Container = styled.div`
   display: flex;
@@ -29,6 +29,11 @@ const TestVideo = styled.iframe`
   height: 50vh;
   max-height: 35rem;
   border: none;
+
+  @media (min-width: 850px) {
+    height: 80vh;
+    max-height: 40rem;
+  }
 `;
 
 const Layout = styled.section`

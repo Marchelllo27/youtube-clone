@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Home from "../../pages/Home";
 import NotFoundPage from "../../pages/NotFoundPage";
 import Demonstrate from "../../pages/Demonstrate";
-import Video from "../Video/Video";
+import Video from "../../pages/Video";
 //LAZY LOADING
 const Trend = React.lazy(() => import("../../pages/Trend"));
 const Sub = React.lazy(() => import("../../pages/Sub"));
