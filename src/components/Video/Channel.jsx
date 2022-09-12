@@ -16,6 +16,7 @@ const Container = styled.div`
 
   @media (min-width: 70rem) {
     grid-column: 1 / 2;
+    grid-row: 4 / 5;
   }
 `;
 

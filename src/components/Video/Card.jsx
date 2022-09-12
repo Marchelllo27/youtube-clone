@@ -9,7 +9,7 @@ import nFormatter from "../../utils/nFormatter";
 const Container = styled.article`
   display: flex;
   flex-direction: ${({ type }) => (type === "sm" ? "row" : "column")};
-  max-width: ${({ type }) => (type === "sm" ? "auto" : "20rem")};
+  /* max-width: ${({ type }) => (type === "sm" ? "auto" : "20rem")}; */
   overflow: hidden;
   gap: 1rem;
 `;

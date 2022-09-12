@@ -91,6 +91,8 @@ const Comments = () => {
 
       {/* ALL COMMENTS */}
       {comments.length > 0 ? comments : <NoComments>No comments. Maybe add one?</NoComments>}
+      <Comment/>
+      <Comment/>
     </Container>
   );
 };

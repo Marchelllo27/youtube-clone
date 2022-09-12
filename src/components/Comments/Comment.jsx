@@ -59,7 +59,7 @@ const Comment = ({ comment }) => {
         <Name>
           Author <Date>{format("2022-08-22T11:25:39.720+00:00")}</Date>
         </Name>
-        <Text>The best video ever</Text>
+        <Text>The best video ever Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur iure rerum, laudantium tenetur minima nulla quidem reprehenderit a quasi dignissimos omnis magni assumenda saepe iusto. Delectus excepturi nihil unde voluptatibus.</Text>
       </Details>
     </Container>
   );

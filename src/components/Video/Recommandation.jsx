@@ -6,10 +6,11 @@ const Recomendation = styled.div`
   flex-direction: column;
   gap: 0.5rem;
   margin: 2rem 0;
+  padding-bottom: 1rem;
 
   @media (min-width: 70rem) {
     grid-column: 2 / 3;
-    grid-row: 1 / -1;
+    grid-row: 1 / 8;
     margin: 0;
   }
 `;
