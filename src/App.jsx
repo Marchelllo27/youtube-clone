@@ -9,6 +9,7 @@ import Content from "./components/Content/Content";
 import { darkTheme, lightTheme } from "./utils/theme";
 import { toggleMainMenu } from "./store/ui-slice";
 import GlobalCss from "./global.css";
+import Soon from "./pages/Soon";
 
 const Main = styled.main`
   min-height: calc(100vh - var(--header-height));
@@ -35,6 +36,7 @@ const App = () => {
 
   return (
     <>
+      <Soon />
       <GlobalCss hideSCrollbar={showMobileMenu} />
       <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
         <Header />
