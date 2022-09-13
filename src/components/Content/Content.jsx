@@ -13,14 +13,14 @@ const Sub = React.lazy(() => import("../../pages/Sub"));
 const Auth = React.lazy(() => import("../../pages/Auth"));
 
 const Container = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex: 1;
   min-height: calc(100vh - var(--header-height));
   margin-top: var(--header-height);
   margin-left: ${props =>
     props.smallMenu ? "var(--little-menu-width)" : props.mainMenu ? "var(--main-menu-width)" : "0"};
-    display: flex;
-    justify-content: center;
-    align-items: center;
 `;
 
 const Content = () => {

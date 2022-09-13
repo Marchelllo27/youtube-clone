@@ -36,7 +36,7 @@ export const Box = styled.div`
 const Header = () => {
   const { showMobileMenu } = useSelector(state => state.ui);
   const forTabletsAndHigher = useMediaQuery("(min-width:30rem)");
-  const userIsLoggedIn = true;
+  const userIsLoggedIn = false;
 
   return (
     <Container hideScrollbar={showMobileMenu}>
