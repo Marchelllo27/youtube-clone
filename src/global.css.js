@@ -21,6 +21,8 @@ body {
   --menu-item-letter-spacing: 0.5px;
   --scrollbar-width: 0.5rem;
 
+  --color-error: #f47373;
+
   /* HIDE SCROLLBAR WHEN MOBILE MENU IS OPENED */
   overflow: ${({ hideSCrollbar }) => hideSCrollbar && "hidden"};
   padding-right: ${({ hideSCrollbar }) => hideSCrollbar && "var(--scrollbar-width)"};
