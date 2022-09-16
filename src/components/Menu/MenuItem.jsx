@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 // EXTRA
@@ -26,7 +26,7 @@ const Text = styled.span`
 `;
 
 const MenuItem = ({ text, icon, to, forMainMenu, onClick }) => {
-  const { showMobileMenu } = useSelector(state => state.ui);
+  const { showMobileMenu, isDarkTheme } = useSelector(state => state.ui);
   const dispatch = useDispatch();
 
   const onClickHandler = e => {
@@ -38,12 +38,18 @@ const MenuItem = ({ text, icon, to, forMainMenu, onClick }) => {
   if (to) {
     return (
       <Tooltip title={text}>
-        <Link to={to} style={{ width: "100%" }} onClick={onClickHandler}>
+        <NavLink
+          to={to}
+          onClick={onClickHandler}
+          style={({ isActive }) =>
+            isActive ? { width: "100%", backgroundColor: isDarkTheme ? "#373737" : "#f5f5f5" } : { width: "100%" }
+          }
+        >
           <Container forMainMenu={forMainMenu}>
             {icon}
             <Text forMainMenu={forMainMenu}>{text}</Text>
           </Container>
-        </Link>
+        </NavLink>
       </Tooltip>
     );
   }

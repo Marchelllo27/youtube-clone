@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
+import styled from "styled-components";
 // MUI
 import HomeIcon from "@mui/icons-material/Home";
 import ExploreOutlinedIcon from "@mui/icons-material/ExploreOutlined";
@@ -18,7 +18,7 @@ import FeedbackIcon from "@mui/icons-material/Feedback";
 // EXTRA
 import MenuItem from "./MenuItem";
 import Subscriptions from "./Subscriptions";
-import { toggleTheme } from "../../store/ui-slice";
+import { toggleTheme, toggleMainMenu } from "../../store/ui-slice";
 import Hr from "../Shared/Hr";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";

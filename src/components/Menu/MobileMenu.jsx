@@ -11,7 +11,7 @@ import { Box } from "../Header/Header";
 import Logo from "../Header/Logo";
 import HamburgerMenu from "../Header/HamburgerMenu";
 import Backdrop from "../Shared/Backdrop";
-import { toggleMobileMenu } from "../../store/ui-slice";
+import { toggleMobileMenu, toggleMainMenu } from "../../store/ui-slice";
 
 const Container = styled.aside`
   position: fixed;

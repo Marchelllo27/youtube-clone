@@ -7,6 +7,7 @@ import Home from "../../pages/Home";
 import NotFoundPage from "../../pages/NotFoundPage";
 import Demonstrate from "../../pages/Demonstrate";
 import Video from "../../pages/Video";
+import ProtectedRoute from "./ProtectedRoute";
 //LAZY LOADING
 const Trend = React.lazy(() => import("../../pages/Trend"));
 const Sub = React.lazy(() => import("../../pages/Sub"));
@@ -26,6 +27,7 @@ const Container = styled.section`
 
 const Content = () => {
   const { mainMenuIsOpen, smallMenuIsOpen } = useSelector(state => state.ui);
+  const { isAuthenticated } = useSelector(state => state.auth);
 
   return (
     <Container smallMenu={smallMenuIsOpen} mainMenu={mainMenuIsOpen}>
@@ -33,19 +35,24 @@ const Content = () => {
         <Routes>
           <Route path="/" element={<Home type="random" />} />
           <Route path="/trend" element={<Trend type="trend" />} />
-          <Route path="/sub" element={<Sub type="sub" />} />
           <Route path="/video/:id" element={<Video />} />
-          <Route path="/upload" element={<Upload />} />
           <Route path="/originals" element={<Demonstrate />} />
           <Route path="/music" element={<Demonstrate />} />
           <Route path="/library" element={<Demonstrate />} />
           <Route path="/history" element={<Demonstrate />} />
-          <Route path="/yours" element={<Demonstrate />} />
-          <Route path="/downloads" element={<Demonstrate />} />
-          <Route path="/auth" element={<Auth />} />
           <Route path="/settings" element={<Demonstrate />} />
           <Route path="/help" element={<Demonstrate />} />
           <Route path="/feedback" element={<Demonstrate />} />
+
+          {/* AUTHENTICATED USER ROUTES */}
+          <Route element={<ProtectedRoute isAllowed={isAuthenticated} />}>
+            <Route path="/upload" element={<Upload />} />
+            <Route path="/yours" element={<Demonstrate />} />
+            <Route path="/downloads" element={<Demonstrate />} />
+            <Route path="/sub" element={<Sub type="sub" />} />
+          </Route>
+
+          {!isAuthenticated && <Route path="/auth" element={<Auth />} />}
 
           {/* If Any path matches */}
           <Route path="*" element={<NotFoundPage />} />

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // MUI
 import { Logout } from "@mui/icons-material";
 // EXTRA
@@ -23,10 +23,14 @@ const Text = styled.span`
 
 const LogoutButton = () => {
   const dispatch = useDispatch();
+  const { showMobileMenu } = useSelector(state => state.ui);
 
   const clickHandler = () => {
     dispatch(toggleAuthentication());
-    dispatch(toggleMobileMenu());
+
+    if (showMobileMenu) {
+      dispatch(toggleMobileMenu());
+    }
   };
   return (
     <ButtonEl onClick={clickHandler}>

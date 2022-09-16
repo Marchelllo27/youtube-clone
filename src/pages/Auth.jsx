@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Formik, Form } from "formik";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -76,6 +77,8 @@ const Auth = () => {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const { isDarkTheme } = useSelector(state => state.ui);
 
+  const navigate = useNavigate();
+
   const initialValues = {
     username: "",
     email: "",
@@ -105,6 +108,7 @@ const Auth = () => {
     }
 
     actions.resetForm();
+    navigate("/");
   };
 
   const changeModeHandler = (setErrors, validateField) => {
