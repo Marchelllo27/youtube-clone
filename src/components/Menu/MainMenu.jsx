@@ -20,7 +20,8 @@ import MenuItem from "./MenuItem";
 import Subscriptions from "./Subscriptions";
 import { toggleTheme } from "../../store/ui-slice";
 import Hr from "../Shared/Hr";
-import Login from "./Login";
+import LoginButton from "./LoginButton";
+import LogoutButton from "./LogoutButton";
 
 const Container = styled.aside`
   position: ${props => (props.mobileVersion ? "static" : "fixed")};
@@ -82,6 +83,8 @@ const Copyright = styled.small`
 
 const MainMenu = ({ mobileVersion }) => {
   const { isDarkTheme } = useSelector(state => state.ui);
+  const { isAuthenticated } = useSelector(state => state.auth);
+
   const dispatch = useDispatch();
 
   const themeModeHandler = () => {
@@ -102,7 +105,8 @@ const MainMenu = ({ mobileVersion }) => {
         <MenuItem text="Your videos" icon={<PlayCircleOutlineIcon />} to="/yours" forMainMenu />
         <MenuItem text="Downloads" icon={<DownloadIcon />} to="/downloads" forMainMenu />
         <Hr />
-        <Login />
+        {!isAuthenticated && <LoginButton />}
+        {isAuthenticated && <LogoutButton />}
       </MenuLinks>
       <Hr />
       <Subscriptions />

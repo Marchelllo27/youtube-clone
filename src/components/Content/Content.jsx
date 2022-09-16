@@ -11,6 +11,7 @@ import Video from "../../pages/Video";
 const Trend = React.lazy(() => import("../../pages/Trend"));
 const Sub = React.lazy(() => import("../../pages/Sub"));
 const Auth = React.lazy(() => import("../../pages/Auth"));
+const Upload = React.lazy(() => import("../../pages/Upload"));
 
 const Container = styled.section`
   display: flex;
@@ -34,6 +35,7 @@ const Content = () => {
           <Route path="/trend" element={<Trend type="trend" />} />
           <Route path="/sub" element={<Sub type="sub" />} />
           <Route path="/video/:id" element={<Video />} />
+          <Route path="/upload" element={<Upload />} />
           <Route path="/originals" element={<Demonstrate />} />
           <Route path="/music" element={<Demonstrate />} />
           <Route path="/library" element={<Demonstrate />} />

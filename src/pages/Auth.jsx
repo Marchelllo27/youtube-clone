@@ -10,6 +10,7 @@ import Hr from "../components/Shared/Hr";
 import validationSchema, { loginSchemaValidation } from "../validation/auth-validation";
 
 const Container = styled.div`
+  position: relative;
   width: 90%;
   max-width: 30rem;
   padding: 1rem;
@@ -26,6 +27,7 @@ const Button = styled.button`
   padding: 0.5rem 1rem;
   border-radius: 4px;
   transition: all 0.2s ease;
+  width: 5rem;
 
   &:disabled {
     cursor: not-allowed;
@@ -45,10 +47,29 @@ const ChangeMode = styled.small`
 
 const Spinner = styled(CircularProgress)`
   &.MuiCircularProgress-root {
-    height: 1rem !important;
-    width: 1rem !important;
+    height: 12px !important;
+    width: 12px !important;
     color: ${({ theme }) => theme.text};
   }
+`;
+
+const Details = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  position: absolute;
+  bottom: -25px;
+  left: 0;
+`;
+const TermsBox = styled.div`
+  display: flex;
+  gap: 0.5rem;
+`;
+const LinkText = styled.a`
+  font-size: 0.7rem;
+  color: ${({ theme }) => theme.textSoft};
+  cursor: pointer;
+  text-decoration: underline;
 `;
 
 const Auth = () => {
@@ -86,7 +107,13 @@ const Auth = () => {
     actions.resetForm();
   };
 
-  const changeModeHandler = () => {
+  const changeModeHandler = (setErrors, validateField) => {
+    if (!showLoginForm) {
+      setErrors({});
+    }
+
+    validateField("password");
+
     setShowLoginForm(prev => !prev);
   };
 
@@ -97,7 +124,7 @@ const Auth = () => {
         onSubmit={submitFormHandler}
         validationSchema={showLoginForm ? loginSchemaValidation : validationSchema}
       >
-        {({ isSubmitting, isValid }) => {
+        {({ isSubmitting, isValid, setErrors, validateField }) => {
           return (
             <Form>
               <Title title={title} subtitle="to continue to MaraTube" />
@@ -122,13 +149,21 @@ const Auth = () => {
 
               <Hr style={{ width: "200px", margin: " 2rem auto 0.5rem" }} />
 
-              <ChangeMode onClick={changeModeHandler}>
+              <ChangeMode onClick={changeModeHandler.bind(null, setErrors, validateField)}>
                 {showLoginForm ? "Don't have an account yet?" : "Already have an account?"}
               </ChangeMode>
             </Form>
           );
         }}
       </Formik>
+      <Details>
+        <LinkText>English (USA)</LinkText>
+        <TermsBox>
+          <LinkText>Help</LinkText>
+          <LinkText>Privacy</LinkText>
+          <LinkText>Terms</LinkText>
+        </TermsBox>
+      </Details>
     </Container>
   );
 };

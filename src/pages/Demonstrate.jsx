@@ -7,6 +7,7 @@ const Container = styled.div`
   height: 100%;
   display: grid;
   place-items: center;
+  text-align: center;
 `;
 
 const Text = styled.h2`
