@@ -45,14 +45,21 @@ const Content = () => {
           <Route path="/feedback" element={<Demonstrate />} />
 
           {/* AUTHENTICATED USER ROUTES */}
-          <Route element={<ProtectedRoute isAllowed={isAuthenticated} />}>
+          <Route element={<ProtectedRoute isAllowed={isAuthenticated} redirectPath="/auth" />}>
             <Route path="/upload" element={<Upload />} />
             <Route path="/yours" element={<Demonstrate />} />
             <Route path="/downloads" element={<Demonstrate />} />
             <Route path="/sub" element={<Sub type="sub" />} />
           </Route>
 
-          {!isAuthenticated && <Route path="/auth" element={<Auth />} />}
+          <Route
+            path="/auth"
+            element={
+              <ProtectedRoute isAllowed={!isAuthenticated} redirectPath="/">
+                <Auth />
+              </ProtectedRoute>
+            }
+          />
 
           {/* If Any path matches */}
           <Route path="*" element={<NotFoundPage />} />
