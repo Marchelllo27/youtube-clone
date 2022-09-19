@@ -27,7 +27,7 @@ const Container = styled.section`
 
 const Content = () => {
   const { mainMenuIsOpen, smallMenuIsOpen } = useSelector(state => state.ui);
-  const { isAuthenticated } = useSelector(state => state.auth);
+  const { user } = useSelector(state => state.auth);
 
   return (
     <Container smallMenu={smallMenuIsOpen} mainMenu={mainMenuIsOpen}>
@@ -45,7 +45,7 @@ const Content = () => {
           <Route path="/feedback" element={<Demonstrate />} />
 
           {/* AUTHENTICATED USER ROUTES */}
-          <Route element={<ProtectedRoute isAllowed={isAuthenticated} redirectPath="/auth" />}>
+          <Route element={<ProtectedRoute isAllowed={user} redirectPath="/auth" />}>
             <Route path="/upload" element={<Upload />} />
             <Route path="/yours" element={<Demonstrate />} />
             <Route path="/downloads" element={<Demonstrate />} />
@@ -55,7 +55,7 @@ const Content = () => {
           <Route
             path="/auth"
             element={
-              <ProtectedRoute isAllowed={!isAuthenticated} redirectPath="/">
+              <ProtectedRoute isAllowed={!user} redirectPath="/">
                 <Auth />
               </ProtectedRoute>
             }

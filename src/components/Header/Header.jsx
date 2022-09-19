@@ -35,7 +35,7 @@ export const Box = styled.div`
 
 const Header = () => {
   const { showMobileMenu } = useSelector(state => state.ui);
-  const { isAuthenticated } = useSelector(state => state.auth);
+  const { user } = useSelector(state => state.auth);
 
   const forTabletsAndHigher = useMediaQuery("(min-width:30rem)");
 
@@ -46,7 +46,7 @@ const Header = () => {
         <Logo />
       </Box>
       {forTabletsAndHigher && <SearchBar />}
-      <Actions userIsLoggedIn={isAuthenticated} />
+      <Actions userIsLoggedIn={user} />
     </Container>
   );
 };

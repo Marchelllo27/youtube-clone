@@ -2,13 +2,17 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Formik, Form } from "formik";
+import { useSelector, useDispatch } from "react-redux";
+// MUI
 import CircularProgress from "@mui/material/CircularProgress";
 // EXTRA
-import { useSelector } from "react-redux";
 import CustomInput from "../components/Shared/CustomInput";
 import Title from "../Auth/Title";
 import Hr from "../components/Shared/Hr";
 import validationSchema, { loginSchemaValidation } from "../validation/auth-validation";
+import Details from "../Auth/Details";
+import { useAuthUserMutation } from "../api/endpoints/auth";
+import { removeUser, setUser } from "../store/auth-slice";
 
 const Container = styled.div`
   position: relative;
@@ -23,6 +27,8 @@ const Container = styled.div`
 `;
 
 const Button = styled.button`
+  display: block;
+  margin: auto;
   background-color: ${({ theme }) => theme.soft};
   color: ${({ theme }) => theme.textSoft};
   padding: 0.5rem 1rem;
@@ -40,6 +46,28 @@ const Button = styled.button`
   }
 `;
 
+const Box = styled.div`
+  margin: 1rem 0 0.5rem;
+  position: relative;
+  width: 100%;
+  @media (min-width: 400px) {
+    margin-top: 2rem;
+  }
+`;
+
+const RequestErrorMessage = styled.small`
+  display: block;
+  color: var(--color-error);
+  margin-bottom: 1rem;
+  @media (min-width: 400px) {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    translate: -50% 0;
+    width: 100%;
+  }
+`;
+
 const ChangeMode = styled.small`
   font-size: 0.7rem;
   color: ${({ theme }) => theme.textSoft};
@@ -54,28 +82,12 @@ const Spinner = styled(CircularProgress)`
   }
 `;
 
-const Details = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  position: absolute;
-  bottom: -25px;
-  left: 0;
-`;
-const TermsBox = styled.div`
-  display: flex;
-  gap: 0.5rem;
-`;
-const LinkText = styled.a`
-  font-size: 0.7rem;
-  color: ${({ theme }) => theme.textSoft};
-  cursor: pointer;
-  text-decoration: underline;
-`;
-
 const Auth = () => {
-  const [showLoginForm, setShowLoginForm] = useState(false);
+  const [showLoginForm, setShowLoginForm] = useState(true);
   const { isDarkTheme } = useSelector(state => state.ui);
+  const dispatch = useDispatch();
+
+  const [startAuthRequest, { error }] = useAuthUserMutation();
 
   const navigate = useNavigate();
 
@@ -90,25 +102,33 @@ const Auth = () => {
   const buttonText = showLoginForm ? "Login" : "Sign In";
 
   const submitFormHandler = async (values, actions) => {
-    await new Promise(resolve => setTimeout(resolve, 2000));
-
+    let userData;
+    let path;
     if (showLoginForm) {
-      const userCredentials = {
+      userData = {
         name: values.username,
         password: values.password,
       };
-      console.log(userCredentials);
+      path = "login";
     } else {
-      const userInfo = {
+      userData = {
         name: values.username,
         email: values.email,
         password: values.password,
+        confirmPassword: values.confirmPassword,
       };
-      console.log(userInfo);
+      path = "signup";
     }
 
-    actions.resetForm();
-    navigate("/");
+    const response = await startAuthRequest({ userData, path });
+    console.log(response);
+
+    if (response.data?.user?.token) {
+      localStorage.setItem("userInfo", JSON.stringify(response.data.user));
+      dispatch(setUser(response.data.user));
+      actions.resetForm();
+      navigate("/", { replace: true });
+    }
   };
 
   const changeModeHandler = (setErrors, validateField) => {
@@ -151,7 +171,10 @@ const Auth = () => {
                 {isSubmitting ? <Spinner /> : buttonText}
               </Button>
 
-              <Hr style={{ width: "200px", margin: " 2rem auto 0.5rem" }} />
+              <Box>
+                {error && <RequestErrorMessage>{error.data?.message || "Something went wrong"}</RequestErrorMessage>}
+                <Hr style={{ width: "200px", margin: "0 auto" }} />
+              </Box>
 
               <ChangeMode onClick={changeModeHandler.bind(null, setErrors, validateField)}>
                 {showLoginForm ? "Don't have an account yet?" : "Already have an account?"}
@@ -160,14 +183,7 @@ const Auth = () => {
           );
         }}
       </Formik>
-      <Details>
-        <LinkText>English (USA)</LinkText>
-        <TermsBox>
-          <LinkText>Help</LinkText>
-          <LinkText>Privacy</LinkText>
-          <LinkText>Terms</LinkText>
-        </TermsBox>
-      </Details>
+      <Details />
     </Container>
   );
 };

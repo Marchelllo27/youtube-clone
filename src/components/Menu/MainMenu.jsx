@@ -83,7 +83,7 @@ const Copyright = styled.small`
 
 const MainMenu = ({ mobileVersion }) => {
   const { isDarkTheme } = useSelector(state => state.ui);
-  const { isAuthenticated } = useSelector(state => state.auth);
+  const { user } = useSelector(state => state.auth);
 
   const dispatch = useDispatch();
 
@@ -105,8 +105,8 @@ const MainMenu = ({ mobileVersion }) => {
         <MenuItem text="Your videos" icon={<PlayCircleOutlineIcon />} to="/yours" forMainMenu />
         <MenuItem text="Downloads" icon={<DownloadIcon />} to="/downloads" forMainMenu />
         <Hr />
-        {!isAuthenticated && <LoginButton />}
-        {isAuthenticated && <LogoutButton />}
+        {!user && <LoginButton />}
+        {user && <LogoutButton />}
       </MenuLinks>
       <Hr />
       <Subscriptions />

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 // MUI
 import { Logout } from "@mui/icons-material";
 // EXTRA
-import { toggleAuthentication } from "../../store/auth-slice";
+import { removeUser } from "../../store/auth-slice";
 import { toggleMobileMenu } from "../../store/ui-slice";
 import Button from "../Shared/Button";
 
@@ -26,7 +26,8 @@ const LogoutButton = () => {
   const { showMobileMenu } = useSelector(state => state.ui);
 
   const clickHandler = () => {
-    dispatch(toggleAuthentication());
+    dispatch(removeUser());
+    localStorage.removeItem("userInfo");
 
     if (showMobileMenu) {
       dispatch(toggleMobileMenu());

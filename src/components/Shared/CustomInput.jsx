@@ -3,7 +3,7 @@ import { useField } from "formik";
 
 const Container = styled.div`
   position: relative;
-  margin-bottom: ${({ longError }) => (longError ? "0.5rem" : "2rem")};
+  margin-bottom: ${({ longError, touched }) => (longError && touched ? "0.5rem" : "2rem")};
   text-align: ${({ longError }) => longError && "left"};
 
   @media (min-width: 501px) {
@@ -52,7 +52,7 @@ const CustomInput = props => {
   }
 
   return (
-    <Container longError={longError}>
+    <Container longError={longError} touched={meta.touched}>
       <Input {...field} {...props} touched={meta.touched} error={meta.error} />
 
       {/* ERROR MESSAGE */}
