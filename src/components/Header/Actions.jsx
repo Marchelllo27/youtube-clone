@@ -10,6 +10,7 @@ import Avatar from "@mui/material/Avatar";
 // EXTRA
 import Button from "../Shared/Button";
 import CustomToolTip from "../Shared/Tooltip";
+import { Link, useNavigate } from "react-router-dom";
 
 const Container = styled.nav`
   display: flex;
@@ -19,6 +20,11 @@ const Container = styled.nav`
 
 const Actions = ({ userIsLoggedIn }) => {
   const forTabletsAndBigger = useMediaQuery("(min-width:30rem)");
+  const navigate = useNavigate();
+
+  const onUploadHandler = () => {
+    navigate("/upload");
+  };
 
   const Search = (
     <CustomToolTip title="Search video">
@@ -28,9 +34,10 @@ const Actions = ({ userIsLoggedIn }) => {
 
   const AddVideoIcon = (
     <CustomToolTip title="Add video">
-      <VideoCallIcon sx={{ fontSize: "1.6rem", cursor: "pointer" }} />
+      <VideoCallIcon sx={{ fontSize: "1.6rem", cursor: "pointer" }} onClick={onUploadHandler} />
     </CustomToolTip>
   );
+
   const NotificationIcon = (
     <CustomToolTip title="Notification">
       <NotificationsNoneIcon sx={{ fontSize: "1.6rem", cursor: "pointer" }} />
