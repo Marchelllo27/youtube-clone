@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
+  apiKey: import.meta.env.VITE_FIREBASE_APIKEY,
   authDomain: "clone-8d293.firebaseapp.com",
   projectId: "clone-8d293",
   storageBucket: "clone-8d293.appspot.com",

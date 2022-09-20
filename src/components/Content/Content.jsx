@@ -12,7 +12,6 @@ import ProtectedRoute from "./ProtectedRoute";
 const Trend = React.lazy(() => import("../../pages/Trend"));
 const Sub = React.lazy(() => import("../../pages/Sub"));
 const Auth = React.lazy(() => import("../../pages/Auth"));
-const Upload = React.lazy(() => import("../../pages/Upload"));
 
 const Container = styled.section`
   display: flex;
@@ -46,7 +45,6 @@ const Content = () => {
 
           {/* AUTHENTICATED USER ROUTES */}
           <Route element={<ProtectedRoute isAllowed={user} redirectPath="/auth" />}>
-            <Route path="/upload" element={<Upload />} />
             <Route path="/yours" element={<Demonstrate />} />
             <Route path="/downloads" element={<Demonstrate />} />
             <Route path="/sub" element={<Sub type="sub" />} />

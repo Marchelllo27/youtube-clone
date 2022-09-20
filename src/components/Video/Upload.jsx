@@ -1,3 +1,42 @@
+import styled from "styled-components";
+import { Formik, Form } from "formik";
+// EXTRA
+import CustomInput from "../Shared/CustomInput";
+import Backdrop from "../Shared/Backdrop";
+import CustomCreatePortal from "../Shared/CustomCreatePortal";
+
+const Container = styled.section`
+  width: 90%;
+  max-width: 40rem;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  padding: 2rem;
+  background-color: ${({ theme }) => theme.bgLighter};
+  z-index: 2000;
+`;
+
+const Title = styled.h1``;
+
+const Upload = () => {
+  const UploadComponent = (
+    <Container>
+      <Formik>
+        {() => (
+          <Form>
+            <Title>Upload a new Video</Title>
+            <CustomInput type="file" name="video-picker" id="video-picker" />
+          </Form>
+        )}
+      </Formik>
+    </Container>
+  );
+
+  return <CustomCreatePortal component={UploadComponent} id="modal-root" />;
+};
+export default Upload;
+
 // import { useState, useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
 // import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -80,59 +119,55 @@
 //   const navigate = useNavigate();
 
 //   const onChangeTagsHandler = e => {
-//     setTags(e.target.value.split(","));
+
 //   };
 
 //   const handleChange = e => {
-//     setInputs(prevInputs => ({ ...prevInputs, [e.target.name]: e.target.value }));
 //   };
 
 //   const uploadFile = (file, urlType) => {
-//     const storage = getStorage(app);
-//     const fileName = `${file?.name}-${Date.now()}`; // some-124121521.jpg
-//     const storageRef = ref(storage, fileName);
-
-//     const uploadTask = uploadBytesResumable(storageRef, file);
-
-//     uploadTask.on(
-//       "state_changed",
-//       snapshot => {
-//         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-
-//         urlType === "imgUrl" ? setImgPerc(Math.round(progress)) : setVideoPerc(Math.round(progress));
-//         switch (snapshot.state) {
-//           case "paused":
-//             console.log("Upload is paused");
-//             break;
-//           case "running":
-//             console.log("Upload is running");
-//             break;
-//           default:
-//             break;
-//         }
-//       },
-//       error => {
-//         console.log(error);
-//       },
-//       () => {
-//         getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
-//           setInputs(prevInputs => ({ ...prevInputs, [urlType]: downloadURL }));
-//         });
-//       }
-//     );
+//     // const storage = getStorage(app);
+//     // const fileName = `${file?.name}-${Date.now()}`; // some-124121521.jpg
+//     // const storageRef = ref(storage, fileName);
+//     // const uploadTask = uploadBytesResumable(storageRef, file);
+//     // uploadTask.on(
+//     //   "state_changed",
+//     //   snapshot => {
+//     //     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+//     //     urlType === "imgUrl" ? setImgPerc(Math.round(progress)) : setVideoPerc(Math.round(progress));
+//     //     switch (snapshot.state) {
+//     //       case "paused":
+//     //         console.log("Upload is paused");
+//     //         break;
+//     //       case "running":
+//     //         console.log("Upload is running");
+//     //         break;
+//     //       default:
+//     //         break;
+//     //     }
+//     //   },
+//     //   error => {
+//     //     console.log(error);
+//     //   },
+//     //   () => {
+//     //     getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
+//     //       setInputs(prevInputs => ({ ...prevInputs, [urlType]: downloadURL }));
+//     //     });
+//     //   }
+//     // );
 //   };
 
 //   const handleUpload = async e => {
 //     e.preventDefault();
-//     try {
-//       uploadFile(video, "videoUrl");
-//       uploadFile(image, "imgUrl");
-//       const res = await axios.post("videos", { ...inputs, tags });
-//       setOpen(false);
-//       navigate(`/video/${res.data._id}`);
-//     } catch (error) {
-//       return alert(error.response.data.message);
-//     }
+//     // try {
+//     //   uploadFile(video, "videoUrl");
+//     //   uploadFile(image, "imgUrl");
+//     //   const res = await axios.post("videos", { ...inputs, tags });
+//     //   setOpen(false);
+//     //   navigate(`/video/${res.data._id}`);
+//     // } catch (error) {
+//     //   return alert(error.response.data.message);
+//     // }
 //   };
 
 //   return (
@@ -161,8 +196,3 @@
 //   );
 // };
 // export default Upload;
-
-const Upload = () => {
-  return <div>Upload</div>;
-};
-export default Upload;

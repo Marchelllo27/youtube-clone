@@ -11,7 +11,8 @@ import { Box } from "../Header/Header";
 import Logo from "../Header/Logo";
 import HamburgerMenu from "../Header/HamburgerMenu";
 import Backdrop from "../Shared/Backdrop";
-import { toggleMobileMenu, toggleMainMenu } from "../../store/ui-slice";
+import { toggleMobileMenu } from "../../store/ui-slice";
+import CustomCreatePortal from "../Shared/CustomCreatePortal";
 
 const Container = styled.aside`
   position: fixed;
@@ -81,10 +82,15 @@ const MobileMenu = () => {
       </Container>
     </CSSTransition>
   );
+
+  const onBackdropClick = () => {
+    dispatch(toggleMobileMenu());
+  };
+
   return (
     <>
-      <Backdrop />
-      {ReactDOM.createPortal(MobMenu, document.getElementById("modal-root"))}
+      <Backdrop show={showMobileMenu} onClick={onBackdropClick} />
+      <CustomCreatePortal component={MobMenu} id="modal-root" />
     </>
   );
 };

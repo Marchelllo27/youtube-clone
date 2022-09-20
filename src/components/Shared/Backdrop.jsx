@@ -44,23 +44,15 @@ const Container = styled.div`
   }
 `;
 
-const Backdrop = () => {
-  const dispatch = useDispatch();
-  const { showMobileMenu } = useSelector(state => state.ui);
+const Backdrop = ({ show, onClick }) => {
   const clickBackdropHandler = () => {
-    dispatch(toggleMobileMenu());
+    onClick();
   };
+
   const backdropRef = useRef();
 
   const element = (
-    <CSSTransition
-      in={showMobileMenu}
-      timeout={200}
-      classNames="fade-backdrop"
-      nodeRef={backdropRef}
-      mountOnEnter
-      unmountOnExit
-    >
+    <CSSTransition in={show} timeout={200} classNames="fade-backdrop" nodeRef={backdropRef} mountOnEnter unmountOnExit>
       <Container onClick={clickBackdropHandler} ref={backdropRef} />
     </CSSTransition>
   );
