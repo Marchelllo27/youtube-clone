@@ -126,8 +126,7 @@ const Actions = ({ userIsLoggedIn }) => {
 
       {showUserAccountMenu && userIsLoggedIn && UserAccountMenu}
 
-      <Backdrop show={showUploadModal} onClick={() => setShowUploadModal(prev => !prev)} />
-      {showUploadModal && <Upload />}
+      <Upload show={showUploadModal} setShow={setShowUploadModal} />
 
       {!userIsLoggedIn && SignInButton}
     </Container>

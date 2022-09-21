@@ -1,9 +1,15 @@
+import { useRef } from "react";
 import styled from "styled-components";
 import { Formik, Form } from "formik";
+import { CSSTransition } from "react-transition-group";
+// MUI
+import CloseIcon from "@mui/icons-material/Close";
 // EXTRA
 import CustomInput from "../Shared/CustomInput";
 import Backdrop from "../Shared/Backdrop";
 import CustomCreatePortal from "../Shared/CustomCreatePortal";
+import Button from "../Shared/Button";
+import uploadValidation from "../../validation/upload-video-validation";
 
 const Container = styled.section`
   width: 90%;
@@ -14,23 +20,217 @@ const Container = styled.section`
   translate: -50% -50%;
   padding: 2rem;
   background-color: ${({ theme }) => theme.bgLighter};
+  color: ${({ theme }) => theme.text};
+  border-radius: 4px;
   z-index: 2000;
+
+  &.fade-upload-enter-active {
+    animation: showUploadModal 0.2s ease-out forwards;
+  }
+  &.fade-upload-exit-active {
+    animation: hideUploadModal 0.1s ease-out forwards;
+  }
+
+  @keyframes showUploadModal {
+    0% {
+      translate: -50% -70%;
+    }
+
+    100% {
+      translate: -50% -50%;
+    }
+  }
+
+  @keyframes hideUploadModal {
+    0% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
 `;
 
-const Title = styled.h1``;
+const CloseButton = styled.div`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+`;
 
-const Upload = () => {
+const Title = styled.h1`
+  text-align: center;
+  margin-bottom: 1rem;
+`;
+
+const TextArea = styled(CustomInput)`
+  width: 100%;
+  resize: none;
+  outline: none;
+`;
+
+const Fieldset = styled.fieldset`
+  border: 1px solid ${({ theme }) => theme.soft};
+  padding: 1rem 1rem 0;
+
+  &:nth-of-type(2) {
+    margin-top: 1rem;
+  }
+`;
+const Legend = styled.legend`
+  padding: 0 0.5rem;
+`;
+
+const ControlInput = styled.div`
+  position: relative;
+`;
+
+const Small = styled.small`
+  position: absolute;
+  top: 30px;
+  left: 0;
+  color: var(--color-error);
+`;
+
+const ChooseVideoButton = styled(Button)`
+  margin-bottom: 2rem;
+  color: ${({ error }) => error && "var(--color-error)"};
+  border-color: ${({ error }) => error && "var(--color-error)"};
+`;
+
+const ChooseImageButton = styled(ChooseVideoButton)`
+  margin-bottom: 1.5rem;
+`;
+
+const HiddenInput = styled.input``;
+
+const Upload = ({ show, setShow }) => {
+  const modalRef = useRef();
+  const imageRef = useRef();
+  const videoRef = useRef();
+
+  const submitHandler = (values, actions) => {
+    console.log(values);
+  };
+
+  const imagePickerHandler = () => {
+    imageRef.current.click();
+  };
+
+  const videoPickerHandler = () => {
+    videoRef.current.click();
+  };
+
+  const closeModal = () => {
+    setShow(prev => !prev);
+  };
+
+  const initialValues = {
+    video: "",
+    title: "",
+    description: "",
+    tags: "",
+    image: "",
+  };
+
   const UploadComponent = (
-    <Container>
-      <Formik>
-        {() => (
-          <Form>
-            <Title>Upload a new Video</Title>
-            <CustomInput type="file" name="video-picker" id="video-picker" />
-          </Form>
-        )}
-      </Formik>
-    </Container>
+    <>
+      <Backdrop show={show} onClick={closeModal} />
+      <CSSTransition in={show} timeout={200} classNames="fade-upload" nodeRef={modalRef} mountOnEnter unmountOnExit>
+        <Container ref={modalRef}>
+          <Formik initialValues={initialValues} validationSchema={uploadValidation} onSubmit={submitHandler}>
+            {({ errors, getFieldProps, touched }) => {
+              return (
+                <Form>
+                  <CloseButton onClick={closeModal}>
+                    <CloseIcon />
+                  </CloseButton>
+
+                  <Title>Upload a new Video</Title>
+
+                  <Fieldset>
+                    <Legend>Video</Legend>
+                    <ControlInput>
+                      <HiddenInput
+                        type="file"
+                        name="video"
+                        id="video"
+                        ref={videoRef}
+                        accept="video/*"
+                        style={{ display: "none" }}
+                        {...getFieldProps("video")}
+                      />
+                      <ChooseVideoButton
+                        type="button"
+                        onClick={videoPickerHandler}
+                        error={errors?.video && touched.video}
+                      >
+                        Choose Video
+                      </ChooseVideoButton>
+                      {errors?.video && touched.video && <Small>{errors?.video}</Small>}
+                    </ControlInput>
+
+                    <CustomInput
+                      type="text"
+                      name="title"
+                      id="title"
+                      placeholder="Title*"
+                      title="The main video title (required)"
+                      required
+                    />
+                    <TextArea
+                      type="textarea"
+                      name="description"
+                      id="description"
+                      title="Video Description (required )"
+                      placeholder="Description*"
+                      row={8}
+                      required
+                    />
+                    <CustomInput
+                      type="text"
+                      name="tags"
+                      id="tags"
+                      placeholder="Tags... (Separated by comma)*"
+                      required
+                    />
+                  </Fieldset>
+
+                  <Fieldset>
+                    <Legend>Image</Legend>
+                    <ControlInput>
+                      <HiddenInput
+                        type="file"
+                        name="image"
+                        id="image"
+                        ref={imageRef}
+                        accept=".jpg,.jpeg,.png"
+                        style={{ display: "none" }}
+                        {...getFieldProps("image")}
+                      />
+                      <ChooseImageButton
+                        type="button"
+                        onClick={imagePickerHandler}
+                        error={errors?.image && touched.image}
+                      >
+                        Choose Image
+                      </ChooseImageButton>
+                      {errors?.image && touched.image && <Small>{errors?.image}</Small>}
+                    </ControlInput>
+                  </Fieldset>
+
+                  <Button type="submit" style={{ margin: "1rem auto 0", padding: "0.8rem 2rem" }}>
+                    Upload
+                  </Button>
+                </Form>
+              );
+            }}
+          </Formik>
+        </Container>
+      </CSSTransition>
+    </>
   );
 
   return <CustomCreatePortal component={UploadComponent} id="modal-root" />;

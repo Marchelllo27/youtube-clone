@@ -20,6 +20,7 @@ const Input = styled.input`
   outline: none;
   color: ${({ theme }) => theme.text};
   font-size: 1rem;
+  font-family: inherit;
 
   &:-webkit-autofill,
   &:-webkit-autofill:hover,
@@ -28,6 +29,18 @@ const Input = styled.input`
     transition: background-color 1s ease 50000s;
     -webkit-text-fill-color: ${({ theme }) => theme.text};
   }
+`;
+
+const Area = styled.textarea`
+  display: block;
+  width: 100%;
+  border: 1px solid ${({ theme, touched, error }) => (touched && error ? "var(--color-error)" : theme.soft)};
+  color: ${({ theme }) => theme.text};
+  border-radius: 4px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-family: inherit;
+  background-color: transparent;
 `;
 
 const Small = styled.small`
@@ -53,7 +66,8 @@ const CustomInput = props => {
 
   return (
     <Container longError={longError} touched={meta.touched}>
-      <Input {...field} {...props} touched={meta.touched} error={meta.error} />
+      {props.type === "textarea" && <Area {...field} {...props} touched={meta.touched} error={meta.error} />}
+      {props.type !== "textarea" && <Input {...field} {...props} touched={meta.touched} error={meta.error} />}
 
       {/* ERROR MESSAGE */}
       {meta.touched && meta.error && <Small longError={longError}>{meta.error}</Small>}

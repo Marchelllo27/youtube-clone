@@ -1,9 +1,7 @@
 import ReactDOM from "react-dom";
 import { useRef } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
 // EXTRA
-import { toggleMobileMenu } from "../../store/ui-slice";
 import { CSSTransition } from "react-transition-group";
 
 const Container = styled.div`
