@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import styled from "styled-components";
 import { useField } from "formik";
 
@@ -54,7 +55,7 @@ const Small = styled.small`
   }
 `;
 
-const CustomInput = props => {
+const CustomInput = forwardRef((props, ref) => {
   // field gives us onBlur, onChange, value & connection with formik
   // meta gives us info about touched and errors
   const [field, meta] = useField(props);
@@ -66,12 +67,14 @@ const CustomInput = props => {
 
   return (
     <Container longError={longError} touched={meta.touched}>
-      {props.type === "textarea" && <Area {...field} {...props} touched={meta.touched} error={meta.error} />}
-      {props.type !== "textarea" && <Input {...field} {...props} touched={meta.touched} error={meta.error} />}
+      {props.type === "textarea" && <Area {...field} {...props} touched={meta.touched} error={meta.error} ref={ref} />}
+      {props.type !== "textarea" && <Input {...field} {...props} touched={meta.touched} error={meta.error} ref={ref} />}
+
+      {props.children && props.children}
 
       {/* ERROR MESSAGE */}
       {meta.touched && meta.error && <Small longError={longError}>{meta.error}</Small>}
     </Container>
   );
-};
+});
 export default CustomInput;

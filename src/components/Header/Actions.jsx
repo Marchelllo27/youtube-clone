@@ -14,8 +14,7 @@ import Button from "../Shared/Button";
 import CustomToolTip from "../Shared/Tooltip";
 import { useState } from "react";
 import { logoutUser } from "../../store/auth-slice";
-import Upload from "../Video/Upload";
-import Backdrop from "../Shared/Backdrop";
+import Upload from "../Video/Upload/Upload";
 
 const Container = styled.nav`
   display: flex;

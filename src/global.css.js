@@ -22,6 +22,7 @@ body {
   --scrollbar-width: 0.5rem;
 
   --color-error: #f47373;
+  --color-success: #64e364;
 
   /* HIDE SCROLLBAR WHEN MOBILE MENU IS OPENED */
   overflow: ${({ hideSCrollbar }) => hideSCrollbar && "hidden"};
