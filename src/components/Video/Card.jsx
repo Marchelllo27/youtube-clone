@@ -1,15 +1,12 @@
-// import { useState, useEffect } from "react";
-// import axios from "axios";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-// import { format } from "timeago.js";
+import { format } from "timeago.js";
 // EXTRA
 import nFormatter from "../../utils/nFormatter";
 
 const Container = styled.article`
   display: flex;
   flex-direction: ${({ type }) => (type === "sm" ? "row" : "column")};
-  /* max-width: ${({ type }) => (type === "sm" ? "auto" : "20rem")}; */
   overflow: hidden;
   gap: 1rem;
 `;
@@ -55,40 +52,27 @@ const Info = styled.div`
   color: ${({ theme }) => theme.textSoft};
 `;
 
-const Card = ({ type, video }) => {
-  // const [channel, setChannel] = useState({});
+const Card = ({ videoData, type }) => {
+  const { name, img } = videoData.userId;
+  const defaultImg =
+    "https://us.123rf.com/450wm/tuktukdesign/tuktukdesign1608/tuktukdesign160800043/61010830-user-icon-man-profile-businessman-avatar-person-glyph-vector-illustration.jpg?ver=6";
 
-  // useEffect(() => {
-  //   const fetchChannel = async () => {
-  //     const res = await axios.get(`/users/find/${video.userId}`);
-  //     setChannel(res.data);
-  //   };
-  //   fetchChannel();
-  // }, [video.userId]);
-
-  // const createdTime = format(video.createdAt);
-
-  const viewsAmount = nFormatter(123200, 1);
+  const createdTime = format(videoData.createdAt);
+  const viewsAmount = nFormatter(videoData.views, 1);
 
   return (
-    <Link to="/video/125125125" style={{ width: "fit-content" }}>
+    <Link to={`/video/${videoData._id}`} style={{ width: "fit-content" }}>
       <Container type={type}>
-        <Image
-          src="https://images.ctfassets.net/hrltx12pl8hq/3j5RylRv1ZdswxcBaMi0y7/b84fa97296bd2350db6ea194c0dce7db/Music_Icon.jpg"
-          alt="video image"
-          type={type}
-        />
+        <Image src={videoData.imgUrl} alt={videoData.title} type={type} />
 
         <Details type={type}>
-          <ChannelImg
-            src="https://us.123rf.com/450wm/tuktukdesign/tuktukdesign1608/tuktukdesign160800043/61010830-user-icon-man-profile-businessman-avatar-person-glyph-vector-illustration.jpg?ver=6"
-            alt="channel logo"
-            type={type}
-          />
+          <ChannelImg src={img ? img : defaultImg} alt="channel logo" type={type} />
           <Texts>
-            <Title>Lorem ipsum dolor sit amet asfasfaasfafconsectetur adipisicing elit. Maxime, hic!</Title>
-            <ChannelName>Channel name</ChannelName>
-            <Info>{viewsAmount} views &#9679; 2 day ago</Info>
+            <Title>{videoData.title}</Title>
+            <ChannelName>{name}</ChannelName>
+            <Info>
+              {viewsAmount} views &#9679; {createdTime}
+            </Info>
           </Texts>
         </Details>
       </Container>
