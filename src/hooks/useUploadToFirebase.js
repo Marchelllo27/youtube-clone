@@ -48,6 +48,8 @@ const useUploadToFirebase = () => {
           case "storage/unknown":
             setErrorMsg("Unknown error occurred");
             break;
+          default:
+            setErrorMsg("Something went wrong on the server.");
         }
         setIsUploading(false);
       },

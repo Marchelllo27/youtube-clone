@@ -44,11 +44,6 @@ button {
   border: none;
 }
 
-img {
-  width: 100%;
-  object-fit: cover;
-}
-
 /* SCROLL BAR */
 
 body::-webkit-scrollbar {

@@ -1,18 +1,31 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { format } from "timeago.js";
 // EXTRA
 import nFormatter from "../../utils/nFormatter";
 
-const Container = styled.article`
+const Article = styled.article`
+  width: 100%;
+  max-width: 20rem;
   display: flex;
   flex-direction: ${({ type }) => (type === "sm" ? "row" : "column")};
   overflow: hidden;
   gap: 1rem;
+  cursor: pointer;
+
+  @media (min-width: 512px) {
+    max-width: 100%;
+  }
+`;
+
+const ImageBox = styled.div`
+  background-color: gray;
+  height: 11.25rem;
 `;
 
 const Image = styled.img`
-  max-width: ${({ type }) => type === "sm" && "10.5rem"};
+  width: 100%;
+  object-fit: cover;
   max-height: ${({ type }) => (type === "sm" ? "5.8rem" : "11.25rem")};
 `;
 
@@ -53,30 +66,50 @@ const Info = styled.div`
 `;
 
 const Card = ({ videoData, type }) => {
-  const { name, img } = videoData.userId;
-  const defaultImg =
-    "https://us.123rf.com/450wm/tuktukdesign/tuktukdesign1608/tuktukdesign160800043/61010830-user-icon-man-profile-businessman-avatar-person-glyph-vector-illustration.jpg?ver=6";
+  const navidate = useNavigate();
+  const {
+    imgUrl,
+    title,
+    createdAt,
+    views,
+    _id,
+    userId: { name, img },
+  } = videoData;
 
-  const createdTime = format(videoData.createdAt);
-  const viewsAmount = nFormatter(videoData.views, 1);
+  const defaultChannelImg =
+    "https://us.123rf.com/450wm/tuktukdesign/tuktukdesign1608/tuktukdesign160800043/61010830-user-icon-man-profile-businessman-avatar-person-glyph-vector-illustration.jpg?ver=6";
+  const defaultVideoImg =
+    "https://previews.123rf.com/images/kaymosk/kaymosk1804/kaymosk180400006/100130939-error-404-page-not-found-error-with-glitch-effect-on-screen-vector-illustration-for-your-design-.jpg";
+  const createdTime = format(createdAt);
+  const viewsAmount = nFormatter(views, 1);
+
+  const onCardClick = e => {
+    e.preventDefault();
+    navidate(`/video/${_id}`);
+  };
 
   return (
-    <Link to={`/video/${videoData._id}`} style={{ width: "fit-content" }}>
-      <Container type={type}>
-        <Image src={videoData.imgUrl} alt={videoData.title} type={type} />
+    <Article type={type} onClick={onCardClick}>
+      <ImageBox>
+        <Image
+          src={imgUrl}
+          alt={title}
+          oneError={({ currentTarget }) => (currentTarget.src = defaultVideoImg)}
+          type={type}
+        />
+      </ImageBox>
 
-        <Details type={type}>
-          <ChannelImg src={img ? img : defaultImg} alt="channel logo" type={type} />
-          <Texts>
-            <Title>{videoData.title}</Title>
-            <ChannelName>{name}</ChannelName>
-            <Info>
-              {viewsAmount} views &#9679; {createdTime}
-            </Info>
-          </Texts>
-        </Details>
-      </Container>
-    </Link>
+      <Details type={type}>
+        <ChannelImg src={img ? img : defaultChannelImg} alt="channel logo" type={type} />
+        <Texts>
+          <Title>{title}</Title>
+          <ChannelName>{name}</ChannelName>
+          <Info>
+            {viewsAmount} views &#9679; {createdTime}
+          </Info>
+        </Texts>
+      </Details>
+    </Article>
   );
 };
 export default Card;

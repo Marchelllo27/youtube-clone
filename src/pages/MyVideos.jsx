@@ -10,7 +10,6 @@ const MyVideos = () => {
 
   useEffect(() => {
     data && setVideos(data);
-    console.log(data);
   }, [data]);
 
   return (

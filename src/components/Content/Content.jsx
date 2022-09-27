@@ -46,7 +46,7 @@ const Content = () => {
 
           {/* AUTHENTICATED USER ROUTES */}
           <Route element={<ProtectedRoute isAllowed={user} redirectPath="/auth" />}>
-            <Route path="/my" element={<MyVideos />} />
+            <Route path="/my-videos" element={<MyVideos />} />
             <Route path="/downloads" element={<Demonstrate />} />
             <Route path="/sub" element={<Sub type="sub" />} />
           </Route>
