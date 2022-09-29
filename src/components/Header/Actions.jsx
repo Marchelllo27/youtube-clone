@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 // MUI
 import useMediaQuery from "@mui/material/useMediaQuery";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
@@ -19,13 +20,15 @@ const Container = styled.nav`
   gap: 1rem;
 `;
 
-const Actions = ({ userIsLoggedIn }) => {
+const Actions = () => {
   const [showUserAccountMenu, setShowUserAccountMenu] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
+  const { user } = useSelector(state => state.auth);
 
   const iconRef = useRef();
-
   const forTabletsAndBigger = useMediaQuery("(min-width:30rem)");
+
+  const userIsLoggedIn = user;
 
   const onUploadHandler = () => {
     setShowUploadModal(prev => !prev);
@@ -56,7 +59,7 @@ const Actions = ({ userIsLoggedIn }) => {
   const AvatarIcon = (
     <CustomToolTip title="Avatar">
       <Avatar
-        src="https://mpng.subpng.com/20180329/zue/kisspng-computer-icons-user-profile-person-5abd85306ff7f7.0592226715223698404586.jpg"
+        src={user?.img}
         alt="User icon."
         sx={{ width: "2rem", height: "2rem", bgcolor: "#373737", cursor: "pointer" }}
         ref={iconRef}

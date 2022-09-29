@@ -1,41 +1,7 @@
-import { useEffect } from "react";
 // EXTRA
-import VideosWrapper from "../components/Shared/VideosWrapper";
-import Card from "../components/Video/Card";
+import Videos from "../components/Video/Videos";
 
 const Home = () => {
-  useEffect(() => {
-    // fetch random videos
-    // fetch(`/videos/${type}`);
-  }, []);
-
-  return (
-    <VideosWrapper>
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-    </VideosWrapper>
-  );
+  return <Videos url="random" />;
 };
 export default Home;

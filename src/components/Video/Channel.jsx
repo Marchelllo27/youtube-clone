@@ -1,8 +1,10 @@
 // import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { subscription } from "../../store/user-slice";
+// EXTRA
+import { useSubscriptionToChannelMutation } from "../../api/endpoints/user";
 import nFormatter from "../../utils/nFormatter";
+import { subscribe, unsubscribe } from "../../store/auth-slice";
 
 const Container = styled.div`
   display: flex;
@@ -53,7 +55,7 @@ const Description = styled.p`
 `;
 
 const SubscribeButton = styled.button`
-  background-color: ${({ theme, subscribedAlready }) => (subscribedAlready ? theme.soft : "#cc1a00")};
+  background-color: ${({ theme, isSubscribed }) => (isSubscribed ? theme.soft : "#cc1a00")};
   font-weight: 500;
   color: white;
   border: none;
@@ -63,48 +65,51 @@ const SubscribeButton = styled.button`
   cursor: pointer;
 `;
 
-const Channel = ({ videoOwnerData }) => {
-  // const user = useSelector(state => state.user.currentUser);
-  // const video = useSelector(state => state.video.currentVideo);
-  // const dispatch = useDispatch();
+const Channel = () => {
+  const { user } = useSelector(state => state.auth);
+  const video = useSelector(state => state.video.videoData);
+  const dispatch = useDispatch();
+  const [startSubscription, { error }] = useSubscriptionToChannelMutation();
 
-  // const userIsSubscribedToThisChannel = user?.subscribedUsers.includes(videoOwnerData?._id);
+  const { userId: videoOwnerData, desc } = video || {};
 
+  const isSubscribedAlready = user?.subscribedUsers?.includes(videoOwnerData?._id);
+
+  // SUBSCRIBE HANDLER
   const subscriptionHandler = async () => {
-    // const url = userIsSubscribedToThisChannel
-    //   ? `/users/unsub/${videoOwnerData?._id}`
-    //   : `/users/sub/${videoOwnerData?._id}`;
-    // try {
-    //   await axios.put(url);
-    //   dispatch(subscription(videoOwnerData?._id));
-    // } catch (error) {
-    //   alert(error.response.data.message);
-    // }
-    console.log("subscribe fired.");
+    if (!user) {
+      return alert("Please login to be able to subscribe to any channel.");
+    }
+
+    let url;
+    isSubscribedAlready ? (url = "unsub") : (url = "sub");
+
+    try {
+      await startSubscription(`${url}/${videoOwnerData?._id}`).unwrap();
+    } catch (error) {
+      return alert(error.data.message);
+    }
+
+    isSubscribedAlready ? dispatch(unsubscribe(videoOwnerData?._id)) : dispatch(subscribe(videoOwnerData?._id));
   };
 
-  // let subscribersAmount;
-  // if (videoOwnerData?.subscribers < 1000) {
-  //   subscribersAmount = videoOwnerData?.subscribers;
-  // } else if (videoOwnerData?.subscribers > 999 && videoOwnerData?.subscribers < 1000000) {
-  //   subscribersAmount = nFormatter(videoOwnerData?.subscribers, 1);
-  // } else if (videoOwnerData?.subscribers > 999999) {
-  //   subscribersAmount = nFormatter(videoOwnerData?.subscribers, 1);
-  // }
+  const subscribersAmount = nFormatter(videoOwnerData?.subscribers);
+  const subscribers = videoOwnerData?.subscribers === 1 ? "subscriber" : "subscribers";
 
   return (
     <Container>
       <ChannelInfo>
-        <ChannelImage src="https://images.ctfassets.net/hrltx12pl8hq/3j5RylRv1ZdswxcBaMi0y7/b84fa97296bd2350db6ea194c0dce7db/Music_Icon.jpg" />
+        <ChannelImage src={videoOwnerData?.img} />
         <ChannelDetails>
-          <ChannelName>Some Channel</ChannelName>
-          <ChannelCounter>{23224} subscribers</ChannelCounter>
-          <Description>Very popular one</Description>
+          <ChannelName>{videoOwnerData?.name}</ChannelName>
+          <ChannelCounter>
+            {subscribersAmount} {subscribers}
+          </ChannelCounter>
+          <Description>{desc}</Description>
         </ChannelDetails>
       </ChannelInfo>
-      <SubscribeButton subscribedAlready={true} onClick={subscriptionHandler}>
-        {/* {userIsSubscribedToThisChannel ? "SUBSCRIBED" : "SUBSCRIBE"} */}
-        SUBSCRIBE
+      <SubscribeButton isSubscribed={isSubscribedAlready} onClick={subscriptionHandler}>
+        {isSubscribedAlready ? "SUBSCRIBED" : "SUBSCRIBE"}
       </SubscribeButton>
     </Container>
   );

@@ -31,7 +31,9 @@ const VideoFieldset = ({ videoPerc, urlIsReady, onChange }) => {
     <Fieldset>
       <Legend success={loaded}>Video{videoPerc > 0 && ` uploading: ${videoPerc}%`} </Legend>
 
-      <FilePickerButton id="videoUrl" name="videoUrl" accept="video/*" onChange={onChange} success={loaded} />
+      <FilePickerButton id="videoUrl" name="videoUrl" accept="video/*" onChange={onChange} success={loaded}>
+        Choose Video
+      </FilePickerButton>
 
       <CustomInput
         type="text"

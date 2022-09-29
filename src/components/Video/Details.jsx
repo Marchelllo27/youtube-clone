@@ -1,8 +1,6 @@
 import styled from "styled-components";
-// import axios from "axios";
 import { format } from "timeago.js";
-import { useDispatch, useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
 // MUI
 import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
@@ -10,10 +8,10 @@ import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ReplyIcon from "@mui/icons-material/Reply";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
-
 import ActionButton from "./ActionButton";
-import { like, dislike } from "../../store/video-slice";
 import nFormatter from "../../utils/nFormatter";
+import { useLikeDislikeVideoMutation } from "../../api/endpoints/video";
+import { setLike, setDislike } from "../../store/video-slice";
 
 const Container = styled.div`
   display: flex;
@@ -42,60 +40,45 @@ const Buttons = styled.div`
 `;
 
 const Details = () => {
-  // const userIsLoggedIn = useSelector(state => state.user.currentUser);
-  // const video = useSelector(state => state.video.currentVideo);
-  // const dispatch = useDispatch();
+  const userIsLoggedIn = useSelector(state => state.auth.user);
+  const video = useSelector(state => state.video.videoData);
+  const [startLikesDislikeMutation, { error }] = useLikeDislikeVideoMutation();
+  const dispatch = useDispatch();
 
-  // const iAlreadyLiked = video?.likes?.includes(userIsLoggedIn?._id);
-  // const iAlreadyDisliked = video?.dislikes?.includes(userIsLoggedIn?._id);
+  const iAlreadyLiked = video?.likes?.includes(userIsLoggedIn?._id);
+  const iAlreadyDisliked = video?.dislikes?.includes(userIsLoggedIn?._id);
 
-  // const likeHandler = async () => {
-  //   if (!userIsLoggedIn) {
-  //     return alert("You can't like if you are not logged in, sorry.");
-  //   }
-  //   await axios.post(`/videos/like/${video._id}`);
+  const likesHandler = type => {
+    if (!userIsLoggedIn) {
+      return alert(`You can't ${type} if you are not logged in, please login.`);
+    }
 
-  //   dispatch(like(userIsLoggedIn._id));
-  // };
+    if (iAlreadyLiked && type === "like") return;
+    if (iAlreadyDisliked && type === "dislike") return;
 
-  // const dislikeHandler = async () => {
-  //   if (!userIsLoggedIn) {
-  //     return alert("You can't dislike if you are not logged in, sorry.");
-  //   }
-  //   await axios.post(`/videos/dislike/${video._id}`);
-  //   dispatch(dislike(userIsLoggedIn._id));
-  // };
+    type === "like" && dispatch(setLike(userIsLoggedIn?._id));
+    type === "dislike" && dispatch(setDislike(userIsLoggedIn?._id));
 
-  const viewsAmount = 12223;
-  // let viewsAmount;
-  // if (video?.views < 1000) {
-  //   viewsAmount = video?.views;
-  // } else if (video?.views > 999 && video?.views < 1000000) {
-  //   viewsAmount = nFormatter(video?.views, 1);
-  // } else if (video?.views > 999999) {
-  //   viewsAmount = nFormatter(video?.views, 1);
-  // }
+    startLikesDislikeMutation({ type, videoId: video._id });
+  };
 
   return (
     <Container>
       <Info>
-        {viewsAmount} views &#9679; {format("2022-08-22T11:25:39.720+00:00")}
+        {nFormatter(video?.views, 1)} views &#9679; {format(video?.createdAt)}
       </Info>
       <Buttons>
         <ActionButton
-          // onClick={}
-          // icon={iAlreadyLiked ? <ThumbUpIcon /> : <ThumbUpOffAltIcon />}
-          icon={<ThumbUpOffAltIcon />}
+          onClick={likesHandler.bind(null, "like")}
+          icon={iAlreadyLiked ? <ThumbUpIcon /> : <ThumbUpOffAltIcon />}
           text="Like"
-          likesAmount={353}
+          likesAmount={video?.likes?.length}
         />
         <ActionButton
-          // onClick={dislikeHandler}
-          // icon={iAlreadyDisliked ? <ThumbDownAltIcon /> : <ThumbDownOffAltIcon />}
-          icon={<ThumbDownOffAltIcon />}
-          text=" Dislike"
-          // dislikesAmount={video?.dislikes?.lenght}
-          dislikesAmount={151}
+          onClick={likesHandler.bind(null, "dislike")}
+          icon={iAlreadyDisliked ? <ThumbDownAltIcon /> : <ThumbDownOffAltIcon />}
+          text="Dislike"
+          dislikesAmount={video?.dislikes?.length}
         />
         <ActionButton icon={<ReplyIcon />} text="Share" />
         <ActionButton icon={<SaveAltIcon />} text="Save" />

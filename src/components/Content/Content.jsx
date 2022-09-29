@@ -33,8 +33,8 @@ const Content = () => {
     <Container smallMenu={smallMenuIsOpen} mainMenu={mainMenuIsOpen}>
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path="/" element={<Home type="random" />} />
-          <Route path="/trend" element={<Trend type="trend" />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/trend" element={<Trend />} />
           <Route path="/video/:id" element={<Video />} />
           <Route path="/originals" element={<Demonstrate />} />
           <Route path="/music" element={<Demonstrate />} />
@@ -48,7 +48,7 @@ const Content = () => {
           <Route element={<ProtectedRoute isAllowed={user} redirectPath="/auth" />}>
             <Route path="/my-videos" element={<MyVideos />} />
             <Route path="/downloads" element={<Demonstrate />} />
-            <Route path="/sub" element={<Sub type="sub" />} />
+            <Route path="/sub" element={<Sub />} />
           </Route>
 
           <Route

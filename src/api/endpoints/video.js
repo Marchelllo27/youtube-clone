@@ -2,11 +2,12 @@ import mainAPI from "../mainAPI";
 
 const videoEndpoints = mainAPI.injectEndpoints({
   endpoints: builder => ({
-    getAllSpecificUserVideos: builder.query({
-      query: () => ({
-        url: "videos/my-videos",
+    getRequestOnVideoUrl: builder.query({
+      query: urlEnd => ({
+        url: `/videos/${urlEnd}`,
       }),
     }),
+
     uploadVideoToMongoDB: builder.mutation({
       query: body => ({
         url: "/videos",
@@ -14,7 +15,15 @@ const videoEndpoints = mainAPI.injectEndpoints({
         body,
       }),
     }),
+
+    likeDislikeVideo: builder.mutation({
+      query: ({ type, videoId }) => ({
+        url: `/videos/${type}/${videoId}`,
+        method: "POST",
+      }),
+    }),
   }),
 });
 
-export const { useUploadVideoToMongoDBMutation, useGetAllSpecificUserVideosQuery } = videoEndpoints;
+export const { useUploadVideoToMongoDBMutation, useGetRequestOnVideoUrlQuery, useLikeDislikeVideoMutation } =
+  videoEndpoints;

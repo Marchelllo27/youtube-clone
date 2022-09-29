@@ -1,4 +1,7 @@
+import { useEffect } from "react";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 // EXTRA
 import Details from "../components/Video/Details";
 import Channel from "../components/Video/Channel";
@@ -6,6 +9,8 @@ import Comments from "../components/Comments/Comments";
 import Recommendation from "../components/Video/Recommandation";
 // import { ContainerHr } from "../Shared/Hr";
 import Hr from "../components/Shared/Hr";
+import { useGetRequestOnVideoUrlQuery } from "../api/endpoints/video";
+import { setVideo } from "../store/video-slice";
 
 const Container = styled.div`
   display: flex;
@@ -20,8 +25,15 @@ const Container = styled.div`
 
 const VideoFrame = styled.video`
   width: 100%;
-  height: 20rem;
   object-fit: cover;
+  height: 50vh;
+  max-height: 35rem;
+  border: none;
+
+  @media (min-width: 850px) {
+    height: 80vh;
+    max-height: 40rem;
+  }
 `;
 
 const TestVideo = styled.iframe`
@@ -65,37 +77,51 @@ const Title = styled.h1`
 `;
 
 const Video = () => {
+  const videoId = useParams().id;
+  const dispatch = useDispatch();
+
+  const { data: videoData, isLoading, error } = useGetRequestOnVideoUrlQuery(`find/${videoId}`);
+
+  useEffect(() => {
+    videoData && dispatch(setVideo(videoData));
+  }, [videoData]);
+
+  const { title, desc, videoUrl, views, tags, createdAt, userId: videoOwnerData } = videoData || {};
+
   return (
-    <Container>
-      {/* <VideoFrame src="https://www.youtube.com/embed/f7LiKMIo20Q" controls /> */}
-      <TestVideo
-        src="https://www.youtube.com/embed/f7LiKMIo20Q"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-      />
+    <>
+      {isLoading && <div>To do: Skeleton loading</div>}
+      {error && <div>Something went wrong</div>}
+      {videoData && (
+        <Container>
+          {/* <VideoFrame src={videoUrl} controls /> */}
+          <TestVideo
+            src="https://www.youtube.com/embed/f7LiKMIo20Q"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          />
 
-      <Layout>
-        <Title>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis voluptate earum dolorum a placeat
-          laboriosam?
-        </Title>
-        <Details />
+          <Layout>
+            <Title>{title}</Title>
+            <Details />
 
-        <Hr grid />
+            <Hr grid />
 
-        <Channel />
+            <Channel />
 
-        <Hr grid />
+            <Hr grid />
 
-        <Recommendation />
+            <Recommendation />
 
-        <Hr grid />
+            <Hr grid />
 
-        <Comments />
-      </Layout>
-    </Container>
+            <Comments />
+          </Layout>
+        </Container>
+      )}
+    </>
   );
 };
 export default Video;

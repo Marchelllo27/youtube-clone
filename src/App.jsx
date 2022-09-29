@@ -19,7 +19,7 @@ const Main = styled.main`
 
 const App = () => {
   const { isDarkTheme, showMobileMenu } = useSelector(state => state.ui);
-  const { tokenExpireDate } = useSelector(state => state.auth);
+  const { tokenExpireDate, user } = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
   // LISTENER IF STILL VALID TOKEN SET TIMEOUT TO LOGOUT AFTER TIMEOUT
@@ -43,6 +43,10 @@ const App = () => {
       }
     };
   }, [tokenExpireDate]);
+
+  useEffect(() => {
+    user && localStorage.setItem("userInfo", JSON.stringify(user));
+  }, [user]);
 
   return (
     <>

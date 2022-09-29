@@ -12,6 +12,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import NightlightRoundIcon from "@mui/icons-material/NightlightRound";
 import QueueMusicIcon from "@mui/icons-material/QueueMusic";
+import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 // EXTRA
 import MenuItem from "./MenuItem";
 import { toggleTheme, toggleSmallMenu } from "../../store/ui-slice";
@@ -57,6 +58,7 @@ const LittleMenu = () => {
           <MenuItem text="Home" icon={<HomeIcon />} to="/" tooltipTitle="Home" />
           <MenuItem text="Explore" icon={<ExploreOutlinedIcon />} to="/trend" tooltipTitle="Explore" />
           <MenuItem text="Subscriptions" icon={<SubscriptionsOutlinedIcon />} to="/sub" tooltipTitle="Subscriptions" />
+          <MenuItem text="My videos" icon={<PlayCircleOutlineIcon />} to="/my-videos"  tooltipTitle="My own videos"/>
           <MenuItem text="Originals" icon={<YouTubeIcon />} to="/originals" tooltipTitle="Originals" />
           <MenuItem text="MarkTube Music" icon={<QueueMusicIcon />} to="/music" tooltipTitle="MarkTube Music" />
           <MenuItem text="Library" icon={<LibraryBooksIcon />} to="/library" tooltipTitle="Library" />

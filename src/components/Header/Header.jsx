@@ -1,3 +1,4 @@
+import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 // MUI
@@ -7,7 +8,6 @@ import Logo from "./Logo";
 import Actions from "./Actions";
 import SearchBar from "./SearchBar";
 import HamburgerMenu from "./HamburgerMenu";
-import { Calculate } from "@mui/icons-material";
 
 const Container = styled.header`
   position: fixed;
@@ -35,7 +35,6 @@ export const Box = styled.div`
 
 const Header = () => {
   const { showMobileMenu } = useSelector(state => state.ui);
-  const { user } = useSelector(state => state.auth);
 
   const forTabletsAndHigher = useMediaQuery("(min-width:30rem)");
 
@@ -46,8 +45,8 @@ const Header = () => {
         <Logo />
       </Box>
       {forTabletsAndHigher && <SearchBar />}
-      <Actions userIsLoggedIn={user} />
+      <Actions />
     </Container>
   );
 };
-export default Header;
+export default React.memo(Header);

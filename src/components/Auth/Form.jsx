@@ -55,7 +55,7 @@ const Container = ({ setShowLoginForm, showLoginForm, formActions, error }) => {
         <CustomInput id="confirmPassword" type="password" name="confirmPassword" placeholder="confirm password" />
       )}
 
-      <Button type="submit" isDarkTheme={isDarkTheme} disabled={formActions.isSubmitting || !formActions.isValid}>
+      <Button type="submit" isDarkTheme={isDarkTheme} disabled={formActions.isSubmitting}>
         {formActions.isSubmitting ? <Spinner /> : buttonText}
       </Button>
 

@@ -102,7 +102,7 @@ const MainMenu = ({ mobileVersion }) => {
         <Hr />
         <MenuItem text="Library" icon={<LibraryBooksIcon />} to="/library" tooltipTitle="Library" forMainMenu />
         <MenuItem text="History" icon={<HistoryOutlinedIcon />} to="/history" tooltipTitle="History" forMainMenu />
-        <MenuItem text="Your videos" icon={<PlayCircleOutlineIcon />} to="/yours" forMainMenu />
+        {user && <MenuItem text="My videos" icon={<PlayCircleOutlineIcon />} to="/my-videos" forMainMenu />}
         <MenuItem text="Downloads" icon={<DownloadIcon />} to="/downloads" forMainMenu />
         <Hr />
         {!user && <LoginButton />}

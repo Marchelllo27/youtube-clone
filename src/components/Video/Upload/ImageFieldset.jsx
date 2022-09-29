@@ -11,7 +11,9 @@ const ImageFieldset = ({ imgPerc, urlIsReady, onChange }) => {
   return (
     <Fieldset>
       <Legend success={loaded}>Image{imgPerc > 0 && ` uploading: ${imgPerc}%`} </Legend>
-      <FilePickerButton id="imgUrl" name="imgUrl" accept=".jpg,.jpeg,.png" onChange={onChange} success={loaded} />
+      <FilePickerButton id="imgUrl" name="imgUrl" accept=".jpg,.jpeg,.png" onChange={onChange} success={loaded}>
+        Choose Image
+      </FilePickerButton>
     </Fieldset>
   );
 };

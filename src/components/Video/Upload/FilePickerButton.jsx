@@ -36,7 +36,7 @@ const Small = styled.small`
 //   }
 // `;
 
-const FilePickerButton = ({ success, ...props }) => {
+const FilePickerButton = ({ success, children, ...props }) => {
   const fileInputRef = useRef();
   const [field, meta] = useField(props);
 
@@ -50,7 +50,7 @@ const FilePickerButton = ({ success, ...props }) => {
     <ControlInput>
       <HiddenInput type="file" ref={fileInputRef} style={{ display: "none" }} {...field} {...props} />
       <ChooseFileButton type="button" onClick={filePickerClickHandler} error={hasError} isSuccess={success}>
-        Choose Video
+        {children}
       </ChooseFileButton>
       {hasError && <Small>{meta.error}</Small>}
     </ControlInput>

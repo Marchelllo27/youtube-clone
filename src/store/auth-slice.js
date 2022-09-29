@@ -25,6 +25,13 @@ const authSlice = createSlice({
     removeTokenExpires: state => {
       state.tokenExpireDate = null;
     },
+    subscribe: (state, action) => {
+      state.user.subscribedUsers.push(action.payload);
+    },
+    unsubscribe: (state, action) => {
+      const indexToDelete = state.user.subscribedUsers.findIndex(id => id === action.payload);
+      indexToDelete >= 0 && state.user.subscribedUsers.splice(indexToDelete, 1);
+    },
   },
 });
 
@@ -49,6 +56,6 @@ export const logoutUser = () => {
   };
 };
 
-export const { setUser, removeUser, setTokenExpires, removeTokenExpires } = authSlice.actions;
+export const { setUser, removeUser, setTokenExpires, removeTokenExpires, subscribe, unsubscribe } = authSlice.actions;
 
 export default authSlice.reducer;

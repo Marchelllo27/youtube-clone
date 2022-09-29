@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { format } from "timeago.js";
 // EXTRA
 import nFormatter from "../../utils/nFormatter";
+import NotFoundImage from "../../assets/notfound.jpeg";
 
 const Article = styled.article`
   width: 100%;
@@ -20,13 +21,15 @@ const Article = styled.article`
 
 const ImageBox = styled.div`
   background-color: gray;
-  height: 11.25rem;
+  height: ${({ type }) => (type === "sm" ? "6rem" : "11.25rem")};
+  width: ${({ type }) => type === "sm" && "11rem"};
 `;
 
 const Image = styled.img`
   width: 100%;
+  height: 100%;
+  display: block;
   object-fit: cover;
-  max-height: ${({ type }) => (type === "sm" ? "5.8rem" : "11.25rem")};
 `;
 
 const Details = styled.div`
@@ -67,14 +70,7 @@ const Info = styled.div`
 
 const Card = ({ videoData, type }) => {
   const navidate = useNavigate();
-  const {
-    imgUrl,
-    title,
-    createdAt,
-    views,
-    _id,
-    userId: { name, img },
-  } = videoData;
+  const { imgUrl, title, createdAt, views, _id, userId } = videoData || {};
 
   const defaultChannelImg =
     "https://us.123rf.com/450wm/tuktukdesign/tuktukdesign1608/tuktukdesign160800043/61010830-user-icon-man-profile-businessman-avatar-person-glyph-vector-illustration.jpg?ver=6";
@@ -83,27 +79,21 @@ const Card = ({ videoData, type }) => {
   const createdTime = format(createdAt);
   const viewsAmount = nFormatter(views, 1);
 
-  const onCardClick = e => {
-    e.preventDefault();
+  const onCardClick = () => {
     navidate(`/video/${_id}`);
   };
 
   return (
     <Article type={type} onClick={onCardClick}>
-      <ImageBox>
-        <Image
-          src={imgUrl}
-          alt={title}
-          oneError={({ currentTarget }) => (currentTarget.src = defaultVideoImg)}
-          type={type}
-        />
+      <ImageBox type={type}>
+        <Image src={NotFoundImage} alt={title} type={type} />
       </ImageBox>
 
       <Details type={type}>
-        <ChannelImg src={img ? img : defaultChannelImg} alt="channel logo" type={type} />
+        <ChannelImg src={userId?.img ? userId?.img : defaultChannelImg} alt="channel logo" type={type} />
         <Texts>
           <Title>{title}</Title>
-          <ChannelName>{name}</ChannelName>
+          <ChannelName>{userId?.name}</ChannelName>
           <Info>
             {viewsAmount} views &#9679; {createdTime}
           </Info>
