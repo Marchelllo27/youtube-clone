@@ -2,11 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const userFromStorage = JSON.parse(localStorage.getItem("userInfo"));
 
-const validToken = userFromStorage?.token && new Date(userFromStorage?.tokenExpirDate).getTime() > Date.now();
+const validToken = userFromStorage?.token && new Date(userFromStorage?.tokenExpireDate).getTime() > Date.now();
 
 const initialState = {
   user: validToken ? userFromStorage : null,
-  tokenExpireDate: validToken ? userFromStorage.tokenExpirDate : null,
+  tokenExpireDate: validToken ? userFromStorage.tokenExpireDate : null,
 };
 
 const authSlice = createSlice({
@@ -40,11 +40,11 @@ export const loginUser = userData => {
     dispatch(setUser(userData));
     // generate current time + 1hour in milliseconds.
     // toISOString because we can't store Date object in localStorage and redux store.
-    const tokenExpirDate = new Date(Date.now() + 3600000).toISOString();
+    const tokenExpireDate = new Date(Date.now() + 3600000).toISOString();
 
-    dispatch(setTokenExpires(tokenExpirDate));
+    dispatch(setTokenExpires(tokenExpireDate));
 
-    localStorage.setItem("userInfo", JSON.stringify({ tokenExpirDate, ...userData }));
+    localStorage.setItem("userInfo", JSON.stringify({ tokenExpireDate, ...userData }));
   };
 };
 

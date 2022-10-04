@@ -19,8 +19,6 @@ const NoComments = styled.p`
 const Comments = ({ videoId }) => {
   const { data: fetchedComments, error } = useGetCommentsForVideoQuery(videoId);
 
-  console.log(fetchedComments);
-
   const comments = fetchedComments?.map(comment => <Comment key={comment._id} comment={comment} />);
 
   return (

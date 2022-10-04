@@ -50,7 +50,7 @@ const Details = () => {
   const iAlreadyLiked = video?.likes?.includes(userIsLoggedIn?._id);
   const iAlreadyDisliked = video?.dislikes?.includes(userIsLoggedIn?._id);
 
-  const likesHandler = type => {
+  const likesHandler = async type => {
     if (!userIsLoggedIn) {
       dispatch(
         openNotification({ text: `You can't ${type} if you are not logged in, please login.`, status: "warning" })
@@ -61,10 +61,15 @@ const Details = () => {
     if (iAlreadyLiked && type === "like") return;
     if (iAlreadyDisliked && type === "dislike") return;
 
+    try {
+      await startLikesDislikeMutation({ type, videoId: video._id }).unwrap();
+    } catch (error) {
+      dispatch(openNotification({ text: "Something wrong on the server.Sorry about that!", status: "error" }));
+      return;
+    }
+
     type === "like" && dispatch(setLike(userIsLoggedIn?._id));
     type === "dislike" && dispatch(setDislike(userIsLoggedIn?._id));
-
-    startLikesDislikeMutation({ type, videoId: video._id });
   };
 
   return (
