@@ -1,6 +1,7 @@
 import { useRef, useEffect } from "react";
 import styled from "styled-components";
 import { Formik, Form } from "formik";
+import { useDispatch } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 // MUI
 import CloseIcon from "@mui/icons-material/Close";
@@ -14,6 +15,7 @@ import useUploadToFirebase from "../../../hooks/useUploadToFirebase";
 import { useUploadVideoToMongoDBMutation } from "../../../api/endpoints/video";
 import ImageFieldset from "./ImageFieldset";
 import VideoFieldset from "./VideoFieldset";
+import { openNotification } from "../../../store/ui-slice";
 
 const Container = styled.section`
   width: 90%;
@@ -100,8 +102,9 @@ const ErrorMessage = styled.small`
 const Upload = ({ show, setShow }) => {
   const { startUpload, filesUrl, videoPerc, imgPerc, clearHookStates, deleteAllUploadedFiles, errorMsg } =
     useUploadToFirebase();
-
   const [startUploadToMongoDB, { error }] = useUploadVideoToMongoDBMutation();
+
+  const dispatch = useDispatch();
 
   const modalRef = useRef();
 
@@ -121,6 +124,8 @@ const Upload = ({ show, setShow }) => {
 
     console.log(response);
     if (response.error) return;
+
+    dispatch(openNotification({ text: "Video uploaded succesfully!", status: "success" }));
 
     // Clearing
     clearHookStates();

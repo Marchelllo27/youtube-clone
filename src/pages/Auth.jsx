@@ -9,6 +9,7 @@ import validationSchema, { loginSchemaValidation } from "../validation/auth-vali
 import Details from "../components/Auth/Details";
 import { useAuthUserMutation } from "../api/endpoints/auth";
 import { loginUser } from "../store/auth-slice";
+import { openNotification } from "../store/ui-slice";
 
 const Container = styled.div`
   position: relative;
@@ -61,6 +62,7 @@ const Auth = () => {
     if (response.data?.user?.token) {
       dispatch(loginUser(response.data.user));
       actions.resetForm();
+      dispatch(openNotification({ text: "Successfully logged in!", status: "success" }));
       navigate("/", { replace: true });
     }
   };

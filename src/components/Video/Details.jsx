@@ -8,10 +8,12 @@ import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ReplyIcon from "@mui/icons-material/Reply";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
+// EXTRA
 import ActionButton from "./ActionButton";
 import nFormatter from "../../utils/nFormatter";
 import { useLikeDislikeVideoMutation } from "../../api/endpoints/video";
 import { setLike, setDislike } from "../../store/video-slice";
+import { openNotification } from "../../store/ui-slice";
 
 const Container = styled.div`
   display: flex;
@@ -50,7 +52,10 @@ const Details = () => {
 
   const likesHandler = type => {
     if (!userIsLoggedIn) {
-      return alert(`You can't ${type} if you are not logged in, please login.`);
+      dispatch(
+        openNotification({ text: `You can't ${type} if you are not logged in, please login.`, status: "warning" })
+      );
+      return;
     }
 
     if (iAlreadyLiked && type === "like") return;

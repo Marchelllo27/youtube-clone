@@ -20,7 +20,7 @@ const VideosWrapper = styled.div`
   }
 
   @media (min-width: 880px) {
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 20rem));
   }
 
   @media (min-width: 1150px) {

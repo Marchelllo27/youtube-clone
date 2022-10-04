@@ -9,6 +9,7 @@ import Content from "./components/Content/Content";
 import { darkTheme, lightTheme } from "./utils/theme";
 import GlobalCss from "./global.css";
 import { logoutUser } from "./store/auth-slice";
+import NotificationBar from "./components/Shared/NotificationBar";
 
 const Main = styled.main`
   min-height: calc(100vh - var(--header-height));
@@ -17,8 +18,10 @@ const Main = styled.main`
   color: ${({ theme }) => theme.text};
 `;
 
+let initialRender = true;
+
 const App = () => {
-  const { isDarkTheme, showMobileMenu } = useSelector(state => state.ui);
+  const { isDarkTheme, showMobileMenu, showNotification } = useSelector(state => state.ui);
   const { tokenExpireDate, user } = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
@@ -44,9 +47,14 @@ const App = () => {
     };
   }, [tokenExpireDate, dispatch]);
 
+  // IF USER or TokenExpire CHANGED(for example user has been subscribe), SAVE IT TO LOCALSTORAGE
   useEffect(() => {
+    if (initialRender) {
+      initialRender = false;
+      return;
+    }
+
     if (user && tokenExpireDate) {
-      console.log("UseEFFECT in APP WAS FIRED!");
       localStorage.removeItem("userInfo");
       localStorage.setItem("userInfo", JSON.stringify({ ...user, tokenExpireDate }));
     }
@@ -60,6 +68,7 @@ const App = () => {
         <Main>
           <Menu />
           <Content />
+          {showNotification && <NotificationBar />}
         </Main>
       </ThemeProvider>
     </>

@@ -5,6 +5,9 @@ const initialState = {
   mainMenuIsOpen: false,
   isDarkTheme: true,
   showMobileMenu: false,
+  showNotification: false,
+  notificationText: "",
+  notificationStatus: "",
 };
 
 const UISlice = createSlice({
@@ -23,9 +26,18 @@ const UISlice = createSlice({
     toggleTheme: state => {
       state.isDarkTheme = !state.isDarkTheme;
     },
+    openNotification: (state, action) => {
+      state.notificationText = action.payload.text;
+      state.notificationStatus = action.payload.status;
+      state.showNotification = true;
+    },
+    closeNotification: state => {
+      state.showNotification = false;
+    },
   },
 });
 
-export const { toggleTheme, toggleMainMenu, toggleMobileMenu, toggleSmallMenu } = UISlice.actions;
+export const { toggleTheme, toggleMainMenu, toggleMobileMenu, toggleSmallMenu, openNotification, closeNotification } =
+  UISlice.actions;
 
 export default UISlice.reducer;

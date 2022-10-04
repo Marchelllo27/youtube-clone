@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { useSubscriptionToChannelMutation } from "../../api/endpoints/user";
 import nFormatter from "../../utils/nFormatter";
 import { subscribe, unsubscribe } from "../../store/auth-slice";
+import { openNotification } from "../../store/ui-slice";
 
 const Container = styled.div`
   display: flex;
@@ -78,7 +79,8 @@ const Channel = () => {
   // SUBSCRIBE HANDLER
   const subscriptionHandler = async () => {
     if (!user) {
-      return alert("Please login to be able to subscribe to any channel.");
+      dispatch(openNotification({ text: "Please login to be able to subscribe to any channel.", status: "warning" }));
+      return;
     }
 
     let url;
@@ -86,11 +88,15 @@ const Channel = () => {
 
     try {
       await startSubscription(`${url}/${videoOwnerData?._id}`).unwrap();
-    } catch (error) {
-      return alert(error.data.message);
-    }
+      isSubscribedAlready ? dispatch(unsubscribe(videoOwnerData?._id)) : dispatch(subscribe(videoOwnerData?._id));
 
-    isSubscribedAlready ? dispatch(unsubscribe(videoOwnerData?._id)) : dispatch(subscribe(videoOwnerData?._id));
+      const notificationType = url === "unsub" ? "unsubscribed" : "subscribed";
+
+      dispatch(openNotification({ text: `Successfully ${notificationType}` }));
+    } catch (error) {
+      dispatch(openNotification({ text: error.data.message, status: "error" }));
+      return;
+    }
   };
 
   const subscribersAmount = nFormatter(videoOwnerData?.subscribers);

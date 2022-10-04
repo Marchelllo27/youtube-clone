@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 // MUI
 import Avatar from "@mui/material/Avatar";
 // EXTRA
 import ButtonTemplate from "../Shared/Button";
 import { useAddCommentMutation } from "../../api/endpoints/video";
+import { openNotification } from "../../store/ui-slice";
 
 const CommentForm = styled.form``;
 
@@ -68,13 +69,16 @@ const NewComment = ({ videoId }) => {
   const [comment, setComment] = useState("");
   const { user } = useSelector(state => state.auth);
 
+  const dispatch = useDispatch();
+
   const [startCommentMutation, { error }] = useAddCommentMutation();
 
   const sendCommentHandler = async e => {
     e.preventDefault();
 
     if (!user) {
-      return alert("Please login to be able to comment");
+      dispatch(openNotification({ text: "Please login to be able to comment", status: "warning" }));
+      return;
     }
 
     await startCommentMutation({ videoId, desc: comment });
