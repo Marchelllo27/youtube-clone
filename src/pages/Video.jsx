@@ -84,9 +84,9 @@ const Video = () => {
 
   useEffect(() => {
     videoData && dispatch(setVideo(videoData));
-  }, [videoData]);
+  }, [videoData, dispatch]);
 
-  const { title, desc, videoUrl, views, tags, createdAt, userId: videoOwnerData } = videoData || {};
+  const { title } = videoData || {};
 
   return (
     <>
@@ -117,7 +117,7 @@ const Video = () => {
 
             <Hr grid />
 
-            <Comments />
+            <Comments videoId={videoId} />
           </Layout>
         </Container>
       )}

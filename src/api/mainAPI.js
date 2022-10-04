@@ -16,7 +16,7 @@ const baseQuery = fetchBaseQuery({
 
 const mainApi = createApi({
   reducerPath: "youtubeCloneApi",
-  baseQuery: baseQuery,
+  baseQuery,
   tagTypes: ["User", "Video"],
   endpoints: () => ({}),
 });

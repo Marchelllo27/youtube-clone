@@ -42,11 +42,15 @@ const App = () => {
         clearTimeout(timer);
       }
     };
-  }, [tokenExpireDate]);
+  }, [tokenExpireDate, dispatch]);
 
   useEffect(() => {
-    user && localStorage.setItem("userInfo", JSON.stringify(user));
-  }, [user]);
+    if (user && tokenExpireDate) {
+      console.log("UseEFFECT in APP WAS FIRED!");
+      localStorage.removeItem("userInfo");
+      localStorage.setItem("userInfo", JSON.stringify({ ...user, tokenExpireDate }));
+    }
+  }, [user, tokenExpireDate]);
 
   return (
     <>

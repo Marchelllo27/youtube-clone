@@ -18,8 +18,10 @@ const Recomendation = styled.div`
 `;
 
 const Recommendation = () => {
-  const { data: videos, isLoading, error } = useGetRequestOnVideoUrlQuery("trend");
+  const { data: videos, isLoading, error } = useGetRequestOnVideoUrlQuery("trend?quantity=8");
 
-  return <Recomendation>{videos && videos.map(video => <Card type="sm" videoData={video} />)}</Recomendation>;
+  return (
+    <Recomendation>{videos && videos.map(video => <Card type="sm" key={video._id} videoData={video} />)}</Recomendation>
+  );
 };
 export default Recommendation;

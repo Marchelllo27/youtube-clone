@@ -4,7 +4,7 @@ const schema = yup.object().shape({
   username: yup.string().required("Username is required"),
   email: yup
     .string()
-    .lowercase() //transform string to lowercase just while validation
+    .lowercase() // transform string to lowercase just while validation
     .matches(/^[a-zA-Z0-9._+-]+@[a-zA-Z0-9-]+\.[a-z]{2,}$/, "Not valid email")
     .required("Email is required"),
   password: yup

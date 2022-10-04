@@ -9,7 +9,7 @@ const initialState = {
 
 const UISlice = createSlice({
   name: "ui",
-  initialState: initialState,
+  initialState,
   reducers: {
     toggleSmallMenu: state => {
       state.smallMenuIsOpen = !state.smallMenuIsOpen;
@@ -26,11 +26,6 @@ const UISlice = createSlice({
   },
 });
 
-export const {
-  toggleTheme,
-  toggleMainMenu,
-  toggleMobileMenu,
-  toggleSmallMenu,
-} = UISlice.actions;
+export const { toggleTheme, toggleMainMenu, toggleMobileMenu, toggleSmallMenu } = UISlice.actions;
 
 export default UISlice.reducer;

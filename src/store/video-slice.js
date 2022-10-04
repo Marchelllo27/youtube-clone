@@ -6,7 +6,7 @@ const initialState = {
 
 const videoSlice = createSlice({
   name: "video",
-  initialState: initialState,
+  initialState,
   reducers: {
     setVideo: (state, action) => {
       state.videoData = action.payload;

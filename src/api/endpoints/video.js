@@ -22,8 +22,28 @@ const videoEndpoints = mainAPI.injectEndpoints({
         method: "POST",
       }),
     }),
+
+    getCommentsForVideo: builder.query({
+      query: videoId => ({
+        url: `/comments/${videoId}`,
+      }),
+    }),
+
+    addComment: builder.mutation({
+      query: body => ({
+        url: "/comments",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
+  overrideExisting: false,
 });
 
-export const { useUploadVideoToMongoDBMutation, useGetRequestOnVideoUrlQuery, useLikeDislikeVideoMutation } =
-  videoEndpoints;
+export const {
+  useUploadVideoToMongoDBMutation,
+  useGetRequestOnVideoUrlQuery,
+  useLikeDislikeVideoMutation,
+  useAddCommentMutation,
+  useGetCommentsForVideoQuery,
+} = videoEndpoints;

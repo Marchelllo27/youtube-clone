@@ -22,7 +22,7 @@ const Article = styled.article`
 const ImageBox = styled.div`
   background-color: gray;
   height: ${({ type }) => (type === "sm" ? "6rem" : "11.25rem")};
-  width: ${({ type }) => type === "sm" && "11rem"};
+  min-width: ${({ type }) => type === "sm" && "11rem"};
 `;
 
 const Image = styled.img`

@@ -62,13 +62,13 @@ const useUploadToFirebase = () => {
   };
 
   const clearHookStates = () => {
-    setImgPerc(0),
-      setVideoPerc(0),
-      setFilesUrl({}),
-      setIsUploading(false),
-      setVideoRefInFirebase(null),
-      setImgRefInFirebase(null),
-      setErrorMsg("");
+    setImgPerc(0);
+    setVideoPerc(0);
+    setFilesUrl({});
+    setIsUploading(false);
+    setVideoRefInFirebase(null);
+    setImgRefInFirebase(null);
+    setErrorMsg("");
   };
 
   const deleteAllUploadedFiles = useCallback(() => {
