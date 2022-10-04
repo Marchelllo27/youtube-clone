@@ -14,6 +14,11 @@ const Img = styled.img`
 const AppName = styled.h1`
   font-size: 1rem;
   font-weight: 600;
+  display: none;
+
+  @media (min-width: 370px) {
+    display: inline-block;
+  }
 `;
 
 const Box = styled.div`

@@ -2,11 +2,20 @@ import mainAPI from "../mainAPI";
 
 const videoEndpoints = mainAPI.injectEndpoints({
   endpoints: builder => ({
+    // GET QUERIES
     getRequestOnVideoUrl: builder.query({
-      query: urlEnd => ({
-        url: `/videos/${urlEnd}`,
-      }),
+      query: urlEnd => `/videos/${urlEnd}`,
     }),
+
+    getCommentsForVideo: builder.query({
+      query: videoId => `/comments/${videoId}`,
+    }),
+
+    getCommentsForVideo: builder.query({
+      query: videoId => `/comments/${videoId}`,
+    }),
+
+    // MUTATIONS
 
     uploadVideoToMongoDB: builder.mutation({
       query: body => ({
@@ -23,12 +32,6 @@ const videoEndpoints = mainAPI.injectEndpoints({
       }),
     }),
 
-    getCommentsForVideo: builder.query({
-      query: videoId => ({
-        url: `/comments/${videoId}`,
-      }),
-    }),
-
     addComment: builder.mutation({
       query: body => ({
         url: "/comments",
@@ -37,7 +40,7 @@ const videoEndpoints = mainAPI.injectEndpoints({
       }),
     }),
   }),
-  overrideExisting: false,
+  overrideExisting: true,
 });
 
 export const {

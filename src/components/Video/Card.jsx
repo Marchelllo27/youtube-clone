@@ -8,11 +8,17 @@ import NotFoundImage from "../../assets/notfound.jpeg";
 const Article = styled.article`
   width: 100%;
   max-width: 20rem;
+
   display: flex;
-  flex-direction: ${({ type }) => (type === "sm" ? "row" : "column")};
+  flex-direction: column;
   overflow: hidden;
   gap: 1rem;
   cursor: pointer;
+
+  @media (min-width: 360px) {
+    height: ${({ type }) => (type === "sm" ? "6rem" : "18rem")};
+    flex-direction: ${({ type }) => (type === "sm" ? "row" : "column")};
+  }
 
   @media (min-width: 512px) {
     max-width: 100%;

@@ -42,11 +42,13 @@ const Videos = ({ url }) => {
   const { data: videos, isLoading, error } = useGetRequestOnVideoUrlQuery(url);
 
   return (
-    <VideosWrapper>
-      {!videos && !error && <div>No videos found.</div>}
-      {videos && videos.map(video => <Card key={video._id} videoData={video} />)}
+    <>
+      {!videos?.length && !error && <div>No videos found.</div>}
       {error && <div>Something went wrong. Please try again later.</div>}
-    </VideosWrapper>
+      {videos?.length > 0 && (
+        <VideosWrapper>{videos && videos.map(video => <Card key={video._id} videoData={video} />)}</VideosWrapper>
+      )}
+    </>
   );
 };
 export default Videos;
