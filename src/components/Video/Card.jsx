@@ -7,7 +7,8 @@ import NotFoundImage from "../../assets/notfound.jpeg";
 
 const Article = styled.article`
   width: 100%;
-  max-width: 20rem;
+  /* max-width: 20rem; */
+  max-width: ${({ type }) => (type === "sm" ? "auto" : "20rem")};
 
   display: flex;
   flex-direction: column;
@@ -40,6 +41,7 @@ const Image = styled.img`
 
 const Details = styled.div`
   display: flex;
+  width: 100%;
   gap: 0.5rem;
 `;
 const ChannelImg = styled.img`
@@ -58,7 +60,7 @@ const Title = styled.h1`
   font-weight: 500;
 
   overflow: hidden;
-  max-width: 100%;
+  /* max-width: 100%; */
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
