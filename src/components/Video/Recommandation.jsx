@@ -1,7 +1,7 @@
 import styled from "styled-components";
 // EXTRA
 import Card from "./Card";
-import { useGetRequestOnVideoUrlQuery } from "../../api/endpoints/video";
+import { useGetVideosQuery } from "../../api/endpoints/video";
 
 const Recomendation = styled.div`
   display: flex;
@@ -18,7 +18,7 @@ const Recomendation = styled.div`
 `;
 
 const Recommendation = () => {
-  const { data: videos, isLoading, error } = useGetRequestOnVideoUrlQuery("trend?quantity=8");
+  const { data: videos, isLoading, error } = useGetVideosQuery("trend?quantity=8");
 
   return (
     <Recomendation>{videos && videos.map(video => <Card type="sm" key={video._id} videoData={video} />)}</Recomendation>

@@ -32,7 +32,7 @@ const App = () => {
     const tokenExpires = new Date(tokenExpireDate).getTime();
 
     if (tokenExpires > Date.now()) {
-      console.log("TIMER TO LOGOUT SET TO 1h")
+      console.log("TIMER TO LOGOUT after 1h has been set");
       remainingTime = tokenExpires - Date.now();
 
       timer = setTimeout(() => {
@@ -50,13 +50,7 @@ const App = () => {
 
   // IF USER or TokenExpire CHANGED(for example user has been subscribe), SAVE IT TO LOCALSTORAGE
   useEffect(() => {
-    
-    console.log(user)
-    console.log(tokenExpireDate)
-
     if (user && tokenExpireDate) {
-      console.log("USER CHANGED AND REWRITTEN TO LOCALSTORAGE");
-      console.log(user.subscribedUsers);
       localStorage.setItem("userInfo", JSON.stringify({ ...user, tokenExpireDate }));
     }
   }, [user, tokenExpireDate]);

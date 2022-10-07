@@ -97,12 +97,12 @@ const MainMenu = ({ mobileVersion }) => {
         <MenuItem text="Home" icon={<HomeIcon />} to="/" forMainMenu />
         <MenuItem text="Explore" icon={<ExploreOutlinedIcon />} to="/trend" forMainMenu />
         <MenuItem text="Subscriptions" icon={<SubscriptionsOutlinedIcon />} to="/sub" forMainMenu />
+        {user && <MenuItem text="My videos" icon={<PlayCircleOutlineIcon />} to="/my-videos" forMainMenu />}
         <MenuItem text="Originals" icon={<YouTubeIcon />} to="/originals" tooltipTitle="Originals" forMainMenu />
-        <MenuItem text="MarkTube Music" icon={<QueueMusicIcon />} to="/music" forMainMenu />
         <Hr />
+        <MenuItem text="MarkTube Music" icon={<QueueMusicIcon />} to="/music" forMainMenu />
         <MenuItem text="Library" icon={<LibraryBooksIcon />} to="/library" tooltipTitle="Library" forMainMenu />
         <MenuItem text="History" icon={<HistoryOutlinedIcon />} to="/history" tooltipTitle="History" forMainMenu />
-        {user && <MenuItem text="My videos" icon={<PlayCircleOutlineIcon />} to="/my-videos" forMainMenu />}
         <MenuItem text="Downloads" icon={<DownloadIcon />} to="/downloads" forMainMenu />
         <Hr />
         {!user && <LoginButton />}

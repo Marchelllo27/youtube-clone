@@ -2,20 +2,15 @@ import mainAPI from "../mainAPI";
 
 const videoEndpoints = mainAPI.injectEndpoints({
   endpoints: builder => ({
-    // GET QUERIES
-    getRequestOnVideoUrl: builder.query({
+    // VIDEOS
+    getVideos: builder.query({
       query: urlEnd => `/videos/${urlEnd}`,
     }),
 
-    getCommentsForVideo: builder.query({
-      query: videoId => `/comments/${videoId}`,
+    getAllMyVideos: builder.query({
+      query: url => `/videos/${url}`,
+      providesTags: ["My-Videos"],
     }),
-
-    getCommentsForVideo: builder.query({
-      query: videoId => `/comments/${videoId}`,
-    }),
-
-    // MUTATIONS
 
     uploadVideoToMongoDB: builder.mutation({
       query: body => ({
@@ -23,7 +18,10 @@ const videoEndpoints = mainAPI.injectEndpoints({
         method: "POST",
         body,
       }),
+      invalidatesTags: ["My-Videos"],
     }),
+
+    // LIKES
 
     likeDislikeVideo: builder.mutation({
       query: ({ type, videoId }) => ({
@@ -32,12 +30,20 @@ const videoEndpoints = mainAPI.injectEndpoints({
       }),
     }),
 
+    // COMMENTS
+
+    getCommentsForVideo: builder.query({
+      query: videoId => `/comments/${videoId}`,
+      providesTags: ["Comment"],
+    }),
+
     addComment: builder.mutation({
       query: body => ({
         url: "/comments",
         method: "POST",
         body,
       }),
+      invalidatesTags: ["Comment"],
     }),
   }),
   overrideExisting: true,
@@ -45,7 +51,8 @@ const videoEndpoints = mainAPI.injectEndpoints({
 
 export const {
   useUploadVideoToMongoDBMutation,
-  useGetRequestOnVideoUrlQuery,
+  useGetVideosQuery,
+  useGetAllMyVideosQuery,
   useLikeDislikeVideoMutation,
   useAddCommentMutation,
   useGetCommentsForVideoQuery,

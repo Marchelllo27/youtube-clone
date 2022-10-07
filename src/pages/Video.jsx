@@ -9,7 +9,7 @@ import Comments from "../components/Comments/Comments";
 import Recommendation from "../components/Video/Recommandation";
 // import { ContainerHr } from "../Shared/Hr";
 import Hr from "../components/Shared/Hr";
-import { useGetRequestOnVideoUrlQuery } from "../api/endpoints/video";
+import { useGetVideosQuery } from "../api/endpoints/video";
 import { setVideo } from "../store/video-slice";
 
 const Container = styled.div`
@@ -80,7 +80,7 @@ const Video = () => {
   const videoId = useParams().id;
   const dispatch = useDispatch();
 
-  const { data: videoData, isLoading, error } = useGetRequestOnVideoUrlQuery(`find/${videoId}`);
+  const { data: videoData, isLoading, error } = useGetVideosQuery(`find/${videoId}`);
 
   useEffect(() => {
     videoData && dispatch(setVideo(videoData));

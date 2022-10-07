@@ -1,7 +1,7 @@
 import styled from "styled-components";
 // EXTRA
 import Card from "./Card";
-import { useGetRequestOnVideoUrlQuery } from "../../api/endpoints/video";
+import { useGetVideosQuery, useGetAllMyVideosQuery } from "../../api/endpoints/video";
 
 const VideosWrapper = styled.div`
   width: 100%;
@@ -39,12 +39,22 @@ const VideosWrapper = styled.div`
 `;
 
 const Videos = ({ url }) => {
-  const { data: videos, isLoading, error } = useGetRequestOnVideoUrlQuery(url);
+  let videos;
+  let isError;
+  if (url === "my-videos") {
+    const { data: fetchedVideos, error } = useGetAllMyVideosQuery(url);
+    videos = fetchedVideos;
+    isError = error;
+  } else {
+    const { data: fetchedVideos, error } = useGetVideosQuery(url);
+    videos = fetchedVideos;
+    isError = error;
+  }
 
   return (
     <>
-      {!videos?.length && !error && <div>No videos found.</div>}
-      {error && <div>Something went wrong. Please try again later.</div>}
+      {!videos?.length && !isError && <div>No videos found.</div>}
+      {isError && <div>Something went wrong. Please try again later.</div>}
       {videos?.length > 0 && (
         <VideosWrapper>{videos && videos.map(video => <Card key={video._id} videoData={video} />)}</VideosWrapper>
       )}

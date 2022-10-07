@@ -1,4 +1,5 @@
 import { useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Formik, Form } from "formik";
 import { useDispatch } from "react-redux";
@@ -105,6 +106,7 @@ const Upload = ({ show, setShow }) => {
   const [startUploadToMongoDB, { error }] = useUploadVideoToMongoDBMutation();
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const modalRef = useRef();
 
@@ -130,6 +132,8 @@ const Upload = ({ show, setShow }) => {
     // Clearing
     clearHookStates();
     actions.resetForm();
+    setShow(prev => !prev);
+    navigate("/my-videos");
   };
 
   // CLOSE MODAL
