@@ -26,7 +26,8 @@ body {
 
   /* HIDE SCROLLBAR WHEN MOBILE MENU IS OPENED */
   overflow: ${({ hideSCrollbar }) => hideSCrollbar && "hidden"};
-  padding-right: ${({ hideSCrollbar }) => hideSCrollbar && "var(--scrollbar-width)"};
+
+  /* padding-right: ${({ hideSCrollbar }) => hideSCrollbar && "var(--scrollbar-width)"}; */
 }
 
 a {

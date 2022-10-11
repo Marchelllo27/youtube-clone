@@ -22,7 +22,7 @@ const Container = styled.header`
   color: ${({ theme }) => theme.text};
   padding: 0 1rem;
   /* don't allow jump header when the scroll is hidden */
-  padding-right: ${({ hideScrollbar }) => hideScrollbar && "calc(1rem + var(--scrollbar-width))"};
+  /* padding-right: ${({ hideScrollbar }) => hideScrollbar && "calc(1rem + var(--scrollbar-width))"}; */
 `;
 
 export const Box = styled.div`
