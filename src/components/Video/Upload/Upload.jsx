@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, forwardRef, useImperativeHandle } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Formik, Form } from "formik";
@@ -59,12 +59,15 @@ const Container = styled.section`
   }
 `;
 
-const CloseButton = styled.div`
+const CloseButton = styled.button`
   position: absolute;
   top: 20px;
   right: 20px;
-  font-size: 1rem;
-  cursor: pointer;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
 `;
 
 const Title = styled.h1`
@@ -124,7 +127,6 @@ const Upload = ({ show, setShow }) => {
 
     const response = await startUploadToMongoDB(videoData);
 
-    console.log(response);
     if (response.error) return;
 
     dispatch(openNotification({ text: "Video uploaded succesfully!", status: "success" }));
@@ -180,7 +182,8 @@ const Upload = ({ show, setShow }) => {
             {({ handleChange, resetForm, isValid, isSubmitting }) => (
               <Form>
                 <Backdrop show={show} onClick={closeModal.bind(null, resetForm)} />
-                <CloseButton onClick={closeModal.bind(null, resetForm)}>
+
+                <CloseButton autoFocus onClick={closeModal.bind(null, resetForm)}>
                   <CloseIcon />
                 </CloseButton>
 
