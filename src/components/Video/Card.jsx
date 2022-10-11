@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { format } from "timeago.js";
+// MUI
+import Skeleton from "@mui/material/Skeleton";
 // EXTRA
 import nFormatter from "../../utils/nFormatter";
 import NotFoundImage from "../../assets/notfound.jpeg";
@@ -27,7 +29,7 @@ const Article = styled.article`
 `;
 
 const ImageBox = styled.div`
-  background-color: gray;
+  background-color: ${({ videoData }) => videoData && "grey"};
   height: ${({ type }) => (type === "sm" ? "6rem" : "11.25rem")};
   min-width: ${({ type }) => type === "sm" && "11rem"};
 `;
@@ -52,7 +54,8 @@ const ChannelImg = styled.img`
 `;
 
 const Texts = styled.div`
-  flex: ${({ type }) => type === "sm" && "1"};
+  /* flex: ${({ type }) => type === "sm" && "1"}; */
+  flex: 1;
 `;
 
 const Title = styled.h1`
@@ -82,14 +85,35 @@ const Card = ({ videoData, type }) => {
 
   const defaultChannelImg =
     "https://us.123rf.com/450wm/tuktukdesign/tuktukdesign1608/tuktukdesign160800043/61010830-user-icon-man-profile-businessman-avatar-person-glyph-vector-illustration.jpg?ver=6";
-  const defaultVideoImg =
-    "https://previews.123rf.com/images/kaymosk/kaymosk1804/kaymosk180400006/100130939-error-404-page-not-found-error-with-glitch-effect-on-screen-vector-illustration-for-your-design-.jpg";
+
   const createdTime = format(createdAt);
   const viewsAmount = nFormatter(views, 1);
 
   const onCardClick = () => {
     navidate(`/video/${_id}`);
   };
+
+  //  SKELETON LOADING
+  if (!videoData) {
+    return (
+      <Article type={type}>
+        <ImageBox videoData={false} type={type}>
+          <Skeleton variant="rectangular" sx={{ width: "100%", height: "100%", bgcolor: "grey.800" }} />
+        </ImageBox>
+
+        <Details type={type}>
+          <Skeleton variant="circular" width={40} height={40} sx={{ bgcolor: "grey.800" }} />
+          <Texts>
+            <Skeleton sx={{ width: "100%", bgcolor: "grey.800" }} />
+            <Skeleton sx={{ width: "70%", bgcolor: "grey.800" }} />
+            <Info>
+              <Skeleton sx={{ width: "40%", bgcolor: "grey.800" }} />
+            </Info>
+          </Texts>
+        </Details>
+      </Article>
+    );
+  }
 
   return (
     <Article type={type} onClick={onCardClick}>
@@ -110,4 +134,5 @@ const Card = ({ videoData, type }) => {
     </Article>
   );
 };
+
 export default Card;

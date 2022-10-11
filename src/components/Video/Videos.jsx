@@ -1,4 +1,6 @@
 import styled from "styled-components";
+// MUI
+import Skeleton from "@mui/material/Skeleton";
 // EXTRA
 import Card from "./Card";
 import { useGetVideosQuery, useGetAllMyVideosQuery } from "../../api/endpoints/video";
@@ -41,22 +43,39 @@ const VideosWrapper = styled.div`
 const Videos = ({ url }) => {
   let videos;
   let isError;
+  let videoIsLoading;
   if (url === "my-videos") {
-    const { data: fetchedVideos, error } = useGetAllMyVideosQuery(url);
+    const { data: fetchedVideos, error, isLoading } = useGetAllMyVideosQuery(url);
     videos = fetchedVideos;
     isError = error;
+    videoIsLoading = isLoading;
   } else {
-    const { data: fetchedVideos, error } = useGetVideosQuery(url);
+    const { data: fetchedVideos, error, isLoading } = useGetVideosQuery(url);
     videos = fetchedVideos;
     isError = error;
+    videoIsLoading = isLoading;
   }
 
   return (
     <>
-      {!videos?.length && !isError && <div>No videos found.</div>}
       {isError && <div>Something went wrong. Please try again later.</div>}
-      {videos?.length > 0 && (
-        <VideosWrapper>{videos && videos.map(video => <Card key={video._id} videoData={video} />)}</VideosWrapper>
+
+      {!videos?.length && !isError && <div>No videos found.</div>}
+
+      {videoIsLoading && (
+        <VideosWrapper>
+          {Array.from(new Array(12)).map(index => (
+            <Card key={index} videoData={false} />
+          ))}
+        </VideosWrapper>
+      )}
+
+      {videos && (
+        <VideosWrapper>
+          {videos.map(video => (
+            <Card key={video?._id} videoData={video} />
+          ))}
+        </VideosWrapper>
       )}
     </>
   );
