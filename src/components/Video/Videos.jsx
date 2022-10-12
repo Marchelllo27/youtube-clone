@@ -64,7 +64,7 @@ const Videos = ({ url }) => {
 
       {videoIsLoading && (
         <VideosWrapper>
-          {Array.from(new Array(12)).map(index => (
+          {Array.from(new Array(12)).map((item, index) => (
             <Card key={index} videoData={false} />
           ))}
         </VideosWrapper>

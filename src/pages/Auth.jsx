@@ -10,6 +10,8 @@ import Details from "../components/Auth/Details";
 import { useAuthUserMutation } from "../api/endpoints/auth";
 import { loginUser } from "../store/auth-slice";
 import { openNotification } from "../store/ui-slice";
+import { auth, provider } from "../config/firebase";
+import { signInWithPopup } from "firebase/auth";
 
 const Container = styled.div`
   position: relative;
@@ -38,6 +40,7 @@ const Auth = () => {
     confirmPassword: "",
   };
 
+  //  SUBMIT FORM HANDLER
   const submitFormHandler = async (values, actions) => {
     let userData;
     let path;
@@ -67,6 +70,23 @@ const Auth = () => {
     }
   };
 
+  // GOOGLE AUTH
+
+  const signInWithGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+
+      const userData = { name: result.user.displayName, email: result.user.email, img: result.user.photoURL };
+      const response = await startAuthRequest({ userData, path: "google" });
+
+      if (response.data.user.token) {
+        dispatch(loginUser({ token: response.data.user.token, ...response.data.user._doc }));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container>
       <Formik
@@ -79,6 +99,7 @@ const Auth = () => {
             showLoginForm={showLoginForm}
             setShowLoginForm={setShowLoginForm}
             formActions={formActions}
+            signWithGoogle={signInWithGoogle}
             error={error}
           />
         )}

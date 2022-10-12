@@ -39,6 +39,7 @@ const LittleMenu = () => {
   const mediumScreens = useMediaQuery("(min-width:48rem) and (max-width:79.99rem)", { noSsr: true });
 
   const themeModeHandler = () => {
+    localStorage.setItem("darkTheme", !isDarkTheme);
     dispatch(toggleTheme());
   };
 
@@ -58,7 +59,7 @@ const LittleMenu = () => {
           <MenuItem text="Home" icon={<HomeIcon />} to="/" tooltipTitle="Home" />
           <MenuItem text="Explore" icon={<ExploreOutlinedIcon />} to="/trend" tooltipTitle="Explore" />
           <MenuItem text="Subscriptions" icon={<SubscriptionsOutlinedIcon />} to="/sub" tooltipTitle="Subscriptions" />
-          <MenuItem text="My videos" icon={<PlayCircleOutlineIcon />} to="/my-videos"  tooltipTitle="My own videos"/>
+          <MenuItem text="My videos" icon={<PlayCircleOutlineIcon />} to="/my-videos" tooltipTitle="My own videos" />
           <MenuItem text="Originals" icon={<YouTubeIcon />} to="/originals" tooltipTitle="Originals" />
           <MenuItem text="MarkTube Music" icon={<QueueMusicIcon />} to="/music" tooltipTitle="MarkTube Music" />
           <MenuItem text="Library" icon={<LibraryBooksIcon />} to="/library" tooltipTitle="Library" />

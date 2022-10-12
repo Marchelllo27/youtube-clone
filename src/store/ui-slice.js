@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const darkThemeFromStorage = localStorage.getItem("darkTheme");
+
 const initialState = {
   smallMenuIsOpen: false,
   mainMenuIsOpen: false,
-  isDarkTheme: true,
+  isDarkTheme: darkThemeFromStorage === "false" ? false : true,
   showMobileMenu: false,
   showNotification: false,
   notificationText: "",

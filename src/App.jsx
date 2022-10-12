@@ -42,7 +42,6 @@ const App = () => {
 
     return () => {
       if (timer) {
-        console.log("cleared!");
         clearTimeout(timer);
       }
     };

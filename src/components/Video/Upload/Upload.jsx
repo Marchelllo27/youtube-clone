@@ -67,7 +67,7 @@ const CloseButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: ${({ theme }) => theme.text};
 `;
 
 const Title = styled.h1`

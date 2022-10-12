@@ -18,7 +18,7 @@ import FeedbackIcon from "@mui/icons-material/Feedback";
 // EXTRA
 import MenuItem from "./MenuItem";
 import Subscriptions from "./Subscriptions";
-import { toggleTheme, toggleMainMenu } from "../../store/ui-slice";
+import { toggleTheme } from "../../store/ui-slice";
 import Hr from "../Shared/Hr";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
@@ -88,6 +88,7 @@ const MainMenu = ({ mobileVersion }) => {
   const dispatch = useDispatch();
 
   const themeModeHandler = () => {
+    localStorage.setItem("darkTheme", !isDarkTheme);
     dispatch(toggleTheme());
   };
 

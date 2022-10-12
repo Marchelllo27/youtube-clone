@@ -60,13 +60,16 @@ const Actions = () => {
     <CustomToolTip title="Avatar">
       <Avatar
         src={user?.img}
-        alt="User icon."
+        alt={user?.name || "User icon."}
         sx={{ width: "2rem", height: "2rem", bgcolor: "#373737", cursor: "pointer" }}
         ref={iconRef}
         onClick={toggleShowAccountMenu}
+        imgProps={{ referrerPolicy: "no-referrer" }}
       />
     </CustomToolTip>
   );
+
+  <Avatar src="..." alt="fallback" imgProps={{ referrerPolicy: "no-referrer" }} />;
 
   const SignInButton = (
     <CustomToolTip title="Registration">
