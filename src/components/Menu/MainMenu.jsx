@@ -1,27 +1,9 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-// MUI
-import HomeIcon from "@mui/icons-material/Home";
-import ExploreOutlinedIcon from "@mui/icons-material/ExploreOutlined";
-import SubscriptionsOutlinedIcon from "@mui/icons-material/SubscriptionsOutlined";
-import YouTubeIcon from "@mui/icons-material/YouTube";
-import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
-import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
-import DownloadIcon from "@mui/icons-material/Download";
-import HistoryOutlinedIcon from "@mui/icons-material/HistoryOutlined";
-import QueueMusicIcon from "@mui/icons-material/QueueMusic";
-import WbSunnyIcon from "@mui/icons-material/WbSunny";
-import NightlightRoundIcon from "@mui/icons-material/NightlightRound";
-import SettingsIcon from "@mui/icons-material/Settings";
-import HelpIcon from "@mui/icons-material/Help";
-import FeedbackIcon from "@mui/icons-material/Feedback";
+
 // EXTRA
-import MenuItem from "./MenuItem";
-import Subscriptions from "./Subscriptions";
-import { toggleTheme } from "../../store/ui-slice";
 import Hr from "../Shared/Hr";
-import LoginButton from "./LoginButton";
-import LogoutButton from "./LogoutButton";
+import MenuItems from "./MenuItems";
 
 const Container = styled.aside`
   position: ${props => (props.mobileVersion ? "static" : "fixed")};
@@ -64,11 +46,6 @@ const Container = styled.aside`
   }
 `;
 
-const MenuLinks = styled.ul`
-  display: flex;
-  flex-direction: column;
-`;
-
 const MenuFooter = styled.footer`
   margin-left: var(--menu-item-paddingLeft);
   font-size: 0.8rem;
@@ -83,46 +60,11 @@ const Copyright = styled.small`
 
 const MainMenu = ({ mobileVersion }) => {
   const { isDarkTheme } = useSelector(state => state.ui);
-  const { user } = useSelector(state => state.auth);
-
-  const dispatch = useDispatch();
-
-  const themeModeHandler = () => {
-    localStorage.setItem("darkTheme", !isDarkTheme);
-    dispatch(toggleTheme());
-  };
 
   return (
     <Container darkMode={isDarkTheme} mobileVersion={mobileVersion}>
-      <MenuLinks>
-        <MenuItem text="Home" icon={<HomeIcon />} to="/" forMainMenu />
-        <MenuItem text="Explore" icon={<ExploreOutlinedIcon />} to="/trend" forMainMenu />
-        <MenuItem text="Subscriptions" icon={<SubscriptionsOutlinedIcon />} to="/sub" forMainMenu />
-        {user && <MenuItem text="My videos" icon={<PlayCircleOutlineIcon />} to="/my-videos" forMainMenu />}
-        <MenuItem text="Originals" icon={<YouTubeIcon />} to="/originals" tooltipTitle="Originals" forMainMenu />
-        <Hr />
-        <MenuItem text="MarkTube Music" icon={<QueueMusicIcon />} to="/music" forMainMenu />
-        <MenuItem text="Library" icon={<LibraryBooksIcon />} to="/library" tooltipTitle="Library" forMainMenu />
-        <MenuItem text="History" icon={<HistoryOutlinedIcon />} to="/history" tooltipTitle="History" forMainMenu />
-        <MenuItem text="Downloads" icon={<DownloadIcon />} to="/downloads" forMainMenu />
-        <Hr />
-        {!user && <LoginButton />}
-        {user && <LogoutButton />}
-      </MenuLinks>
-      <Hr />
-      <Subscriptions />
-      <Hr />
-      <MenuLinks>
-        <MenuItem
-          text={isDarkTheme ? "Light Mode" : "Dark Mode"}
-          icon={isDarkTheme ? <WbSunnyIcon /> : <NightlightRoundIcon />}
-          onClick={themeModeHandler}
-          forMainMenu
-        />
-        <MenuItem text="Settings" icon={<SettingsIcon />} to="/settings" forMainMenu />
-        <MenuItem text="Help" icon={<HelpIcon />} to="/help" forMainMenu />
-        <MenuItem text="Send feedback" icon={<FeedbackIcon />} to="/feedback" forMainMenu />
-      </MenuLinks>
+
+      <MenuItems />
 
       <Hr />
 

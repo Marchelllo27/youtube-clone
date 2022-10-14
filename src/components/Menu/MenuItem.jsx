@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 // EXTRA
 import Tooltip from "../Shared/Tooltip.jsx";
-import { toggleMobileMenu, toggleMainMenu } from "../../store/ui-slice";
+import { toggleMobileMenu } from "../../store/ui-slice";
 
 const Container = styled.li`
   display: flex;

@@ -60,7 +60,7 @@ const Header = styled.header`
 const MobileMenu = () => {
   const { showMobileMenu } = useSelector(state => state.ui);
   const isBigScreens = useMediaQuery("(min-width: 80rem)", { noSsr: true });
-  const reference = useRef();
+  const containerRef = useRef();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -70,8 +70,8 @@ const MobileMenu = () => {
   }, [isBigScreens]);
 
   const MobMenu = (
-    <CSSTransition in={showMobileMenu} timeout={150} classNames="fade" mountOnEnter unmountOnExit nodeRef={reference}>
-      <Container ref={reference}>
+    <CSSTransition in={showMobileMenu} timeout={150} classNames="fade" mountOnEnter unmountOnExit nodeRef={containerRef}>
+      <Container ref={containerRef}>
         <Header>
           <Box>
             <HamburgerMenu />

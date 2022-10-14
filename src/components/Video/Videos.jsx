@@ -70,7 +70,7 @@ const Videos = ({ url }) => {
         </VideosWrapper>
       )}
 
-      {videos && (
+      {videos?.length > 0 && (
         <VideosWrapper>
           {videos.map(video => (
             <Card key={video?._id} videoData={video} />

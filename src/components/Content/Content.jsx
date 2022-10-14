@@ -13,6 +13,7 @@ const Trend = React.lazy(() => import("../../pages/Trend"));
 const Sub = React.lazy(() => import("../../pages/Sub"));
 const Auth = React.lazy(() => import("../../pages/Auth"));
 const MyVideos = React.lazy(() => import("../../pages/MyVideos"));
+const AllUserVideo = React.lazy(() => import("../../pages/AllSingleUserVideos"));
 
 const Container = styled.section`
   display: flex;
@@ -47,6 +48,7 @@ const Content = () => {
           {/* AUTHENTICATED USER ROUTES */}
           <Route element={<ProtectedRoute isAllowed={user} redirectPath="/auth" />}>
             <Route path="/my-videos" element={<MyVideos />} />
+            <Route path="/all-user-videos/:id" element={<AllUserVideo />} />
             <Route path="/downloads" element={<Demonstrate />} />
             <Route path="/sub" element={<Sub />} />
           </Route>

@@ -1,7 +1,8 @@
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+// MUI
 import { Avatar } from "@mui/material";
-// EXTRA
-
 
 const Container = styled.ul`
   display: flex;
@@ -27,40 +28,27 @@ const Name = styled.p`
 `;
 
 const Channels = () => {
+  const { user } = useSelector(state => state.auth);
+  const navigate = useNavigate();
+
+  const onClickChannelHandler = (userId, event) => {
+    navigate(`/all-user-videos/${userId}`);
+  };
+
   return (
     <Container>
-      <Channel>
-        <Avatar src="https://mpng.subpng.com/20180329/zue/kisspng-computer-icons-user-profile-person-5abd85306ff7f7.0592226715223698404586.jpg" sx={{ width: 24, height: 24 }} alt="Channel logo" />
-        <Name>Tofan Marc</Name>
-      </Channel>
-      <Channel>
-        <Avatar src="https://mpng.subpng.com/20180329/zue/kisspng-computer-icons-user-profile-person-5abd85306ff7f7.0592226715223698404586.jpg" sx={{ width: 24, height: 24 }} alt="Channel logo" />
-        <Name>Tofan Nadia</Name>
-      </Channel>
-      <Channel>
-        <Avatar src="https://mpng.subpng.com/20180329/zue/kisspng-computer-icons-user-profile-person-5abd85306ff7f7.0592226715223698404586.jpg" sx={{ width: 24, height: 24 }} alt="Channel logo" />
-        <Name>Zelenskiy</Name>
-      </Channel>
-      <Channel>
-        <Avatar src="https://mpng.subpng.com/20180329/zue/kisspng-computer-icons-user-profile-person-5abd85306ff7f7.0592226715223698404586.jpg" sx={{ width: 24, height: 24 }} alt="Channel logo" />
-        <Name>Zelenskiy</Name>
-      </Channel>
-      <Channel>
-        <Avatar src="https://mpng.subpng.com/20180329/zue/kisspng-computer-icons-user-profile-person-5abd85306ff7f7.0592226715223698404586.jpg" sx={{ width: 24, height: 24 }} alt="Channel logo" />
-        <Name>Zelenskiy</Name>
-      </Channel>
-      <Channel>
-        <Avatar src="https://mpng.subpng.com/20180329/zue/kisspng-computer-icons-user-profile-person-5abd85306ff7f7.0592226715223698404586.jpg" sx={{ width: 24, height: 24 }} alt="Channel logo" />
-        <Name>Zelenskiy</Name>
-      </Channel>
-      <Channel>
-        <Avatar src="https://mpng.subpng.com/20180329/zue/kisspng-computer-icons-user-profile-person-5abd85306ff7f7.0592226715223698404586.jpg" sx={{ width: 24, height: 24 }} alt="Channel logo" />
-        <Name>Zelenskiy</Name>
-      </Channel>
-      <Channel>
-        <Avatar src="https://mpng.subpng.com/20180329/zue/kisspng-computer-icons-user-profile-person-5abd85306ff7f7.0592226715223698404586.jpg" sx={{ width: 24, height: 24 }} alt="Channel logo" />
-        <Name>Zelenskiy</Name>
-      </Channel>
+      {user.subscribedUsers.length <= 0 && (
+        <Channel>
+          <Name>No subscriptions</Name>
+        </Channel>
+      )}
+      {user.subscribedUsers.length > 0 &&
+        user.subscribedUsers.map(user => (
+          <Channel key={user._id} onClick={onClickChannelHandler.bind(null, user._id)}>
+            <Avatar src={user.img} sx={{ width: 24, height: 24 }} alt={user.name} />
+            <Name>{user.name}</Name>
+          </Channel>
+        ))}
     </Container>
   );
 };

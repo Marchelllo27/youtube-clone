@@ -9,7 +9,7 @@ import MainMenu from "./MainMenu";
 import { toggleMainMenu, toggleSmallMenu } from "../../store/ui-slice";
 
 const Menu = () => {
-  const { mainMenuIsOpen, smallMenuIsOpen } = useSelector(state => state.ui);
+  const { mainMenuIsOpen, smallMenuIsOpen, showMobileMenu } = useSelector(state => state.ui);
 
   const dispatch = useDispatch();
 
@@ -38,7 +38,7 @@ const Menu = () => {
   return (
     <>
       <MobileMenu />
-      {smallMenuIsOpen && <LittleMenu />}
+      {smallMenuIsOpen && !showMobileMenu && <LittleMenu />}
       {mainMenuIsOpen && <MainMenu />}
     </>
   );
