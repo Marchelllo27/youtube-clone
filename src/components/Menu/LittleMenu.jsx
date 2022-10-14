@@ -1,8 +1,6 @@
-import { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 // MUI
-import useMediaQuery from "@mui/material/useMediaQuery";
 import HomeIcon from "@mui/icons-material/Home";
 import ExploreOutlinedIcon from "@mui/icons-material/ExploreOutlined";
 import SubscriptionsOutlinedIcon from "@mui/icons-material/SubscriptionsOutlined";
@@ -15,7 +13,7 @@ import QueueMusicIcon from "@mui/icons-material/QueueMusic";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 // EXTRA
 import MenuItem from "./MenuItem";
-import { toggleTheme, toggleSmallMenu } from "../../store/ui-slice";
+import { toggleTheme } from "../../store/ui-slice";
 
 const Container = styled.aside`
   position: fixed;
@@ -34,47 +32,33 @@ const MenuLinks = styled.ul`
 `;
 
 const LittleMenu = () => {
-  const { smallMenuIsOpen, isDarkTheme } = useSelector(state => state.ui);
+  const { isDarkTheme } = useSelector(state => state.ui);
   const dispatch = useDispatch();
-  const mediumScreens = useMediaQuery("(min-width:48rem) and (max-width:79.99rem)", { noSsr: true });
 
   const themeModeHandler = () => {
     localStorage.setItem("darkTheme", !isDarkTheme);
     dispatch(toggleTheme());
   };
 
-  useEffect(() => {
-    if (mediumScreens && !smallMenuIsOpen) {
-      dispatch(toggleSmallMenu());
-    }
-    if (!mediumScreens && smallMenuIsOpen) {
-      dispatch(toggleSmallMenu());
-    }
-  }, [mediumScreens]);
-
-  if (smallMenuIsOpen) {
-    return (
-      <Container>
-        <MenuLinks>
-          <MenuItem text="Home" icon={<HomeIcon />} to="/" tooltipTitle="Home" />
-          <MenuItem text="Explore" icon={<ExploreOutlinedIcon />} to="/trend" tooltipTitle="Explore" />
-          <MenuItem text="Subscriptions" icon={<SubscriptionsOutlinedIcon />} to="/sub" tooltipTitle="Subscriptions" />
-          <MenuItem text="My videos" icon={<PlayCircleOutlineIcon />} to="/my-videos" tooltipTitle="My own videos" />
-          <MenuItem text="Originals" icon={<YouTubeIcon />} to="/originals" tooltipTitle="Originals" />
-          <MenuItem text="MarkTube Music" icon={<QueueMusicIcon />} to="/music" tooltipTitle="MarkTube Music" />
-          <MenuItem text="Library" icon={<LibraryBooksIcon />} to="/library" tooltipTitle="Library" />
-          <MenuItem text="Downloads" icon={<DownloadIcon />} to="/downloads" tooltipTitle="Downloads" />
-          <MenuItem
-            text={isDarkTheme ? "Light Mode" : "Dark Mode"}
-            icon={isDarkTheme ? <WbSunnyIcon /> : <NightlightRoundIcon />}
-            tooltipTitle={isDarkTheme ? "Light Mode" : "Dark Mode"}
-            onClick={themeModeHandler}
-          />
-        </MenuLinks>
-      </Container>
-    );
-  }
-
-  return null;
+  return (
+    <Container>
+      <MenuLinks>
+        <MenuItem text="Home" icon={<HomeIcon />} to="/" tooltipTitle="Home" />
+        <MenuItem text="Explore" icon={<ExploreOutlinedIcon />} to="/trend" tooltipTitle="Explore" />
+        <MenuItem text="Subscriptions" icon={<SubscriptionsOutlinedIcon />} to="/sub" tooltipTitle="Subscriptions" />
+        <MenuItem text="My videos" icon={<PlayCircleOutlineIcon />} to="/my-videos" tooltipTitle="My own videos" />
+        <MenuItem text="Originals" icon={<YouTubeIcon />} to="/originals" tooltipTitle="Originals" />
+        <MenuItem text="MarkTube Music" icon={<QueueMusicIcon />} to="/music" tooltipTitle="MarkTube Music" />
+        <MenuItem text="Library" icon={<LibraryBooksIcon />} to="/library" tooltipTitle="Library" />
+        <MenuItem text="Downloads" icon={<DownloadIcon />} to="/downloads" tooltipTitle="Downloads" />
+        <MenuItem
+          text={isDarkTheme ? "Light Mode" : "Dark Mode"}
+          icon={isDarkTheme ? <WbSunnyIcon /> : <NightlightRoundIcon />}
+          tooltipTitle={isDarkTheme ? "Light Mode" : "Dark Mode"}
+          onClick={themeModeHandler}
+        />
+      </MenuLinks>
+    </Container>
+  );
 };
 export default LittleMenu;

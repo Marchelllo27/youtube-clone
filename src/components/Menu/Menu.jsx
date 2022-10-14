@@ -6,14 +6,15 @@ import { useMediaQuery } from "@mui/material";
 import MobileMenu from "./MobileMenu";
 import LittleMenu from "./LittleMenu";
 import MainMenu from "./MainMenu";
-import { toggleMainMenu } from "../../store/ui-slice";
+import { toggleMainMenu, toggleSmallMenu } from "../../store/ui-slice";
 
 const Menu = () => {
-  const { mainMenuIsOpen } = useSelector(state => state.ui);
+  const { mainMenuIsOpen, smallMenuIsOpen } = useSelector(state => state.ui);
 
   const dispatch = useDispatch();
 
   const bigScreens = useMediaQuery("(min-width:80rem)", { noSsr: true });
+  const mediumScreens = useMediaQuery("(min-width:48rem) and (max-width:79.99rem)", { noSsr: true });
 
   useEffect(() => {
     if (bigScreens) {
@@ -25,10 +26,19 @@ const Menu = () => {
     }
   }, [bigScreens]);
 
+  useEffect(() => {
+    if (mediumScreens && !smallMenuIsOpen) {
+      dispatch(toggleSmallMenu());
+    }
+    if (!mediumScreens && smallMenuIsOpen) {
+      dispatch(toggleSmallMenu());
+    }
+  }, [mediumScreens]);
+
   return (
     <>
       <MobileMenu />
-      <LittleMenu />
+      {smallMenuIsOpen && <LittleMenu />}
       {mainMenuIsOpen && <MainMenu />}
     </>
   );
