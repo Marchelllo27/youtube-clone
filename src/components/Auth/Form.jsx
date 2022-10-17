@@ -69,7 +69,7 @@ const Container = ({ setShowLoginForm, showLoginForm, formActions, error, signWi
     <Form>
       <Title title={title} subtitle="to continue to MaraTube" />
 
-      {error && <ErrorMessage>{error.data.message}</ErrorMessage>}
+      {error && <ErrorMessage>{error.data?.message}</ErrorMessage>}
 
       <CustomInput id="username" type="text" name="username" placeholder="username" />
 

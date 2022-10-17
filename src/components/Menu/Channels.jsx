@@ -1,8 +1,10 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 // MUI
 import { Avatar } from "@mui/material";
+// EXTRA
+import { toggleMobileMenu } from "../../store/ui-slice";
 
 const Container = styled.ul`
   display: flex;
@@ -29,10 +31,15 @@ const Name = styled.p`
 
 const Channels = () => {
   const { user } = useSelector(state => state.auth);
+  const { showMobileMenu } = useSelector(state => state.ui);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onClickChannelHandler = (userId, event) => {
     navigate(`/all-user-videos/${userId}`);
+    if (showMobileMenu) {
+      dispatch(toggleMobileMenu());
+    }
   };
 
   return (
@@ -45,7 +52,12 @@ const Channels = () => {
       {user.subscribedUsers.length > 0 &&
         user.subscribedUsers.map(user => (
           <Channel key={user._id} onClick={onClickChannelHandler.bind(null, user._id)}>
-            <Avatar src={user.img} sx={{ width: 24, height: 24 }} alt={user.name} />
+            <Avatar
+              src={user.img}
+              sx={{ width: 24, height: 24 }}
+              alt={user.name}
+              imgProps={{ referrerPolicy: "no-referrer" }}
+            />
             <Name>{user.name}</Name>
           </Channel>
         ))}

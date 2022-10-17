@@ -69,8 +69,6 @@ const Actions = () => {
     </CustomToolTip>
   );
 
-  <Avatar src="..." alt="fallback" imgProps={{ referrerPolicy: "no-referrer" }} />;
-
   const SignInButton = (
     <CustomToolTip title="Registration">
       <Button to="/auth" icon={<AccountCircleIcon />}>

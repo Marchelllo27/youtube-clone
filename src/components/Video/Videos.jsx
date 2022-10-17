@@ -58,10 +58,11 @@ const Videos = ({ url }) => {
 
   return (
     <>
-      {isError && <div>Something went wrong. Please try again later.</div>}
+      {isError && !videoIsLoading && <div>Something went wrong. Please try again later.</div>}
 
       {!videos?.length && !isError && <div>No videos found.</div>}
 
+      {/* SKELETON LOADING */}
       {videoIsLoading && (
         <VideosWrapper>
           {Array.from(new Array(12)).map((item, index) => (

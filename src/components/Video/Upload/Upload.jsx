@@ -1,4 +1,4 @@
-import { useRef, useEffect, forwardRef, useImperativeHandle } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Formik, Form } from "formik";
@@ -104,10 +104,11 @@ const ErrorMessage = styled.small`
 `;
 
 const Upload = ({ show, setShow }) => {
-  const { startUpload, filesUrl, videoPerc, imgPerc, clearHookStates, deleteAllUploadedFiles, errorMsg } =
+  const { startUpload, filesUrl, videoPerc, imgPerc, errorMsg, clearHookStates, deleteAllUploadedFiles, setErrorMsg } =
     useUploadToFirebase();
   const [startUploadToMongoDB, { error }] = useUploadVideoToMongoDBMutation();
 
+  const [videoSizeError, setVideoSizeError] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -148,12 +149,25 @@ const Upload = ({ show, setShow }) => {
 
   // ON FILE INPUTS CHANGE
   const fileChangeHandler = async (handleChange, e) => {
-    // still allow formik to set filepicker value to form state.
+    // still allow formik to set file value to the form state.
     handleChange(e);
 
-    const filename = e.target.name;
     const file = e.target.files[0];
-    startUpload(file, filename);
+    const urlType = e.target.name;
+
+    // CHECK FILE SIZE 
+    // 1000mb = 1 00 00 00 00 0 byte
+    const oneGigaByte = 1000000000;
+
+    if (urlType === "videoUrl" && file.size > oneGigaByte) {
+      setErrorMsg("Oops, it's too big video :) max 1GB");
+      return;
+    } else if (urlType === "imgUrl" && file.size > 15000000) {
+      setErrorMsg("Oops, it's too big image :) max 15MB");
+      return;
+    }
+
+    startUpload(file, urlType);
   };
 
   // DELETE UPLOADED VIDEO FROM FIREBASE IF PAGE WAS RELOADED or TAB CLOSED
@@ -172,7 +186,7 @@ const Upload = ({ show, setShow }) => {
     imgUrl: "",
   };
 
-  const errorOccured = !!error?.data || !!errorMsg;
+  const errorOccured = !!error?.data || !!errorMsg || videoSizeError;
 
   const UploadComponent = (
     <>
@@ -190,7 +204,9 @@ const Upload = ({ show, setShow }) => {
                 <Title>Upload a new Video</Title>
 
                 {errorOccured && (
-                  <ErrorMessage>{error?.data?.message || error?.data?.errors[0]?.msg || errorMsg}</ErrorMessage>
+                  <ErrorMessage>
+                    {error?.data?.message || error?.data?.errors[0]?.msg || errorMsg || videoSizeError}
+                  </ErrorMessage>
                 )}
 
                 <VideoFieldset

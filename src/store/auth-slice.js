@@ -29,7 +29,7 @@ const authSlice = createSlice({
       state.user.subscribedUsers.push(action.payload);
     },
     unsubscribe: (state, action) => {
-      const indexToDelete = state.user.subscribedUsers.findIndex(id => id === action.payload);
+      const indexToDelete = state.user.subscribedUsers.findIndex(channel => channel._id === action.payload);
       indexToDelete >= 0 && state.user.subscribedUsers.splice(indexToDelete, 1);
     },
   },

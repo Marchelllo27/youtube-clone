@@ -1,6 +1,7 @@
-// import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+// MUI
+import { Avatar } from "@mui/material";
 // EXTRA
 import { useSubscriptionToChannelMutation } from "../../api/endpoints/user";
 import nFormatter from "../../utils/nFormatter";
@@ -28,7 +29,7 @@ const ChannelInfo = styled.div`
   gap: 0.5rem;
 `;
 
-const ChannelImage = styled.img`
+const ChannelImage = styled(Avatar)`
   width: 50px;
   height: 50px;
   border-radius: 50px;
@@ -70,11 +71,11 @@ const Channel = () => {
   const { user } = useSelector(state => state.auth);
   const video = useSelector(state => state.video.videoData);
   const dispatch = useDispatch();
-  const [startSubscription, { error }] = useSubscriptionToChannelMutation();
+  const [startSubscription] = useSubscriptionToChannelMutation();
 
   const { userId: videoOwnerData, desc } = video || {};
 
-  const isSubscribedAlready = user?.subscribedUsers?.includes(videoOwnerData?._id);
+  const isSubscribedAlready = user?.subscribedUsers?.find(video => video._id === videoOwnerData?._id);
 
   // SUBSCRIBE HANDLER
   const subscriptionHandler = async () => {
@@ -88,7 +89,14 @@ const Channel = () => {
 
     try {
       await startSubscription(`${url}/${videoOwnerData?._id}`).unwrap();
-      isSubscribedAlready ? dispatch(unsubscribe(videoOwnerData?._id)) : dispatch(subscribe(videoOwnerData?._id));
+
+      const channelInfo = {
+        name: videoOwnerData?.name,
+        img: videoOwnerData?.img,
+        _id: videoOwnerData?._id,
+      };
+
+      isSubscribedAlready ? dispatch(unsubscribe(videoOwnerData?._id)) : dispatch(subscribe(channelInfo));
 
       const notificationType = url === "unsub" ? "unsubscribed" : "subscribed";
 
@@ -105,7 +113,11 @@ const Channel = () => {
   return (
     <Container>
       <ChannelInfo>
-        <ChannelImage src={videoOwnerData?.img} />
+        <ChannelImage
+          src={videoOwnerData?.img}
+          alt={videoOwnerData?.name}
+          imgProps={{ referrerPolicy: "no-referrer" }}
+        />
         <ChannelDetails>
           <ChannelName>{videoOwnerData?.name}</ChannelName>
           <ChannelCounter>

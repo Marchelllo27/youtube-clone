@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { format } from "timeago.js";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 // MUI
 import Skeleton from "@mui/material/Skeleton";
+import { Avatar } from "@mui/material";
 // EXTRA
 import nFormatter from "../../utils/nFormatter";
 import NotFoundImage from "../../assets/notfound.jpeg";
@@ -34,7 +37,7 @@ const ImageBox = styled.div`
   min-width: ${({ type }) => type === "sm" && "11rem"};
 `;
 
-const Image = styled.img`
+const Image = styled(LazyLoadImage)`
   width: 100%;
   height: 100%;
   display: block;
@@ -46,7 +49,7 @@ const Details = styled.div`
   width: 100%;
   gap: 0.5rem;
 `;
-const ChannelImg = styled.img`
+const ChannelImg = styled(Avatar)`
   display: ${({ type }) => type === "sm" && "none"};
   height: 2.2rem;
   width: 2.2rem;
@@ -61,9 +64,8 @@ const Texts = styled.div`
 const Title = styled.h1`
   font-size: 0.9rem;
   font-weight: 500;
-
   overflow: hidden;
-  /* max-width: 100%; */
+
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -81,10 +83,7 @@ const Info = styled.div`
 
 const Card = ({ videoData, type }) => {
   const navidate = useNavigate();
-  const { imgUrl, title, createdAt, views, _id, userId } = videoData || {};
-
-  const defaultChannelImg =
-    "https://us.123rf.com/450wm/tuktukdesign/tuktukdesign1608/tuktukdesign160800043/61010830-user-icon-man-profile-businessman-avatar-person-glyph-vector-illustration.jpg?ver=6";
+  const { imgUrl, title, createdAt, views, _id, userId: owner } = videoData || {};
 
   const createdTime = format(createdAt);
   const viewsAmount = nFormatter(views, 1);
@@ -118,14 +117,24 @@ const Card = ({ videoData, type }) => {
   return (
     <Article type={type} onClick={onCardClick}>
       <ImageBox type={type}>
-        <Image src={NotFoundImage} alt={title} type={type} />
+        <Image
+          src="https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+          // src={imgUrl}
+          alt={title}
+          width="100%"
+          height="100%"
+          type={type}
+          onError={e => (e.currentTarget.src = NotFoundImage)}
+          effect="blur"
+          placeholderSrc={NotFoundImage}
+        />
       </ImageBox>
 
       <Details type={type}>
-        <ChannelImg src={userId?.img ? userId?.img : defaultChannelImg} alt="channel logo" type={type} />
+        <ChannelImg src={owner?.img} alt={owner?.name} type={type} imgProps={{ referrerPolicy: "no-referrer" }} />
         <Texts>
           <Title>{title}</Title>
-          <ChannelName>{userId?.name}</ChannelName>
+          <ChannelName>{owner?.name}</ChannelName>
           <Info>
             {viewsAmount} views &#9679; {createdTime}
           </Info>

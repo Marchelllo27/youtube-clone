@@ -85,6 +85,7 @@ const useUploadToFirebase = () => {
     errorMsg,
     clearHookStates,
     deleteAllUploadedFiles,
+    setErrorMsg,
   };
 };
 
