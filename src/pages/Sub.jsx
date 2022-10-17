@@ -1,4 +1,7 @@
+// EXTRA
+import Videos from "../components/Video/Videos";
+
 const Sub = () => {
-  return <div>Sub</div>;
+  return <Videos url="sub" />;
 };
 export default Sub;

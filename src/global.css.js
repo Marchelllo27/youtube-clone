@@ -21,9 +21,13 @@ body {
   --menu-item-letter-spacing: 0.5px;
   --scrollbar-width: 0.5rem;
 
+  --color-error: #f47373;
+  --color-success: #64e364;
+
   /* HIDE SCROLLBAR WHEN MOBILE MENU IS OPENED */
   overflow: ${({ hideSCrollbar }) => hideSCrollbar && "hidden"};
-  padding-right: ${({ hideSCrollbar }) => hideSCrollbar && "var(--scrollbar-width)"};
+
+  /* padding-right: ${({ hideSCrollbar }) => hideSCrollbar && "var(--scrollbar-width)"}; */
 }
 
 a {
@@ -39,11 +43,6 @@ ol {
 button {
   cursor: pointer;
   border: none;
-}
-
-img {
-  width: 100%;
-  object-fit: cover;
 }
 
 /* SCROLL BAR */

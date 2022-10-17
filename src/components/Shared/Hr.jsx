@@ -16,7 +16,7 @@ export const ContainerHr = styled.hr`
   }
 `;
 
-const Hr = ({ grid }) => {
-  return <ContainerHr gridBigScreen={grid} />;
+const Hr = ({ grid, ...props }) => {
+  return <ContainerHr {...props} gridBigScreen={grid} />;
 };
 export default Hr;

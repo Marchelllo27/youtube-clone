@@ -12,6 +12,7 @@ import Logo from "../Header/Logo";
 import HamburgerMenu from "../Header/HamburgerMenu";
 import Backdrop from "../Shared/Backdrop";
 import { toggleMobileMenu } from "../../store/ui-slice";
+import CustomCreatePortal from "../Shared/CustomCreatePortal";
 
 const Container = styled.aside`
   position: fixed;
@@ -59,7 +60,7 @@ const Header = styled.header`
 const MobileMenu = () => {
   const { showMobileMenu } = useSelector(state => state.ui);
   const isBigScreens = useMediaQuery("(min-width: 80rem)", { noSsr: true });
-  const reference = useRef();
+  const containerRef = useRef();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -69,8 +70,8 @@ const MobileMenu = () => {
   }, [isBigScreens]);
 
   const MobMenu = (
-    <CSSTransition in={showMobileMenu} timeout={150} classNames="fade" mountOnEnter unmountOnExit nodeRef={reference}>
-      <Container ref={reference}>
+    <CSSTransition in={showMobileMenu} timeout={150} classNames="fade" mountOnEnter unmountOnExit nodeRef={containerRef}>
+      <Container ref={containerRef}>
         <Header>
           <Box>
             <HamburgerMenu />
@@ -81,10 +82,15 @@ const MobileMenu = () => {
       </Container>
     </CSSTransition>
   );
+
+  const onBackdropClick = () => {
+    dispatch(toggleMobileMenu());
+  };
+
   return (
     <>
-      <Backdrop />
-      {ReactDOM.createPortal(MobMenu, document.getElementById("modal-root"))}
+      <Backdrop show={showMobileMenu} onClick={onBackdropClick} />
+      <CustomCreatePortal component={MobMenu} id="modal-root" />
     </>
   );
 };

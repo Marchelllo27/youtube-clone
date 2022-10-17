@@ -1,15 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const darkThemeFromStorage = localStorage.getItem("darkTheme");
+
 const initialState = {
   smallMenuIsOpen: false,
   mainMenuIsOpen: false,
-  isDarkTheme: true,
+  isDarkTheme: darkThemeFromStorage === "false" ? false : true,
   showMobileMenu: false,
+  showNotification: false,
+  notificationText: "",
+  notificationStatus: "",
 };
 
 const UISlice = createSlice({
   name: "ui",
-  initialState: initialState,
+  initialState,
   reducers: {
     toggleSmallMenu: state => {
       state.smallMenuIsOpen = !state.smallMenuIsOpen;
@@ -23,14 +28,18 @@ const UISlice = createSlice({
     toggleTheme: state => {
       state.isDarkTheme = !state.isDarkTheme;
     },
+    openNotification: (state, action) => {
+      state.notificationText = action.payload.text;
+      state.notificationStatus = action.payload.status;
+      state.showNotification = true;
+    },
+    closeNotification: state => {
+      state.showNotification = false;
+    },
   },
 });
 
-export const {
-  toggleTheme,
-  toggleMainMenu,
-  toggleMobileMenu,
-  toggleSmallMenu,
-} = UISlice.actions;
+export const { toggleTheme, toggleMainMenu, toggleMobileMenu, toggleSmallMenu, openNotification, closeNotification } =
+  UISlice.actions;
 
 export default UISlice.reducer;

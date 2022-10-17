@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled, { ThemeProvider } from "styled-components";
-import useMediaQuery from "@mui/material/useMediaQuery";
+
 // EXTRA
 import Header from "./components/Header/Header";
 import Menu from "./components/Menu/Menu";
 import Content from "./components/Content/Content";
 import { darkTheme, lightTheme } from "./utils/theme";
-import { toggleMainMenu } from "./store/ui-slice";
 import GlobalCss from "./global.css";
-import Soon from "./pages/Soon";
+import { logoutUser } from "./store/auth-slice";
+import NotificationBar from "./components/Shared/NotificationBar";
 
 const Main = styled.main`
   min-height: calc(100vh - var(--header-height));
@@ -18,21 +18,41 @@ const Main = styled.main`
   color: ${({ theme }) => theme.text};
 `;
 
+let initialRender = true;
+
 const App = () => {
-  const { mainMenuIsOpen, isDarkTheme, showMobileMenu } = useSelector(state => state.ui);
+  const { isDarkTheme, showMobileMenu, showNotification } = useSelector(state => state.ui);
+  const { tokenExpireDate, user } = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
-  const bigScreens = useMediaQuery("(min-width:80rem)", { noSsr: true });
-
+  // LISTENER IF STILL VALID TOKEN SET TIMEOUT TO LOGOUT AFTER TIMEOUT
   useEffect(() => {
-    if (bigScreens) {
-      dispatch(toggleMainMenu());
+    let remainingTime;
+    let timer;
+    const tokenExpires = new Date(tokenExpireDate).getTime();
+
+    if (tokenExpires > Date.now()) {
+      console.log("TIMER TO LOGOUT after 1h has been set");
+      remainingTime = tokenExpires - Date.now();
+
+      timer = setTimeout(() => {
+        dispatch(logoutUser());
+      }, remainingTime);
     }
 
-    if (!bigScreens && mainMenuIsOpen) {
-      dispatch(toggleMainMenu());
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+    };
+  }, [tokenExpireDate, dispatch]);
+
+  // IF USER or TokenExpire CHANGED(for example user has been subscribe), SAVE IT TO LOCALSTORAGE
+  useEffect(() => {
+    if (user && tokenExpireDate) {
+      localStorage.setItem("userInfo", JSON.stringify({ ...user, tokenExpireDate }));
     }
-  }, [bigScreens]);
+  }, [user, tokenExpireDate]);
 
   return (
     <>
@@ -43,6 +63,7 @@ const App = () => {
         <Main>
           <Menu />
           <Content />
+          {showNotification && <NotificationBar />}
         </Main>
       </ThemeProvider>
     </>

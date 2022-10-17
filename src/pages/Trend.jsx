@@ -1,4 +1,6 @@
+import Videos from "../components/Video/Videos";
+
 const Trend = () => {
-  return <div>Trend</div>;
+  return <Videos url="trend" />;
 };
 export default Trend;

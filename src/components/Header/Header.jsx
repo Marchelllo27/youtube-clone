@@ -1,3 +1,4 @@
+import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 // MUI
@@ -7,7 +8,6 @@ import Logo from "./Logo";
 import Actions from "./Actions";
 import SearchBar from "./SearchBar";
 import HamburgerMenu from "./HamburgerMenu";
-import { Calculate } from "@mui/icons-material";
 
 const Container = styled.header`
   position: fixed;
@@ -21,8 +21,9 @@ const Container = styled.header`
   background-color: ${({ theme }) => theme.bgLighter};
   color: ${({ theme }) => theme.text};
   padding: 0 1rem;
+  z-index: 1000;
   /* don't allow jump header when the scroll is hidden */
-  padding-right: ${({ hideScrollbar }) => hideScrollbar && "calc(1rem + var(--scrollbar-width))"};
+  /* padding-right: ${({ hideScrollbar }) => hideScrollbar && "calc(1rem + var(--scrollbar-width))"}; */
 `;
 
 export const Box = styled.div`
@@ -35,8 +36,8 @@ export const Box = styled.div`
 
 const Header = () => {
   const { showMobileMenu } = useSelector(state => state.ui);
+
   const forTabletsAndHigher = useMediaQuery("(min-width:30rem)");
-  const userIsLoggedIn = true;
 
   return (
     <Container hideScrollbar={showMobileMenu}>
@@ -45,8 +46,8 @@ const Header = () => {
         <Logo />
       </Box>
       {forTabletsAndHigher && <SearchBar />}
-      <Actions userIsLoggedIn={userIsLoggedIn} />
+      <Actions />
     </Container>
   );
 };
-export default Header;
+export default React.memo(Header);
