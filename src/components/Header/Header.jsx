@@ -21,6 +21,7 @@ const Container = styled.header`
   background-color: ${({ theme }) => theme.bgLighter};
   color: ${({ theme }) => theme.text};
   padding: 0 1rem;
+  z-index: 1000;
   /* don't allow jump header when the scroll is hidden */
   /* padding-right: ${({ hideScrollbar }) => hideScrollbar && "calc(1rem + var(--scrollbar-width))"}; */
 `;

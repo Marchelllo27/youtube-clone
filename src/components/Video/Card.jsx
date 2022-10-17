@@ -12,7 +12,6 @@ import NotFoundImage from "../../assets/notfound.jpeg";
 
 const Article = styled.article`
   width: 100%;
-  /* max-width: 20rem; */
   max-width: ${({ type }) => (type === "sm" ? "auto" : "20rem")};
 
   display: flex;
@@ -118,15 +117,15 @@ const Card = ({ videoData, type }) => {
     <Article type={type} onClick={onCardClick}>
       <ImageBox type={type}>
         <Image
-          src="https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-          // src={imgUrl}
+          // src="https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+          src={imgUrl}
           alt={title}
           width="100%"
           height="100%"
           type={type}
           onError={e => (e.currentTarget.src = NotFoundImage)}
           effect="blur"
-          placeholderSrc={NotFoundImage}
+          // placeholderSrc={NotFoundImage}
         />
       </ImageBox>
 

@@ -7,10 +7,10 @@ import Details from "../components/Video/Details";
 import Channel from "../components/Video/Channel";
 import Comments from "../components/Comments/Comments";
 import Recommendation from "../components/Video/Recommandation";
-// import { ContainerHr } from "../Shared/Hr";
 import Hr from "../components/Shared/Hr";
 import { useGetVideosQuery } from "../api/endpoints/video";
 import { setVideo } from "../store/video-slice";
+import PageNotFound from "../assets/notfound.jpeg";
 
 const Container = styled.div`
   display: flex;
@@ -86,7 +86,7 @@ const Video = () => {
     videoData && dispatch(setVideo(videoData));
   }, [videoData, dispatch]);
 
-  const { title } = videoData || {};
+  const { title, videoUrl, imgUrl } = videoData || {};
 
   return (
     <>
@@ -94,14 +94,7 @@ const Video = () => {
       {error && <div>Something went wrong</div>}
       {videoData && (
         <Container>
-          {/* <VideoFrame src={videoUrl} controls /> */}
-          <TestVideo
-            src="https://www.youtube.com/embed/f7LiKMIo20Q"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          />
+          <VideoFrame src={videoUrl} poster={imgUrl || PageNotFound} controls />
 
           <Layout>
             <Title>{title}</Title>

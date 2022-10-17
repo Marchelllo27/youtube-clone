@@ -155,7 +155,7 @@ const Upload = ({ show, setShow }) => {
     const file = e.target.files[0];
     const urlType = e.target.name;
 
-    // CHECK FILE SIZE 
+    // CHECK FILE SIZE
     // 1000mb = 1 00 00 00 00 0 byte
     const oneGigaByte = 1000000000;
 
