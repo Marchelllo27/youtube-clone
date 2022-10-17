@@ -56,7 +56,6 @@ const App = () => {
 
   return (
     <>
-      <Soon />
       <GlobalCss hideSCrollbar={showMobileMenu} />
       <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
         <Header />
