@@ -75,14 +75,7 @@ const MobileMenu = () => {
   }, [isBigScreens]);
 
   const MobMenu = (
-    <CSSTransition
-      in={showMobileMenu}
-      timeout={150}
-      classNames="fade"
-      mountOnEnter
-      unmountOnExit
-      nodeRef={containerRef}
-    >
+    <CSSTransition in={true} timeout={150} classNames="fade" mountOnEnter unmountOnExit nodeRef={containerRef}>
       <Container ref={containerRef}>
         {/* <Header>
           <Box>
