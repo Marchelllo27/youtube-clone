@@ -9,7 +9,7 @@ import { toggleMobileMenu, toggleMainMenu, toggleSmallMenu } from "../../store/u
 const HamburgerMenu = () => {
   
   const { smallMenuIsOpen, mainMenuIsOpen } = useSelector(state => state.ui);
-  const mobileView = useMediaQuery("(max-width: 79.9rem", { noSsr: true });
+  const mobileView = useMediaQuery("(max-width: 80rem", { noSsr: true });
   const dispatch = useDispatch();
 
   const openMenuHandler = () => {
