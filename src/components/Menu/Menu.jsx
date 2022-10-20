@@ -6,7 +6,14 @@ import { useMediaQuery } from "@mui/material";
 import MobileMenu from "./MobileMenu";
 import LittleMenu from "./LittleMenu";
 import MainMenu from "./MainMenu";
-import { toggleMainMenu, toggleSmallMenu, toggleMobileMenu } from "../../store/ui-slice";
+import {
+  closeMainMenu,
+  closeMobileMenu,
+  closeSmallMenu,
+  openMainMenu,
+  openMobileMenu,
+  openSmallMenu,
+} from "../../store/ui-slice";
 
 const Menu = () => {
   const { mainMenuIsOpen, smallMenuIsOpen, showMobileMenu } = useSelector(state => state.ui);
@@ -14,35 +21,32 @@ const Menu = () => {
   const dispatch = useDispatch();
 
   const bigScreens = useMediaQuery("(min-width:80rem)", { noSsr: true });
-  const mediumScreens = useMediaQuery("(min-width:48rem) and (max-width:79.99rem)", { noSsr: true });
+  const mediumScreens = useMediaQuery("(min-width:48rem) and (max-width: 79.99rem)", { noSsr: true });
 
-  // useEffect(() => {
-  //   if (bigScreens) {
-  //     dispatch(toggleMainMenu());
-  //   }
+  useEffect(() => {
+    if (mediumScreens) {
+      dispatch(openSmallMenu());
+    }
 
-  //   if (!bigScreens && mainMenuIsOpen) {
-  //     dispatch(toggleMainMenu());
-  //   }
+    if (bigScreens) {
+      showMobileMenu && dispatch(closeMobileMenu());
+      dispatch(openMainMenu());
+      console.log("BIG SCREEN FIRED 111111111111");
+    }
 
-  //   if (bigScreens && showMobileMenu) {
-  //     dispatch(toggleMobileMenu());
-  //   }
-  // }, [bigScreens]);
+    if (!bigScreens) {
+      mainMenuIsOpen && dispatch(closeMainMenu());
+    }
 
-  // useEffect(() => {
-  //   if (mediumScreens && !smallMenuIsOpen) {
-  //     dispatch(toggleSmallMenu());
-  //   }
-  //   if (!mediumScreens && smallMenuIsOpen) {
-  //     dispatch(toggleSmallMenu());
-  //   }
-  // }, [mediumScreens, dispatch, smallMenuIsOpen]);
+    if (!mediumScreens) {
+      smallMenuIsOpen && dispatch(closeSmallMenu());
+    }
+  }, [mediumScreens, bigScreens, dispatch, mainMenuIsOpen, smallMenuIsOpen, showMobileMenu]);
 
   return (
     <>
       <MobileMenu show={showMobileMenu} />
-      {smallMenuIsOpen && !showMobileMenu && <LittleMenu />}
+      {smallMenuIsOpen && <LittleMenu />}
       {mainMenuIsOpen && <MainMenu />}
     </>
   );

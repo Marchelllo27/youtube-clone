@@ -8,7 +8,7 @@ import { Box } from "../Header/Header";
 import Logo from "../Header/Logo";
 import HamburgerMenu from "../Header/HamburgerMenu";
 import Backdrop from "../Shared/Backdrop";
-import { toggleMobileMenu } from "../../store/ui-slice";
+import { closeMobileMenu } from "../../store/ui-slice";
 import CustomCreatePortal from "../Shared/CustomCreatePortal";
 
 const Container = styled.aside`
@@ -75,7 +75,7 @@ const MobileMenu = ({ show }) => {
   );
 
   const onBackdropClick = () => {
-    dispatch(toggleMobileMenu());
+    dispatch(closeMobileMenu());
   };
 
   return (

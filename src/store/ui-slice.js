@@ -16,14 +16,33 @@ const UISlice = createSlice({
   name: "ui",
   initialState,
   reducers: {
-    toggleSmallMenu: state => {
-      state.smallMenuIsOpen = !state.smallMenuIsOpen;
+    // toggleSmallMenu: state => {
+    //   state.smallMenuIsOpen = !state.smallMenuIsOpen;
+    // },
+    openSmallMenu: state => {
+      state.smallMenuIsOpen = true;
     },
-    toggleMainMenu: state => {
-      state.mainMenuIsOpen = !state.mainMenuIsOpen;
+    closeSmallMenu: state => {
+      state.smallMenuIsOpen = false;
     },
-    toggleMobileMenu: state => {
-      state.showMobileMenu = !state.showMobileMenu;
+
+    // toggleMainMenu: state => {
+    //   state.mainMenuIsOpen = !state.mainMenuIsOpen;
+    // },
+    openMainMenu: state => {
+      state.mainMenuIsOpen = true;
+    },
+    closeMainMenu: state => {
+      state.mainMenuIsOpen = false;
+    },
+    // toggleMobileMenu: state => {
+    //   state.showMobileMenu = !state.showMobileMenu;
+    // },
+    openMobileMenu: state => {
+      state.showMobileMenu = true;
+    },
+    closeMobileMenu: state => {
+      state.showMobileMenu = false;
     },
     toggleTheme: state => {
       state.isDarkTheme = !state.isDarkTheme;
@@ -39,7 +58,19 @@ const UISlice = createSlice({
   },
 });
 
-export const { toggleTheme, toggleMainMenu, toggleMobileMenu, toggleSmallMenu, openNotification, closeNotification } =
-  UISlice.actions;
+export const {
+  toggleTheme,
+  toggleMainMenu,
+  toggleMobileMenu,
+  toggleSmallMenu,
+  openNotification,
+  closeNotification,
+  openSmallMenu,
+  closeSmallMenu,
+  openMainMenu,
+  closeMainMenu,
+  openMobileMenu,
+  closeMobileMenu,
+} = UISlice.actions;
 
 export default UISlice.reducer;

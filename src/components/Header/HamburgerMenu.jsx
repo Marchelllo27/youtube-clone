@@ -4,26 +4,25 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useMediaQuery } from "@mui/material";
 // EXTRA
 import CustomToolTip from "../Shared/Tooltip";
-import { toggleMobileMenu, toggleMainMenu, toggleSmallMenu } from "../../store/ui-slice";
+import { closeMainMenu, closeMobileMenu, openMobileMenu } from "../../store/ui-slice";
 
 const HamburgerMenu = () => {
-  const { smallMenuIsOpen, mainMenuIsOpen } = useSelector(state => state.ui);
-  const mobileView = useMediaQuery("(max-width: 80rem", { noSsr: true });
+  const { showMobileMenu, mainMenuIsOpen, smallMenuIsOpen } = useSelector(state => state.ui);
+  const needToOpenMobileMenu = useMediaQuery("(max-width: 80rem", { noSsr: true });
   const dispatch = useDispatch();
 
   const openMenuHandler = () => {
-    if (mainMenuIsOpen) {
-      dispatch(toggleMainMenu());
-      dispatch(toggleSmallMenu());
-      return;
-    }
-    if (smallMenuIsOpen) {
-      console.log("fired");
-      dispatch(toggleSmallMenu());
-      dispatch(toggleMainMenu());
+    if (needToOpenMobileMenu) {
+      dispatch(openMobileMenu());
     }
 
-    dispatch(toggleMobileMenu());
+    if (!needToOpenMobileMenu) {
+      mainMenuIsOpen && dispatch(closeMainMenu());
+    }
+
+    if (showMobileMenu) {
+      dispatch(closeMobileMenu());
+    }
   };
 
   return (

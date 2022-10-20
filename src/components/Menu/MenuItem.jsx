@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 // EXTRA
 import Tooltip from "../Shared/Tooltip.jsx";
-import { toggleMobileMenu } from "../../store/ui-slice";
+import { closeMobileMenu } from "../../store/ui-slice";
 
 const Container = styled.li`
   display: flex;
@@ -31,10 +31,10 @@ const MenuItem = ({ text, icon, to, forMainMenu, onClick }) => {
 
   const onClickHandler = e => {
     if (showMobileMenu) {
-      dispatch(toggleMobileMenu());
+      dispatch(closeMobileMenu());
     }
   };
-  
+
   if (to) {
     return (
       <Tooltip title={text}>
