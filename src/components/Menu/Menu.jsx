@@ -6,7 +6,7 @@ import { useMediaQuery } from "@mui/material";
 import MobileMenu from "./MobileMenu";
 import LittleMenu from "./LittleMenu";
 import MainMenu from "./MainMenu";
-import { toggleMainMenu, toggleSmallMenu, toggleMobileMenu } from "../../store/ui-slice";
+import { toggleMainMenu, toggleSmallMenu } from "../../store/ui-slice";
 
 const Menu = () => {
   const { mainMenuIsOpen, smallMenuIsOpen, showMobileMenu } = useSelector(state => state.ui);
@@ -35,15 +35,9 @@ const Menu = () => {
     }
   }, [mediumScreens]);
 
-  useEffect(() => {
-    if (bigScreens && showMobileMenu) {
-      dispatch(toggleMobileMenu());
-    }
-  }, [bigScreens]);
-
   return (
     <>
-      {showMobileMenu && <MobileMenu showMobMenu={showMobileMenu} />}
+      <MobileMenu />
       {smallMenuIsOpen && !showMobileMenu && <LittleMenu />}
       {mainMenuIsOpen && <MainMenu />}
     </>

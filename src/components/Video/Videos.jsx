@@ -54,11 +54,13 @@ const Videos = ({ url }) => {
     videoIsLoading = isLoading;
   }
 
+  console.log(videos);
+
   return (
     <>
       {isError && !videoIsLoading && <div>Something went wrong. Please try again later.</div>}
 
-      {!videos?.length && !isError && <div>No videos found.</div>}
+      {videos?.length === 0 && !isError && <div>No videos found.</div>}
 
       {/* SKELETON LOADING */}
       {videoIsLoading && (
