@@ -17,7 +17,9 @@ const Container = styled.aside`
   position: fixed;
   top: 0;
   left: 0;
-  width: var(--main-menu-width);
+  width: 80%;
+
+  background-color: grey;
   height: 100vh;
   z-index: 1200;
 
@@ -27,6 +29,10 @@ const Container = styled.aside`
 
   &.fade-exit-active {
     animation: closeMenu 0.15s ease-in forwards;
+  }
+
+  @media (min-width: 768px) {
+    width: var(--main-menu-width);
   }
 
   @keyframes openMenu {
@@ -59,7 +65,7 @@ const Header = styled.header`
 const MobileMenu = () => {
   const { showMobileMenu } = useSelector(state => state.ui);
   const isBigScreens = useMediaQuery("(min-width: 80rem)", { noSsr: true });
-  const containerRef = useRef();
+  const containerRef = useRef(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -69,15 +75,22 @@ const MobileMenu = () => {
   }, [isBigScreens]);
 
   const MobMenu = (
-    <CSSTransition in={showMobileMenu} timeout={150} classNames="fade" mountOnEnter unmountOnExit nodeRef={containerRef}>
+    <CSSTransition
+      in={showMobileMenu}
+      timeout={150}
+      classNames="fade"
+      mountOnEnter
+      unmountOnExit
+      nodeRef={containerRef}
+    >
       <Container ref={containerRef}>
-        <Header>
+        {/* <Header>
           <Box>
             <HamburgerMenu />
             <Logo />
           </Box>
         </Header>
-        <MainMenu mobileVersion />
+        <MainMenu mobileVersion /> */}
       </Container>
     </CSSTransition>
   );
