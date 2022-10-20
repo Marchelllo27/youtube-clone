@@ -5,7 +5,7 @@ const darkThemeFromStorage = localStorage.getItem("darkTheme");
 const initialState = {
   smallMenuIsOpen: false,
   mainMenuIsOpen: false,
-  isDarkTheme: darkThemeFromStorage === "false" ? false : true,
+  isDarkTheme: darkThemeFromStorage !== "false",
   showMobileMenu: false,
   showNotification: false,
   notificationText: "",

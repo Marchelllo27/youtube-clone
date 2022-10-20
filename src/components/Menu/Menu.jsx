@@ -16,28 +16,28 @@ const Menu = () => {
   const bigScreens = useMediaQuery("(min-width:80rem)", { noSsr: true });
   const mediumScreens = useMediaQuery("(min-width:48rem) and (max-width:79.99rem)", { noSsr: true });
 
-  useEffect(() => {
-    if (bigScreens) {
-      dispatch(toggleMainMenu());
-    }
+  // useEffect(() => {
+  //   if (bigScreens) {
+  //     dispatch(toggleMainMenu());
+  //   }
 
-    if (!bigScreens && mainMenuIsOpen) {
-      dispatch(toggleMainMenu());
-    }
+  //   if (!bigScreens && mainMenuIsOpen) {
+  //     dispatch(toggleMainMenu());
+  //   }
 
-    if (bigScreens && showMobileMenu) {
-      dispatch(toggleMobileMenu());
-    }
-  }, [bigScreens]);
+  //   if (bigScreens && showMobileMenu) {
+  //     dispatch(toggleMobileMenu());
+  //   }
+  // }, [bigScreens]);
 
-  useEffect(() => {
-    if (mediumScreens && !smallMenuIsOpen) {
-      dispatch(toggleSmallMenu());
-    }
-    if (!mediumScreens && smallMenuIsOpen) {
-      dispatch(toggleSmallMenu());
-    }
-  }, [mediumScreens]);
+  // useEffect(() => {
+  //   if (mediumScreens && !smallMenuIsOpen) {
+  //     dispatch(toggleSmallMenu());
+  //   }
+  //   if (!mediumScreens && smallMenuIsOpen) {
+  //     dispatch(toggleSmallMenu());
+  //   }
+  // }, [mediumScreens, dispatch, smallMenuIsOpen]);
 
   return (
     <>
