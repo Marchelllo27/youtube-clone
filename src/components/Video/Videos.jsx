@@ -1,6 +1,4 @@
 import styled from "styled-components";
-// MUI
-import Skeleton from "@mui/material/Skeleton";
 // EXTRA
 import Card from "./Card";
 import { useGetVideosQuery, useGetAllMyVideosQuery } from "../../api/endpoints/video";

@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import ReactDOM from "react-dom";
 import styled from "styled-components";
 import { CSSTransition } from "react-transition-group";
 // MUI

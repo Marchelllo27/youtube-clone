@@ -18,8 +18,6 @@ const Main = styled.main`
   color: ${({ theme }) => theme.text};
 `;
 
-let initialRender = true;
-
 const App = () => {
   const { isDarkTheme, showMobileMenu, showNotification } = useSelector(state => state.ui);
   const { tokenExpireDate, user } = useSelector(state => state.auth);
