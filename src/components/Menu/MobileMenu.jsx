@@ -1,9 +1,7 @@
-import { useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useRef } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { CSSTransition } from "react-transition-group";
-// MUI
-import { useMediaQuery } from "@mui/material";
 // EXTRA
 import MainMenu from "./MainMenu";
 import { Box } from "../Header/Header";
@@ -17,7 +15,7 @@ const Container = styled.aside`
   position: fixed;
   top: 0;
   left: 0;
-  width: 70%;
+  width: var(--main-menu-width);
 
   background-color: grey;
   height: 100vh;
@@ -29,10 +27,6 @@ const Container = styled.aside`
 
   &.fade-exit-active {
     animation: closeMenu 0.15s ease-in forwards;
-  }
-
-  @media (min-width: 768px) {
-    width: var(--main-menu-width);
   }
 
   @keyframes openMenu {
@@ -62,20 +56,12 @@ const Header = styled.header`
   display: flex;
 `;
 
-const MobileMenu = () => {
-  const { showMobileMenu } = useSelector(state => state.ui);
-  const isBigScreens = useMediaQuery("(min-width: 80rem)", { noSsr: true });
+const MobileMenu = ({ show }) => {
   const containerRef = useRef(null);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (isBigScreens && showMobileMenu) {
-      dispatch(toggleMobileMenu());
-    }
-  }, [isBigScreens]);
-
   const MobMenu = (
-    <CSSTransition in={showMobileMenu} timeout={150} classNames="fade" mountOnEnter unmountOnExit nodeRef={containerRef}>
+    <CSSTransition in={show} timeout={150} classNames="fade" mountOnEnter unmountOnExit nodeRef={containerRef}>
       <Container ref={containerRef}>
         <Header>
           <Box>
@@ -94,7 +80,7 @@ const MobileMenu = () => {
 
   return (
     <>
-      <Backdrop show={showMobileMenu} onClick={onBackdropClick} />
+      <Backdrop show={show} onClick={onBackdropClick} />
       <CustomCreatePortal component={MobMenu} id="modal-root" />
     </>
   );
