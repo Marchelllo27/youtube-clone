@@ -3,6 +3,7 @@ import { useRef } from "react";
 import styled from "styled-components";
 // EXTRA
 import { CSSTransition } from "react-transition-group";
+import CustomCreatePortal from "./CustomCreatePortal";
 
 const Container = styled.div`
   position: fixed;
@@ -43,18 +44,14 @@ const Container = styled.div`
 `;
 
 const Backdrop = ({ show, onClick }) => {
-  const clickBackdropHandler = () => {
-    onClick();
-  };
-
   const backdropRef = useRef();
 
   const element = (
     <CSSTransition in={show} timeout={200} classNames="fade-backdrop" nodeRef={backdropRef} mountOnEnter unmountOnExit>
-      <Container onClick={clickBackdropHandler} ref={backdropRef} />
+      <Container onClick={onClick} ref={backdropRef} />
     </CSSTransition>
   );
 
-  return ReactDOM.createPortal(element, document.getElementById("overlay-root"));
+  return <CustomCreatePortal component={element} id="overlay-root" />;
 };
 export default Backdrop;

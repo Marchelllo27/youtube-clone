@@ -56,20 +56,20 @@ const Header = styled.header`
   display: flex;
 `;
 
-const MobileMenu = () => {
-  const { showMobileMenu } = useSelector(state => state.ui);
+const MobileMenu = ({showMobMenu}) => {
+  // const { showMobileMenu } = useSelector(state => state.ui);
   const isBigScreens = useMediaQuery("(min-width: 80rem)", { noSsr: true });
   const containerRef = useRef();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (isBigScreens && showMobileMenu) {
-      dispatch(toggleMobileMenu());
-    }
-  }, [isBigScreens]);
+  // useEffect(() => {
+  //   if (isBigScreens && showMobileMenu) {
+  //     dispatch(toggleMobileMenu());
+  //   }
+  // }, [isBigScreens]);
 
   const MobMenu = (
-    <CSSTransition in={showMobileMenu} timeout={150} classNames="fade" mountOnEnter unmountOnExit nodeRef={containerRef}>
+    <CSSTransition in={showMobMenu} timeout={150} classNames="fade" mountOnEnter unmountOnExit nodeRef={containerRef}>
       <Container ref={containerRef}>
         <Header>
           <Box>
@@ -88,7 +88,7 @@ const MobileMenu = () => {
 
   return (
     <>
-      <Backdrop show={showMobileMenu} onClick={onBackdropClick} />
+      <Backdrop show={showMobMenu} onClick={onBackdropClick} />
       <CustomCreatePortal component={MobMenu} id="modal-root" />
     </>
   );
