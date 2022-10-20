@@ -34,7 +34,7 @@ const MenuItem = ({ text, icon, to, forMainMenu, onClick }) => {
       dispatch(toggleMobileMenu());
     }
   };
-
+  
   if (to) {
     return (
       <Tooltip title={text}>

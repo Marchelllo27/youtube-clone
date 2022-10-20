@@ -17,7 +17,7 @@ const Container = styled.aside`
   position: fixed;
   top: 0;
   left: 0;
-  width: 80%;
+  width: 70%;
 
   background-color: grey;
   height: 100vh;
@@ -55,7 +55,7 @@ const Container = styled.aside`
 
 const Header = styled.header`
   height: var(--header-height);
-  width: var(--main-menu-width);
+  width: 100%;
   background-color: ${({ theme }) => theme.bgLighter};
   color: ${({ theme }) => theme.text};
   padding: 0 1rem;
@@ -75,15 +75,15 @@ const MobileMenu = () => {
   }, [isBigScreens]);
 
   const MobMenu = (
-    <CSSTransition in={true} timeout={150} classNames="fade" mountOnEnter unmountOnExit nodeRef={containerRef}>
+    <CSSTransition in={showMobileMenu} timeout={150} classNames="fade" mountOnEnter unmountOnExit nodeRef={containerRef}>
       <Container ref={containerRef}>
-        {/* <Header>
+        <Header>
           <Box>
             <HamburgerMenu />
             <Logo />
           </Box>
         </Header>
-        <MainMenu mobileVersion /> */}
+        <MainMenu mobileVersion />
       </Container>
     </CSSTransition>
   );

@@ -35,10 +35,6 @@ const Menu = () => {
     }
   }, [mediumScreens]);
 
-  console.log("small menu - " + smallMenuIsOpen);
-  console.log("mobile menu - " + showMobileMenu);
-  console.log("main menu - " + mainMenuIsOpen);
-
   return (
     <>
       <MobileMenu />

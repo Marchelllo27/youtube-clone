@@ -9,7 +9,8 @@ const Container = styled.aside`
   position: ${props => (props.mobileVersion ? "static" : "fixed")};
   top: var(--header-height);
   left: 0;
-  width: var(--main-menu-width);
+  /* width: var(--main-menu-width); */
+  width: 100%;
   height: calc(100vh - var(--header-height));
   padding: 0.6rem 0;
   overflow-y: scroll;
