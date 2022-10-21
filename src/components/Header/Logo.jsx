@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 // EXTRA
 import CustomTooltip from "../Shared/Tooltip";
 import logoImg from "../../assets/logo.png";
-import { toggleMobileMenu } from "../../store/ui-slice";
+import { closeMobileMenu } from "../../store/ui-slice";
 
 const Img = styled.img`
   height: 1.5rem;
@@ -34,7 +34,7 @@ const Logo = () => {
 
   const onClickLogoHandler = () => {
     navigate("/");
-    showMobileMenu && dispatch(toggleMobileMenu());
+    showMobileMenu && dispatch(closeMobileMenu());
   };
 
   return (

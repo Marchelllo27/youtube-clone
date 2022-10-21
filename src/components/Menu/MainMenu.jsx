@@ -6,7 +6,8 @@ import Hr from "../Shared/Hr";
 import MenuItems from "./MenuItems";
 
 const Container = styled.aside`
-  position: ${props => (props.mobileVersion ? "static" : "fixed")};
+  /* position: ${props => (props.mobileVersion ? "static" : "fixed")}; */
+  position: fixed;
   top: var(--header-height);
   left: 0;
   width: var(--main-menu-width);
@@ -63,7 +64,6 @@ const MainMenu = ({ mobileVersion }) => {
 
   return (
     <Container darkMode={isDarkTheme} mobileVersion={mobileVersion}>
-
       <MenuItems />
 
       <Hr />

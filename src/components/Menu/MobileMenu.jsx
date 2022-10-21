@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { CSSTransition } from "react-transition-group";
 // EXTRA
@@ -16,15 +16,18 @@ const Container = styled.aside`
   top: 0;
   left: 0;
   width: var(--main-menu-width);
-
   background-color: grey;
   height: 100vh;
   z-index: 1200;
 
+  &.fade-enter {
+  }
   &.fade-enter-active {
     animation: openMenu 0.15s ease-in forwards;
   }
 
+  &.fade-exit {
+  }
   &.fade-exit-active {
     animation: closeMenu 0.15s ease-in forwards;
   }
@@ -57,7 +60,7 @@ const Header = styled.header`
 `;
 
 const MobileMenu = ({ show }) => {
-  const containerRef = useRef(null);
+  const containerRef = useRef();
   const dispatch = useDispatch();
 
   const MobMenu = (
@@ -81,7 +84,7 @@ const MobileMenu = ({ show }) => {
   return (
     <>
       <Backdrop show={show} onClick={onBackdropClick} />
-      <CustomCreatePortal component={MobMenu} id="modal-root" />
+      <CustomCreatePortal component={MobMenu} id="modal-root" />;
     </>
   );
 };

@@ -5,7 +5,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 // EXTRA
 import CustomTooltip from "../Shared/Tooltip";
 import Button from "../Shared/Button";
-import { toggleMobileMenu } from "../../store/ui-slice";
+import { closeMobileMenu } from "../../store/ui-slice";
 
 const Container = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ const Login = () => {
 
   const clickHandler = () => {
     if (showMobileMenu) {
-      dispatch(toggleMobileMenu());
+      dispatch(closeMobileMenu());
     }
   };
 

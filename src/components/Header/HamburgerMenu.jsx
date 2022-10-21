@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import json2mq from "json2mq";
 // MUI
 import MenuIcon from "@mui/icons-material/Menu";
 import { useMediaQuery } from "@mui/material";
@@ -16,15 +17,24 @@ import {
 
 const HamburgerMenu = () => {
   const { mainMenuIsOpen, smallMenuIsOpen, showMobileMenu } = useSelector(state => state.ui);
-  const needToOpenMobileMenu = useMediaQuery("(max-width: 1279px", { noSsr: true });
+  const needToOpenMobileMenu = useMediaQuery(
+    json2mq({
+      maxWidth: "1280px",
+    })
+  );
+
   const dispatch = useDispatch();
 
   const openMenuHandler = () => {
     dispatch(setToTrueClickedHamburgerIcon());
 
-    if (needToOpenMobileMenu) {
-      !showMobileMenu && dispatch(openMobileMenu());
-      showMobileMenu && dispatch(closeMobileMenu());
+    if (needToOpenMobileMenu && !showMobileMenu) {
+      dispatch(openMobileMenu());
+      return;
+    }
+
+    if (needToOpenMobileMenu && showMobileMenu) {
+      dispatch(closeMobileMenu());
       return;
     }
 
