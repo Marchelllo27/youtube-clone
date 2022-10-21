@@ -13,35 +13,36 @@ import {
   openMainMenu,
   openMobileMenu,
   openSmallMenu,
+  setToFalseClickedHamburgerIcon,
 } from "../../store/ui-slice";
 
 const Menu = () => {
-  const { mainMenuIsOpen, smallMenuIsOpen, showMobileMenu } = useSelector(state => state.ui);
+  const { mainMenuIsOpen, smallMenuIsOpen, showMobileMenu, hamburgerIconClicked } = useSelector(state => state.ui);
 
   const dispatch = useDispatch();
-
-  const bigScreens = useMediaQuery("(min-width:80rem)", { noSsr: true });
-  const mediumScreens = useMediaQuery("(min-width:48rem) and (max-width: 79.99rem)", { noSsr: true });
+  const bigScreens = useMediaQuery("(min-width: 1280px)", { noSsr: true });
+  const mediumScreens = useMediaQuery("(min-width: 768px) and (max-width: 1279px)", { noSsr: true });
 
   useEffect(() => {
-    if (mediumScreens) {
-      dispatch(openSmallMenu());
+    if (mediumScreens && !smallMenuIsOpen) {
+      !bigScreens && mainMenuIsOpen && dispatch(closeMainMenu());
+      !smallMenuIsOpen && dispatch(openSmallMenu());
+
+      dispatch(setToFalseClickedHamburgerIcon());
+      return;
     }
 
-    if (bigScreens) {
-      showMobileMenu && dispatch(closeMobileMenu());
-      dispatch(openMainMenu());
-      console.log("BIG SCREEN FIRED 111111111111");
-    }
-
-    if (!bigScreens) {
-      mainMenuIsOpen && dispatch(closeMainMenu());
-    }
-
-    if (!mediumScreens) {
+    if (!mediumScreens && !hamburgerIconClicked) {
       smallMenuIsOpen && dispatch(closeSmallMenu());
+      bigScreens && !mainMenuIsOpen && dispatch(openMainMenu());
+      dispatch(setToFalseClickedHamburgerIcon());
     }
-  }, [mediumScreens, bigScreens, dispatch, mainMenuIsOpen, smallMenuIsOpen, showMobileMenu]);
+
+    if (bigScreens && showMobileMenu) {
+      dispatch(setToFalseClickedHamburgerIcon());
+      dispatch(closeMobileMenu());
+    }
+  }, [bigScreens, showMobileMenu, dispatch, mainMenuIsOpen, smallMenuIsOpen, mediumScreens, hamburgerIconClicked]);
 
   return (
     <>

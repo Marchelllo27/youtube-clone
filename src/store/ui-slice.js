@@ -5,8 +5,9 @@ const darkThemeFromStorage = localStorage.getItem("darkTheme");
 const initialState = {
   smallMenuIsOpen: false,
   mainMenuIsOpen: false,
-  isDarkTheme: darkThemeFromStorage !== "false",
   showMobileMenu: false,
+  hamburgerIconClicked: false,
+  isDarkTheme: darkThemeFromStorage !== "false",
   showNotification: false,
   notificationText: "",
   notificationStatus: "",
@@ -16,9 +17,6 @@ const UISlice = createSlice({
   name: "ui",
   initialState,
   reducers: {
-    // toggleSmallMenu: state => {
-    //   state.smallMenuIsOpen = !state.smallMenuIsOpen;
-    // },
     openSmallMenu: state => {
       state.smallMenuIsOpen = true;
     },
@@ -26,24 +24,28 @@ const UISlice = createSlice({
       state.smallMenuIsOpen = false;
     },
 
-    // toggleMainMenu: state => {
-    //   state.mainMenuIsOpen = !state.mainMenuIsOpen;
-    // },
     openMainMenu: state => {
       state.mainMenuIsOpen = true;
     },
     closeMainMenu: state => {
       state.mainMenuIsOpen = false;
     },
-    // toggleMobileMenu: state => {
-    //   state.showMobileMenu = !state.showMobileMenu;
-    // },
+
     openMobileMenu: state => {
       state.showMobileMenu = true;
     },
     closeMobileMenu: state => {
       state.showMobileMenu = false;
     },
+
+    setToTrueClickedHamburgerIcon: state => {
+      state.hamburgerIconClicked = true;
+    },
+
+    setToFalseClickedHamburgerIcon: state => {
+      state.hamburgerIconClicked = false;
+    },
+
     toggleTheme: state => {
       state.isDarkTheme = !state.isDarkTheme;
     },
@@ -71,6 +73,8 @@ export const {
   closeMainMenu,
   openMobileMenu,
   closeMobileMenu,
+  setToTrueClickedHamburgerIcon,
+  setToFalseClickedHamburgerIcon,
 } = UISlice.actions;
 
 export default UISlice.reducer;

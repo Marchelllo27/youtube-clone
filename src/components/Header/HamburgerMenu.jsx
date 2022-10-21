@@ -4,24 +4,39 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useMediaQuery } from "@mui/material";
 // EXTRA
 import CustomToolTip from "../Shared/Tooltip";
-import { closeMainMenu, closeMobileMenu, openMobileMenu } from "../../store/ui-slice";
+import {
+  closeMainMenu,
+  openMobileMenu,
+  setToTrueClickedHamburgerIcon,
+  openSmallMenu,
+  closeSmallMenu,
+  openMainMenu,
+  closeMobileMenu,
+} from "../../store/ui-slice";
 
 const HamburgerMenu = () => {
-  const { showMobileMenu, mainMenuIsOpen, smallMenuIsOpen } = useSelector(state => state.ui);
-  const needToOpenMobileMenu = useMediaQuery("(max-width: 80rem", { noSsr: true });
+  const { mainMenuIsOpen, smallMenuIsOpen, showMobileMenu } = useSelector(state => state.ui);
+  const needToOpenMobileMenu = useMediaQuery("(max-width: 1279px", { noSsr: true });
   const dispatch = useDispatch();
 
   const openMenuHandler = () => {
+    dispatch(setToTrueClickedHamburgerIcon());
+
     if (needToOpenMobileMenu) {
-      dispatch(openMobileMenu());
+      !showMobileMenu && dispatch(openMobileMenu());
+      showMobileMenu && dispatch(closeMobileMenu());
+      return;
     }
 
-    if (!needToOpenMobileMenu) {
-      mainMenuIsOpen && dispatch(closeMainMenu());
+    if (!needToOpenMobileMenu && mainMenuIsOpen) {
+      dispatch(closeMainMenu());
+      dispatch(openSmallMenu());
+      return;
     }
 
-    if (showMobileMenu) {
-      dispatch(closeMobileMenu());
+    if (!needToOpenMobileMenu && smallMenuIsOpen) {
+      dispatch(closeSmallMenu());
+      dispatch(openMainMenu());
     }
   };
 
