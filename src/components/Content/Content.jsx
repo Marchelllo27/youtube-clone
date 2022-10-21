@@ -8,7 +8,7 @@ import NotFoundPage from "../../pages/NotFoundPage";
 import Demonstrate from "../../pages/Demonstrate";
 import Video from "../../pages/Video";
 import ProtectedRoute from "./ProtectedRoute";
-//LAZY LOADING
+// LAZY LOADING
 const Trend = React.lazy(() => import("../../pages/Trend"));
 const Sub = React.lazy(() => import("../../pages/Sub"));
 const Auth = React.lazy(() => import("../../pages/Auth"));

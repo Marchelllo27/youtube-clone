@@ -8,7 +8,7 @@ import Channel from "../components/Video/Channel";
 import Comments from "../components/Comments/Comments";
 import Recommendation from "../components/Video/Recommandation";
 import Hr from "../components/Shared/Hr";
-import { useGetVideosQuery } from "../api/endpoints/video";
+import { useGetVideosQuery, useAddViewMutation } from "../api/endpoints/video";
 import { setVideo } from "../store/video-slice";
 import PageNotFound from "../assets/notfound.jpeg";
 
@@ -70,11 +70,17 @@ const Video = () => {
 
   const { data: videoData, isLoading, error } = useGetVideosQuery(`find/${videoId}`);
 
+  const [increaseViewsToTheVideo] = useAddViewMutation();
+
   useEffect(() => {
     videoData && dispatch(setVideo(videoData));
   }, [videoData, dispatch]);
 
   const { title, videoUrl, imgUrl } = videoData || {};
+
+  const onPlayHandler = () => {
+    increaseViewsToTheVideo(videoId);
+  };
 
   return (
     <>
@@ -82,7 +88,7 @@ const Video = () => {
       {error && <div>Something went wrong</div>}
       {videoData && (
         <Container>
-          <VideoFrame src={videoUrl} poster={imgUrl || PageNotFound} controls />
+          <VideoFrame src={videoUrl} poster={imgUrl || PageNotFound} controls onPlay={onPlayHandler} />
 
           <Layout>
             <Title>{title}</Title>

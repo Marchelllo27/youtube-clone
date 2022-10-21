@@ -12,6 +12,13 @@ const videoEndpoints = mainAPI.injectEndpoints({
       providesTags: ["My-Videos"],
     }),
 
+    addView: builder.mutation({
+      query: id => ({
+        url: `/videos/view/${id}`,
+        method: "PUT",
+      }),
+    }),
+
     uploadVideoToMongoDB: builder.mutation({
       query: body => ({
         url: "/videos",
@@ -56,4 +63,5 @@ export const {
   useLikeDislikeVideoMutation,
   useAddCommentMutation,
   useGetCommentsForVideoQuery,
+  useAddViewMutation,
 } = videoEndpoints;

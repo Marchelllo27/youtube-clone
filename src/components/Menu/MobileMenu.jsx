@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { CSSTransition } from "react-transition-group";
 // EXTRA
@@ -84,7 +84,7 @@ const MobileMenu = ({ show }) => {
   return (
     <>
       <Backdrop show={show} onClick={onBackdropClick} />
-      <CustomCreatePortal component={MobMenu} id="modal-root" />;
+      <CustomCreatePortal component={MobMenu} id="modal-root" />
     </>
   );
 };

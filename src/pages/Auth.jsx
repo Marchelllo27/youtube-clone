@@ -18,11 +18,16 @@ const Container = styled.div`
   width: 90%;
   max-width: 30rem;
   padding: 1rem;
+  margin-top: 3rem;
   background-color: ${({ theme }) => theme.bgLighter};
   border: 1px solid ${({ theme }) => theme.soft};
   border-radius: 4px;
   box-shadow: ${({ isDarkTheme }) => !isDarkTheme && "1px 1px 3px rgba(0, 0, 0, 0.2)"};
   text-align: center;
+
+  @media (min-width: 1200px) {
+    margin-top: 0;
+  }
 `;
 
 const Auth = () => {
@@ -88,7 +93,7 @@ const Auth = () => {
   };
 
   return (
-    <Container>
+    <Container forMobile={!showLoginForm}>
       <Formik
         initialValues={initialValues}
         onSubmit={submitFormHandler}

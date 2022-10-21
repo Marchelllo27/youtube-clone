@@ -28,13 +28,9 @@ const HamburgerMenu = () => {
   const openMenuHandler = () => {
     dispatch(setToTrueClickedHamburgerIcon());
 
-    if (needToOpenMobileMenu && !showMobileMenu) {
-      dispatch(openMobileMenu());
-      return;
-    }
-
-    if (needToOpenMobileMenu && showMobileMenu) {
-      dispatch(closeMobileMenu());
+    if (needToOpenMobileMenu) {
+      !showMobileMenu && dispatch(openMobileMenu());
+      showMobileMenu && dispatch(closeMobileMenu());
       return;
     }
 

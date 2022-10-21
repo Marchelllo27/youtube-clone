@@ -5,7 +5,7 @@ const ProtectedRoute = ({ isAllowed, redirectPath = "/", children }) => {
     return <Navigate to={redirectPath} replace />;
   }
 
-  return children ? children : <Outlet />;
+  return children || <Outlet />;
 };
 
 export default ProtectedRoute;
