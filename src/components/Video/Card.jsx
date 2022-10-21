@@ -117,8 +117,8 @@ const Card = ({ videoData, type }) => {
     <Article type={type} onClick={onCardClick}>
       <ImageBox type={type}>
         <Image
-          // src={imgUrl}
-          src="https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+          // src="https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+          src={imgUrl}
           alt={title}
           width="100%"
           height="100%"
