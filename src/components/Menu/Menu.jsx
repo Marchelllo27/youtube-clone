@@ -11,7 +11,6 @@ import {
   closeMobileMenu,
   closeSmallMenu,
   openMainMenu,
-  openMobileMenu,
   openSmallMenu,
   setToFalseClickedHamburgerIcon,
 } from "../../store/ui-slice";

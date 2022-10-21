@@ -36,18 +36,6 @@ const VideoFrame = styled.video`
   }
 `;
 
-const TestVideo = styled.iframe`
-  width: 100%;
-  height: 50vh;
-  max-height: 35rem;
-  border: none;
-
-  @media (min-width: 850px) {
-    height: 80vh;
-    max-height: 40rem;
-  }
-`;
-
 const Layout = styled.section`
   padding: 0 1rem;
 
@@ -90,7 +78,7 @@ const Video = () => {
 
   return (
     <>
-      {isLoading && <div>To do: Skeleton loading</div>}
+      {isLoading && <div>Loading</div>}
       {error && <div>Something went wrong</div>}
       {videoData && (
         <Container>
