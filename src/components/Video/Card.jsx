@@ -9,6 +9,7 @@ import { Avatar } from "@mui/material";
 // EXTRA
 import nFormatter from "../../utils/nFormatter";
 import NotFoundImage from "../../assets/notfound.jpeg";
+import darkBluredImage from "../../assets/darkBluredImage.jpg";
 
 const Article = styled.article`
   width: 100%;
@@ -125,7 +126,7 @@ const Card = ({ videoData, type }) => {
           type={type}
           onError={e => (e.currentTarget.src = NotFoundImage)}
           effect="blur"
-          // placeholderSrc={NotFoundImage}
+          placeholderSrc={darkBluredImage}
         />
       </ImageBox>
 

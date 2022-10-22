@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Formik, Form } from "formik";
@@ -108,7 +108,6 @@ const Upload = ({ show, setShow }) => {
     useUploadToFirebase();
   const [startUploadToMongoDB, { error }] = useUploadVideoToMongoDBMutation();
 
-  const [videoSizeError, setVideoSizeError] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -186,7 +185,7 @@ const Upload = ({ show, setShow }) => {
     imgUrl: "",
   };
 
-  const errorOccured = !!error?.data || !!errorMsg || videoSizeError;
+  const errorOccured = !!error?.data || !!errorMsg;
 
   const UploadComponent = (
     <>
@@ -205,7 +204,7 @@ const Upload = ({ show, setShow }) => {
 
                 {errorOccured && (
                   <ErrorMessage>
-                    {error?.data?.message || error?.data?.errors[0]?.msg || errorMsg || videoSizeError}
+                    {error?.data?.message || error?.data?.errors[0]?.msg || errorMsg}
                   </ErrorMessage>
                 )}
 

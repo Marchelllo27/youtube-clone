@@ -1,7 +1,8 @@
 import styled from "styled-components";
 // EXTRA
 import Card from "./Card";
-import { useGetVideosQuery } from "../../api/endpoints/video";
+import { useLazyGetVideosQuery } from "../../api/endpoints/video";
+import { useEffect } from "react";
 
 const Recomendation = styled.div`
   display: flex;
@@ -18,7 +19,14 @@ const Recomendation = styled.div`
 `;
 
 const Recommendation = () => {
-  const { data: videos, isLoading, error } = useGetVideosQuery("trend?quantity=8");
+  const [fetchVideos, { data: videos, isLoading, error }] = useLazyGetVideosQuery();
+
+  useEffect(() => {
+    fetchVideos("trend?quantity=8");
+  }, [fetchVideos]);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Sorry, some error occured while downloading recommandation...</div>;
 
   return (
     <Recomendation>{videos && videos.map(video => <Card type="sm" key={video._id} videoData={video} />)}</Recomendation>

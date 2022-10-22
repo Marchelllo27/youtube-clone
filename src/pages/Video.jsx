@@ -8,7 +8,7 @@ import Channel from "../components/Video/Channel";
 import Comments from "../components/Comments/Comments";
 import Recommendation from "../components/Video/Recommandation";
 import Hr from "../components/Shared/Hr";
-import { useGetVideosQuery, useAddViewMutation } from "../api/endpoints/video";
+import { useLazyGetVideosQuery, useAddViewMutation } from "../api/endpoints/video";
 import { setVideo } from "../store/video-slice";
 import PageNotFound from "../assets/notfound.jpeg";
 
@@ -68,13 +68,15 @@ const Video = () => {
   const videoId = useParams().id;
   const dispatch = useDispatch();
 
-  const { data: videoData, isLoading, error } = useGetVideosQuery(`find/${videoId}`);
+  const [startFetchVideo, { data: videoData, isLoading, error }] = useLazyGetVideosQuery();
 
   const [increaseViewsToTheVideo] = useAddViewMutation();
 
   useEffect(() => {
-    videoData && dispatch(setVideo(videoData));
-  }, [videoData, dispatch]);
+    startFetchVideo(`find/${videoId}`).then(videoData => {
+      dispatch(setVideo(videoData.data));
+    });
+  }, [startFetchVideo, dispatch, videoId]);
 
   const { title, videoUrl, imgUrl } = videoData || {};
 

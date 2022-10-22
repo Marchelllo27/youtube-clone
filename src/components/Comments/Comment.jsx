@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { format } from "timeago.js";
+// MUI
+import { Avatar } from "@mui/material";
 
 const Container = styled.div`
   display: flex;
@@ -7,7 +9,7 @@ const Container = styled.div`
   margin: 1.8rem 0px;
 `;
 
-const Avatar = styled.img`
+const AvatarIcon = styled(Avatar)`
   width: 50px;
   height: 50px;
   border-radius: 50px;
@@ -35,10 +37,10 @@ const Text = styled.span`
 `;
 
 const Comment = ({ comment }) => {
-
+  console.log(comment.userId);
   return (
     <Container>
-      <Avatar src={comment.userId.img} />
+      <AvatarIcon src={comment.userId.img} />
       <Details>
         <Name>
           {comment.userId.name} <Date>{format(comment.createdAt)}</Date>

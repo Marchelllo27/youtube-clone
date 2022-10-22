@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 // MUI
 import { Avatar } from "@mui/material";
 // EXTRA
-import { toggleMobileMenu } from "../../store/ui-slice";
+import { closeMobileMenu } from "../../store/ui-slice";
 
 const Container = styled.ul`
   display: flex;
@@ -38,7 +38,7 @@ const Channels = () => {
   const onClickChannelHandler = (userId, event) => {
     navigate(`/all-user-videos/${userId}`);
     if (showMobileMenu) {
-      dispatch(toggleMobileMenu());
+      dispatch(closeMobileMenu());
     }
   };
 

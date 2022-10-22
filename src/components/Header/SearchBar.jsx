@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useRef } from "react";
 import styled from "styled-components";
 // MUI
 import SearchIcon from "@mui/icons-material/Search";
 // EXTRA
 import CustomTooltip from "../Shared/Tooltip";
+import { useLazySearchVideosQuery } from "../../api/endpoints/video";
 
 const Container = styled.form`
   display: flex;
@@ -28,22 +29,18 @@ const Icon = styled.button`
 `;
 
 const SearchBar = () => {
-  const [searchValue, setSearchValue] = useState("");
+  const searchRef = useRef();
+  const [startSearch, { data, isLoading, error }] = useLazySearchVideosQuery();
 
   const onClickSearchButton = e => {
     e.preventDefault();
-    console.log("Search " + searchValue);
+    console.log(searchRef.current.value);
+    startSearch(searchRef.current.value).then(data => console.log(data));
   };
 
   return (
     <Container>
-      <SearchInput
-        name="searchbar"
-        id="searchbar"
-        placeholder="Search"
-        onChange={e => setSearchValue(e.target.value)}
-        value={searchValue}
-      />
+      <SearchInput name="searchbar" id="searchbar" placeholder="Search" ref={searchRef} />
       <CustomTooltip title="Search videos">
         <Icon onClick={onClickSearchButton}>
           <SearchIcon />

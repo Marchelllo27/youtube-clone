@@ -1,8 +1,8 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import styled from "styled-components";
 // EXTRA
 import Card from "./Card";
-import { useGetVideosQuery, useGetAllMyVideosQuery } from "../../api/endpoints/video";
+import { useLazyGetVideosQuery, useLazyGetAllMyVideosQuery } from "../../api/endpoints/video";
+import { useEffect } from "react";
 
 const VideosWrapper = styled.div`
   width: 100%;
@@ -40,21 +40,22 @@ const VideosWrapper = styled.div`
 `;
 
 const Videos = ({ url }) => {
-  let videos;
-  let isError;
-  let videoIsLoading;
-  if (url === "my-videos") {
-    const { data: fetchedVideos, error, isLoading } = useGetAllMyVideosQuery(url);
-    videos = fetchedVideos;
-    isError = error;
-    videoIsLoading = isLoading;
-  } else {
-    const { data: fetchedVideos, error, isLoading } = useGetVideosQuery(url);
-    videos = fetchedVideos;
-    isError = error;
-    videoIsLoading = isLoading;
-  }
+  const [fetchAllMyVideos, { error: myVideosError, isLoading: myVideosIsLoading, data: myVideos }] =
+    useLazyGetAllMyVideosQuery();
+  const [fetchVideos, { error, isLoading, data }] = useLazyGetVideosQuery();
 
+  useEffect(() => {
+    if (url === "my-videos") {
+      fetchAllMyVideos(url);
+      return;
+    }
+
+    fetchVideos(url);
+  }, [fetchAllMyVideos, fetchVideos, url]);
+
+  const videoIsLoading = myVideosIsLoading || isLoading;
+  const isError = myVideosError || error;
+  const videos = myVideos || data;
   return (
     <>
       {isError && !videoIsLoading && <div>Something went wrong. Please try again later.</div>}

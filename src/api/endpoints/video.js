@@ -28,6 +28,10 @@ const videoEndpoints = mainAPI.injectEndpoints({
       invalidatesTags: ["My-Videos"],
     }),
 
+    // SEARCH
+    searchVideos: builder.query({
+      query: searchQuery => `/videos/search?q=${searchQuery}`,
+    }),
     // LIKES
 
     likeDislikeVideo: builder.mutation({
@@ -58,8 +62,9 @@ const videoEndpoints = mainAPI.injectEndpoints({
 
 export const {
   useUploadVideoToMongoDBMutation,
-  useGetVideosQuery,
-  useGetAllMyVideosQuery,
+  useLazyGetVideosQuery,
+  useLazyGetAllMyVideosQuery,
+  useLazySearchVideosQuery,
   useLikeDislikeVideoMutation,
   useAddCommentMutation,
   useGetCommentsForVideoQuery,
