@@ -37,7 +37,6 @@ const Text = styled.span`
 `;
 
 const Comment = ({ comment }) => {
-  console.log(comment.userId);
   return (
     <Container>
       <AvatarIcon src={comment.userId.img} />
