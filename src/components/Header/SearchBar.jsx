@@ -1,10 +1,10 @@
 import { useRef } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 // MUI
 import SearchIcon from "@mui/icons-material/Search";
 // EXTRA
 import CustomTooltip from "../Shared/Tooltip";
-import { useLazySearchVideosQuery } from "../../api/endpoints/video";
 
 const Container = styled.form`
   display: flex;
@@ -30,12 +30,13 @@ const Icon = styled.button`
 
 const SearchBar = () => {
   const searchRef = useRef();
-  const [startSearch, { data, isLoading, error }] = useLazySearchVideosQuery();
+  const navigate = useNavigate();
 
   const onClickSearchButton = e => {
     e.preventDefault();
-    console.log(searchRef.current.value);
-    startSearch(searchRef.current.value).then(data => console.log(data));
+    const searchQuery = searchRef.current.value;
+
+    navigate("/search-results", { state: searchQuery });
   };
 
   return (

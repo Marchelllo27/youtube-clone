@@ -32,8 +32,8 @@ const videoEndpoints = mainAPI.injectEndpoints({
     searchVideos: builder.query({
       query: searchQuery => `/videos/search?q=${searchQuery}`,
     }),
-    // LIKES
 
+    // LIKES
     likeDislikeVideo: builder.mutation({
       query: ({ type, videoId }) => ({
         url: `/videos/${type}/${videoId}`,

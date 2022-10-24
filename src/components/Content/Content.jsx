@@ -14,6 +14,7 @@ const Sub = React.lazy(() => import("../../pages/Sub"));
 const Auth = React.lazy(() => import("../../pages/Auth"));
 const MyVideos = React.lazy(() => import("../../pages/MyVideos"));
 const AllUserVideo = React.lazy(() => import("../../pages/AllSingleUserVideos"));
+const SearchResults = React.lazy(() => import("../../pages/SearchResults"));
 
 const Container = styled.section`
   display: flex;
@@ -37,6 +38,7 @@ const Content = () => {
           <Route path="/" element={<Home />} />
           <Route path="/trend" element={<Trend />} />
           <Route path="/video/:id" element={<Video />} />
+          <Route path="/search-results" element={<SearchResults />} />
           <Route path="/originals" element={<Demonstrate />} />
           <Route path="/music" element={<Demonstrate />} />
           <Route path="/library" element={<Demonstrate />} />
