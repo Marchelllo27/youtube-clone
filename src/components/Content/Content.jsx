@@ -2,6 +2,8 @@ import React, { Suspense } from "react";
 import { useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import styled from "styled-components";
+// MUI
+import CircularProgress from "@mui/material/CircularProgress";
 // EXTRA
 import Home from "../../pages/Home";
 import NotFoundPage from "../../pages/NotFoundPage";
@@ -33,7 +35,7 @@ const Content = () => {
 
   return (
     <Container smallMenu={smallMenuIsOpen} mainMenu={mainMenuIsOpen}>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<CircularProgress color="inherit" />}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/trend" element={<Trend />} />

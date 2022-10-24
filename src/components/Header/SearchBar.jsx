@@ -36,7 +36,7 @@ const SearchBar = () => {
     e.preventDefault();
     const searchQuery = searchRef.current.value;
 
-    navigate("/search-results", { state: searchQuery });
+    navigate(`/search-results?q=${searchQuery}`);
   };
 
   return (

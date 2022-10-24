@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
+// MUI
+import { CircularProgress } from "@mui/material";
 // EXTRA
 import Details from "../components/Video/Details";
 import Channel from "../components/Video/Channel";
@@ -86,7 +88,7 @@ const Video = () => {
 
   return (
     <>
-      {isLoading && <div>Loading</div>}
+      {isLoading && <CircularProgress color="inherit" />}
       {error && <div>Something went wrong</div>}
       {videoData && (
         <Container>
