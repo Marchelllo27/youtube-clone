@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 // MUI
 import { Logout } from "@mui/icons-material";
 import { logoutUser } from "../../store/auth-slice";
-import { ref } from "firebase/storage";
 
 const Aside = styled.aside`
   position: absolute;
