@@ -12,7 +12,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "../Shared/Button";
 import CustomToolTip from "../Shared/Tooltip";
 import Upload from "../Video/Upload/Upload";
-import UserAccountMenu from "../Menu/UserAccountMenu";
+import UserAccountMenu from "../Menu/UserAccMenu";
 import MobileSearchBar from "./MobileSearchBar";
 import Backdrop from "../Shared/Backdrop";
 
