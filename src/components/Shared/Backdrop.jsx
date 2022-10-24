@@ -1,4 +1,3 @@
-import ReactDOM from "react-dom";
 import { useRef } from "react";
 import styled from "styled-components";
 // EXTRA
@@ -11,7 +10,7 @@ const Container = styled.div`
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: ${({ opacity }) => (opacity ? `rgba(0, 0, 0, ${opacity})` : "rgba(0, 0, 0, 0.7)")};
   cursor: pointer;
   z-index: 1000;
 
@@ -43,12 +42,12 @@ const Container = styled.div`
   }
 `;
 
-const Backdrop = ({ show, onClick }) => {
+const Backdrop = ({ show, onClick, opacity }) => {
   const backdropRef = useRef();
 
   const element = (
     <CSSTransition in={show} timeout={200} classNames="fade-backdrop" nodeRef={backdropRef} mountOnEnter unmountOnExit>
-      <Container onClick={onClick} ref={backdropRef} />
+      <Container onClick={onClick} ref={backdropRef} opacity={opacity} />
     </CSSTransition>
   );
 

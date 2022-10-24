@@ -30,7 +30,7 @@ const MenuItem = styled.li`
   }
 `;
 
-const userAccountMenu = ({ onClose, iconRef }) => {
+const UserAccountMenu = ({ onClose, iconRef }) => {
   const dispatch = useDispatch();
   const asideRef = useRef(null);
 
@@ -51,7 +51,7 @@ const userAccountMenu = ({ onClose, iconRef }) => {
     return () => {
       document.removeEventListener("click", onDocumentClickHandler, true);
     };
-  }, []);
+  }, [iconRef, onClose]);
 
   return (
     <Aside ref={asideRef}>
@@ -64,4 +64,4 @@ const userAccountMenu = ({ onClose, iconRef }) => {
     </Aside>
   );
 };
-export default userAccountMenu;
+export default UserAccountMenu;

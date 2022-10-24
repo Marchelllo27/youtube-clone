@@ -12,7 +12,9 @@ import Avatar from "@mui/material/Avatar";
 import Button from "../Shared/Button";
 import CustomToolTip from "../Shared/Tooltip";
 import Upload from "../Video/Upload/Upload";
-import UserAccountMenu from "../Menu/userAccountMenu";
+import UserAccountMenu from "../Menu/UserAccountMenu";
+import MobileSearchBar from "./MobileSearchBar";
+import Backdrop from "../Shared/Backdrop";
 
 const Container = styled.nav`
   display: flex;
@@ -23,6 +25,7 @@ const Container = styled.nav`
 const Actions = () => {
   const [showUserAccountMenu, setShowUserAccountMenu] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
+  const [showMobileSearchBar, setShowMobileSearchBar] = useState(false);
   const { user } = useSelector(state => state.auth);
 
   const iconRef = useRef();
@@ -40,7 +43,7 @@ const Actions = () => {
 
   const Search = (
     <CustomToolTip title="Search video">
-      <SearchIcon sx={{ fontSize: "1.6rem", cursor: "pointer" }} />
+      <SearchIcon sx={{ fontSize: "1.6rem", cursor: "pointer" }} onClick={() => setShowMobileSearchBar(true)} />
     </CustomToolTip>
   );
 
@@ -79,6 +82,12 @@ const Actions = () => {
 
   return (
     <Container>
+      {showMobileSearchBar && (
+        <>
+          <Backdrop show={showMobileSearchBar} onClick={() => setShowMobileSearchBar(false)} opacity="0.92" />
+          <MobileSearchBar setShowSearchBar={setShowMobileSearchBar} />
+        </>
+      )}
       {!forTabletsAndBigger && Search}
 
       {forTabletsAndBigger && userIsLoggedIn && AddVideoIcon}
