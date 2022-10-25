@@ -13,21 +13,23 @@ const Container = styled.form`
   left: ${({ forMobile }) => forMobile && "50%"};
   transform: ${({ forMobile }) => forMobile && "translate(-50%, -50%)"};
   width: 80%;
-  margin: 0 1.5rem;
   z-index: 1000;
 
   @media (min-width: 480px) {
     width: 100%;
     max-width: 40rem;
+    margin: 0 1.5rem;
   }
 `;
 const SearchInput = styled.input`
   width: calc(100% - 4rem);
   border: 1px solid ${({ theme }) => theme.soft};
   background-color: ${({ theme }) => theme.bg};
+  border-radius: 0;
   padding: 0.5rem;
   outline: none;
   color: ${({ theme }) => theme.text};
+  font-size: 16px;
 
   &:-webkit-autofill,
   &:-webkit-autofill:hover,
@@ -59,7 +61,7 @@ const SearchBar = ({ forMobile, showSearchBar }) => {
 
   return (
     <Container forMobile={forMobile}>
-      <SearchInput name="searchbar" id="searchbar" placeholder="Search" ref={searchRef} autoFocus />
+      <SearchInput name="searchbar" id="searchbar" placeholder="Search" ref={searchRef} />
       <CustomTooltip title="Search videos">
         <Icon onClick={onClickSearchButton}>
           <SearchIcon />

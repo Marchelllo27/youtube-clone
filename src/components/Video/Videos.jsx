@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import styled from "styled-components";
 // EXTRA
 import Card from "./Card";
 import { useLazyGetVideosQuery, useLazyGetAllMyVideosQuery } from "../../api/endpoints/video";
@@ -24,7 +23,7 @@ const Videos = ({ url }) => {
   const videos = myVideos || data;
   return (
     <>
-      {isError && !videoIsLoading && <div>Something went wrong. Please try again later.</div>}
+      {isError && !videoIsLoading && <div>Something went wrong. Please try again later!.</div>}
 
       {videos?.length === 0 && !isError && <div>No videos found.</div>}
 
