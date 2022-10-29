@@ -7,7 +7,8 @@
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
-    "eslint": "npx eslint ."
+    "eslint": "npx eslint .",
+    "test": "vitest"
   },
   "dependencies": {
     "@emotion/react": "^11.10.0",
@@ -29,6 +30,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@testing-library/react": "^13.4.0",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.0.1",
@@ -39,7 +41,9 @@
     "eslint-plugin-promise": "^6.0.1",
     "eslint-plugin-react": "^7.31.8",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "jsdom": "^20.0.1",
     "prettier": "^2.7.1",
-    "vite": "^3.0.7"
+    "vite": "^3.0.7",
+    "vitest": "^0.24.3"
   }
 }
